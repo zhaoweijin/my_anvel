@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="description" itemprop="description" content="">
+    <meta itemprop="name" content="">
+    <meta itemprop="image" content="">
+    <title></title>
+    <link rel="stylesheet" href="css/index.css?v=1.0.1"/>
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        .scroller {
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            width: 100%;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+        .main{
+            height: 100%;
+        }
+        .cont{
+            box-sizing: border-box;
+            height: 100%;
+            padding: 0 10px 50%;
+        }
+        .wrapper{
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+        .scroller{
+            margin-bottom: 100px;
+        }
+        .list__ul{
+            height: 100%;
+        }
+    </style>
+</head>
+<body id="toTop">
+<!--<img src="images_v1/share-img.png" style="position: absolute;left: -9999px;opacity: 0;"/>-->
+<div class="main">
+    <div class="wap-banner">
+        <div class="login-box">
+            <a href="" class="btn">登 录</a>
+            <a href="" class="btn">注 册</a>
+        </div>
+        <!--<a href="mypackage.html" class="button__package">我的礼包</a>-->
+        <div class="search-box">
+            <input type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
+            <button class="submit-btn">搜索</button>
+        </div>
+    </div>
+    <div class="cont tab-mode">
+         <div class="switch-tab">
+             <a href="javascript:void(0);" class="link cur">精选礼包</a>
+             <a href="javascript:void(0);" class="link">最新礼包</a>
+         </div>
+        <div class="switch-cont">
+            <div id="wrapper" class="wrapper">
+                <div class="scroller">
+                    <ul id="ListView" class="list__ul">
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="package-page.html" class="button__rotate button__blue">领取</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-tao">淘号</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-tao">结束</a>
+                        </li>
+                    </ul>
+                    <!--<span class="pullUpLabel">上拉刷新</span>-->
+                    <p id="uTips" class="update-tips ico-update">上拉查看更多礼包</p>
+                </div>
+            </div>
+            <div id="wrapper2" class="wrapper">
+                <div class="scroller">
+                    <ul id="ListView2" class="list__ul">
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="package-page.html" class="button__rotate button__blue">领取</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-tao">淘号</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li>
+                        <li>
+                            <img class="ico" src="images_weixin/icon.png" alt="">
+                            <div class="text">
+                                <h2>萌兵战将最新礼包</h2>
+                                <div class="bar"><span></span></div>
+                                <p><span>礼包有效期：</span>2016-08-25</p>
+                            </div>
+                            <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                        </li><li>
+                        <img class="ico" src="images_weixin/icon.png" alt="">
+                        <div class="text">
+                            <h2>萌兵战将最新礼包</h2>
+                            <div class="bar"><span></span></div>
+                            <p><span>礼包有效期：</span>2016-08-25</p>
+                        </div>
+                        <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                    </li><li>
+                        <img class="ico" src="images_weixin/icon.png" alt="">
+                        <div class="text">
+                            <h2>萌兵战将最新礼包</h2>
+                            <div class="bar"><span></span></div>
+                            <p><span>礼包有效期：</span>2016-08-25</p>
+                        </div>
+                        <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                    </li><li>
+                        <img class="ico" src="images_weixin/icon.png" alt="">
+                        <div class="text">
+                            <h2>萌兵战将最新礼包</h2>
+                            <div class="bar"><span></span></div>
+                            <p><span>礼包有效期：</span>2016-08-25</p>
+                        </div>
+                        <a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>
+                    </li>
+                    </ul>
+                    <!--<span class="pullUpLabel">上拉刷新</span>-->
+                    <p id="uTips2" class="update-tips ico-update">上拉查看更多礼包</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<a href="#toTop" class="button__toTop j_toTop">顶部</a>
+
+
+<!--登陆窗口-->
+<div class="win win_login">
+    <a href="javascript:void(0);" class="close-btn J_close_btn"></a>
+    <h3 class="title">请先登录任玩堂账号，再进行领取。</h3>
+    <div class="input-cont">
+        <input class="input" type="text" placeholder="请输入您的账号 ">
+        <input class="input" type="password" placeholder="请输入您的密码 ">
+        <div class="button-ground">
+            <a href="" class="button__win button__blue">登陆</a>
+            <a href="" class="button__win button__yel">注册</a>
+        </div>
+    </div>
+</div>
+
+<!--礼包码窗口-->
+<div class="win win__code">
+    <a href="javascript:void(0);" class="close-btn J_close_btn"></a>
+    <h2><b class="code">1232434ddsdfdfgfd</b></h2>
+    <p>长按复制</p>
+    <p>请在领取后2小时内兑换使用</p>
+    <p>否则会进入淘号区被其他玩家领用</p>
+</div>
+
+<!--结束窗口-->
+<div class="win win__end">
+    <a href="javascript:void(0);" class="close-btn J_close_btn"></a>
+    <h2>已结束</h2>
+    <p>礼包领取结束，请下次再来</p>
+    <p>或返回首页领取其他热门礼包！</p>
+    <div class="button__md__wrap">
+        <a href="" class="button__md">礼包首页</a>
+    </div>
+</div>
+
+<!--分享-->
+<div class="win win__share">
+    <a href="javascript:void(0);" class="close-btn J_close_btn"></a>
+    <h2>关注“任玩堂”公众号</h2>
+    <p>海量热门游戏礼包</p>
+    <p>无需注册，一键领取</p>
+    <div class="win-cont">
+        <img src="images_weixin/weixin-code.png" alt="">
+        <p>在微信搜索Appgamecom，关注任玩堂微信公众号</p>
+        <p>或长按上方二维码，立即关注任玩堂微信公众号号</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/iscroll-probe.js"></script>
+<script type="text/javascript" src="js/index.js?v=1.0.3"></script>
+<script type="text/javascript">
+
+
+
+
+
+    /**
+     * 初始化iScroll控件
+     */
+   /* function loaded() {
+       // pullDownEl = document.getElementById('pullDown');
+        //pullDownOffset = pullDownEl.offsetHeight;
+        pullUpEl = document.getElementById('wrapper');
+        pullUpOffset = pullUpEl.offsetHeight;
+
+        myScroll = new IScroll('wrapper', {
+            scrollbarClass: 'myScrollbar', /!* 重要样式 *!/
+            useTransition: false, /!* 此属性不知用意，本人从true改为false *!/
+            topOffset: pullDownOffset,
+            onRefresh: function () {
+                if (pullDownEl.className.match('loading')) {
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                } else if (pullUpEl.className.match('loading')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            },
+            onScrollMove: function () {
+                if (this.y > 5 && !pullDownEl.className.match('flip')) {
+                    pullDownEl.className = 'flip';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+                    this.minScrollY = 0;
+                } else if (this.y < 5 && pullDownEl.className.match('flip')) {
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                    this.minScrollY = -pullDownOffset;
+                } else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'flip';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                    this.maxScrollY = this.maxScrollY;
+                } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                    this.maxScrollY = pullUpOffset;
+                }
+            },
+            onScrollEnd: function () {
+                if (pullDownEl.className.match('flip')) {
+                    pullDownEl.className = 'loading';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+                    pullDownAction();	// Execute custom function (ajax call?)
+                } else if (pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'loading';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+                    pullUpAction();	// Execute custom function (ajax call?)
+                }
+            }
+        });
+
+        setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+    }*/
+
+
+    $(function () {
+
+        //切换
+        $.fn.mstab = function(op){
+            var de = {
+                "action_class":"cur",
+                "event":"click mouseenter",
+                "hd":".tab-hd",
+                "cont":".tab-cont .contDate",
+                "callback":null
+            };
+
+            function tab(_this) {
+                var _op = $.extend(de,op);
+                var contBody = _this.find(_op.cont);
+                var $link_a = _this.find('.more-link');
+                _this.find(_op.hd).on(_op.event, 'a', function () {
+                    var $this = $(this),
+                            index = $this.index(),
+                            _href = $this.attr('data-href');
+                    if(_href){$link_a.attr('href',_href)}
+                    $this.addClass(_op.action_class).siblings().removeClass(_op.action_class);
+                    contBody.hide();
+                    contBody.eq(index).show();
+                    if(typeof _op.callback === 'function'){
+                        _op.callback();
+                    }
+                });
+            }
+
+            this.each(function () {
+                var _this = $(this);
+                tab(_this);
+            });
+        };
+
+        $('.tab-mode').mstab({
+            "event":"click",
+            "hd":".switch-tab",
+            "cont":".switch-cont .wrapper",
+            "callback":function(){
+                if(!myScroll2){
+                    console.log('实例化2');
+                    List2();
+                }
+            }
+        });
+
+        //初始化绑定iScroll控件
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        /**
+         * 下拉刷新 （自定义实现此方法）
+         * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+         */
+        function pullDownAction () {
+            console.log('pullDownAction-pullStart:',pullStart);
+
+            var el, li, i;
+            el = document.getElementById('ListView');
+
+            for (i=0; i < 3; i++) {
+                li = document.createElement('li');
+                li.innerHTML = '<img class="ico" src="images_weixin/icon.png" alt=""><div class="text"><h2>萌兵战将最新礼包123</h2><div class="bar"><span></span></div><p><span>礼包有效期：</span>2016-08-25</p></div><a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
+                el.appendChild(li, el.childNodes[0]);
+            }
+
+            setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+                myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+                $('#uTips').html('上拉查看更多礼包');
+                pullStart = false;
+                maxH = myScroll.maxScrollY;
+                console.log('update-this.maxScrollY:',maxH);
+//                render = false;
+                console.log('refresh-pullStart:',pullStart);
+            }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
+
+        }
+        function pullDownAction2 () {
+            console.log('pullDownAction-pullStart:',pullStart);
+
+            var el, li, i;
+            el = document.getElementById('ListView2');
+
+            for (i=0; i < 3; i++) {
+                li = document.createElement('li');
+                li.innerHTML = '<img class="ico" src="images_weixin/icon.png" alt=""><div class="text"><h2>萌兵战将最新礼包345</h2><div class="bar"><span></span></div><p><span>礼包有效期：</span>2016-08-25</p></div><a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
+                el.appendChild(li, el.childNodes[0]);
+            }
+
+            setTimeout(function () {
+                myScroll2.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+                $('#uTips2').html('上拉查看更多礼包');
+                pullStart = false;
+                maxH = myScroll2.maxScrollY;
+                console.log('update-this.maxScrollY:',maxH);
+                console.log('refresh-pullStart:',pullStart);
+            }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
+
+        }
+
+            var myScroll,
+                myScroll2,
+                pullStart,
+                pullDownEl,
+                pullDownOffset,
+                pullUpEl,
+                pullUpOffset,
+                generatedCount = 0,
+                maxH,
+                _tipH;
+
+        function List(){
+            myScroll = new IScroll('#wrapper', {
+                mouseWheel: true,
+                click: true,
+                probeType:1
+            });
+
+
+
+            myScroll.on('scrollStart', function () {
+                maxH = this.maxScrollY;
+                console.log('this.maxScrollY:',maxH);
+                console.log('scrollStart:',this.y);
+            });
+
+            myScroll.on('scroll',function(){
+                if(this.y < maxH - _tipH){
+                    pullStart = true;
+                    $('#uTips').html('松手更新');
+                    console.log('松手更新');
+                }else{
+                    $('#uTips').html('上拉查看更多礼包');
+                    pullStart = false;
+                }
+                return false;
+            });
+
+            myScroll.on('scrollEnd', function () {
+                if (pullStart) {
+                    console.log('正在更新');
+                    $('#uTips').html('正在更新...');
+                    setTimeout(function(){
+                        pullDownAction ();
+                    },1000);
+                }
+            });
+        }
+
+        function List2(){
+            myScroll2 = new IScroll('#wrapper2', {
+                mouseWheel: true,
+                click: true,
+                probeType:1
+            });
+
+            myScroll2.on('scrollStart', function () {
+                maxH = this.maxScrollY;
+            });
+
+            myScroll2.on('scroll',function(){
+                if(this.y < maxH - _tipH){
+                    pullStart = true;
+                    $('#uTips2').html('松手更新');
+                    console.log('松手更新');
+                }else{
+                    $('#uTips2').html('上拉查看更多礼包');
+                    pullStart = false;
+                }
+                return false;
+            });
+
+            myScroll2.on('scrollEnd', function () {
+                if (pullStart) {
+                    console.log('正在更新');
+                    $('#uTips2').html('正在更新...');
+                    setTimeout(function(){
+                        pullDownAction2 ();
+                    },1000);
+                }
+            });
+
+        }
+
+
+        $(window).load(function () {
+
+            _tipH = parseInt($('.update-tips').height(),10) / 2;
+
+            maxH = -1;
+
+            List();
+
+        });
+
+    });
+
+
+</script>
+
+
+</body>
+</html>
