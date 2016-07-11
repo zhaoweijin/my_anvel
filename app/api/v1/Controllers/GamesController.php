@@ -60,4 +60,20 @@ class GamesController extends Controller
         $val = DB::select("SELECT title,icon,get_num,tao_num,start_date,end_date FROM events ORDER BY created_at limit ?,?",[$offset,$num]);
         return response()->json(['data' => $val]);
     }
+
+    /**
+     * get event libao
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
+    public function postEvent(Request $request, $event_id){
+
+        $num = (int)$request->get('num', 5);
+        $offset = (int)$request->get('offset', 0);
+
+        $val = DB::select("SELECT title,icon,get_num,tao_num,start_date,end_date FROM events ORDER BY created_at limit ?,?",[$offset,$num]);
+        return response()->json(['data' => $val]);
+    }
 }
