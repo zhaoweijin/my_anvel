@@ -63,11 +63,11 @@
 <!--<img src="images_v1/share-img.png" style="position: absolute;left: -9999px;opacity: 0;"/>-->
 <div class="main">
     <div class="wap-banner">
-        <div class="login-box">
-            <a href="" class="btn">登 录</a>
-            <a href="" class="btn">注 册</a>
+        <div id="regLogTab0" class="login-box">
+            <a href="" class="btn login_url">登 录</a>
+            <a href="" class="btn reg_url">注 册</a>
         </div>
-        <!--<a href="mypackage.html" class="button__package">我的礼包</a>-->
+        <a id="regLogTab1" style="display: none;" href="mypackage.html" class="button__package">我的礼包</a>
         <div class="search-box">
             <input type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
             <button class="submit-btn">搜索</button>
@@ -320,8 +320,10 @@
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript" src="js/iscroll-probe.js"></script>
 <script type="text/javascript" src="js/index.js?v=1.0.3"></script>
+
 <script type="text/javascript">
 
 

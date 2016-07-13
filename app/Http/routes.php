@@ -29,7 +29,11 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
         'as'=>'showNewGames',
         'uses'=>'App\Api\v1\Controllers\GamesController@showNewGames'
     ]);
-    $api->post('{event_id}/event', [
+    $api->get('games/auth_passport/',[
+        'as'=>'authPassport',
+        'uses'=>'App\Api\v1\Controllers\GamesController@authPassport'
+    ]);
+    $api->get('{event_id}/event', [
         'as'   => 'postEvent',
         'uses' => 'App\Api\v1\Controllers\GamesController@postEvent',
     ]);

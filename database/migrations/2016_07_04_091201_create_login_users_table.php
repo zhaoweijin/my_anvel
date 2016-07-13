@@ -14,6 +14,7 @@ class CreateLoginUsersTable extends Migration
     {
         Schema::create('login_users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('name')->nullable();
             $table->string('last_ip')->nullable();
             $table->unsignedTinyInteger('type')->default(0);
