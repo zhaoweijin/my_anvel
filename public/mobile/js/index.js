@@ -5,7 +5,7 @@
 
 ;$(function(){
 
-	console.log('debug');
+	// console.log('debug');
 
 
 
@@ -57,7 +57,8 @@
 				showWinFrame('.win__code');
 				break;
 			case 'button__blue':
-
+				// $(this).unbind('click');
+				return true;
 				break;
 			case 'button__rotate-end':
 				showWinFrame('.win__end');
@@ -108,5 +109,7 @@
 	}
 	TOOL.chkLoginStatus(cmd);
 	// TOOL.loginOut(cmd);
+	
+
 });
 

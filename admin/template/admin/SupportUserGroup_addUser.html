@@ -1,0 +1,39 @@
+<form id="pagerForm" method="post" action="{url a='addUser' group_id='$_GET.group_id' do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return dwzSearch(this,'dialog');" action="{url a='addUser' group_id='$_GET.group_id' do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>用户名：</td>
+                <td>
+                   <input type="text" name="search_where[uname][like]" size="16" value="{$search_where.uname.like}" />
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <form action="{url a='insertUser'}" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <input type="hidden" name="group_id" value="{$_GET.group_id}" />
+        <div class="pageFormContent nowrap" layoutH="97">
+        <foreach name='$list' id='vo'>
+            <label style="white-space:nowrap;">
+            <input type="checkbox" name="uname[]" class="checkbox" value="{$vo.uname}" /> {$vo.uname}
+            </label>
+        </foreach>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+   </form>
+</div>

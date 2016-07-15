@@ -1,0 +1,90 @@
+<?php
+$dialog_max = 'false';
+$dialog_width = '660';
+$dialog_height = '456';
+?>
+
+<form id="pagerForm" method="post" action="{url do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>用户名：</td>
+                <td>
+                   <input type="text" name="search_where[title][like]" size="16" value="{$search_where.title.like}" />
+                </td>
+                <td>用户角色：</td>
+                <td>
+                    <select class="combox" id="role" name="search_where[role_id][eq]">
+                     <option value="">请选择</option>
+                     <foreach name='$role' id='v'}
+                      <option value="{$v.id}" {if condition='$search_where.role_id.eq==$v.id'}selected="selected"{/if}>{$v.title}</option>
+                     </foreach>
+                    </select>
+                </td>
+                <td align="right">状态：</td>
+                <td>
+                    <select class="combox" name="search_where[status][eq]">
+                     {:myselect('请选择,启用:1,锁定:0',$search_where.status.eq)}
+                    </select>
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a rel='{__MODULE_NAME__}_add' class="add" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加用户" href="{url a='add'}" target="dialog"><span>添加</span></a></li>
+            <li><a title="确认删除？删除后无法恢复！！" target="selectedTodo" rel="id[]" href="{url a='delete'}" class="delete"><span>删除</span></a></li>
+            <li><a rel='{__MODULE_NAME__}_edit' class="edit" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="编辑用户" href="<?php echo U(array('a'=>'edit','id'=>'{id}'));?>" target="dialog" warn="请选择一条记录"><span>编辑</span></a></li>
+        </ul>
+    </div>
+    <form action="" method="post" id="{$id_pre}_form_list">
+    <table class="table" width="100%" layoutH="112">
+        <thead>
+            <tr>
+                <th width="40"><input type="checkbox" group="id[]" class="checkboxCtrl" /></th>
+                <th width="68">ID</th>
+                <th width="150">用户名</th>
+                <th width="150">用户角色</th>
+                <th>描述说明</th>
+                <th width="80">状 态</th>
+                <th width="108">操 作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name='$list' id='vo'>
+            <tr target="id" rel="{$vo.id}">
+                <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" /></td>
+                <td align="center">{$vo.id}</td>
+                <td>{$vo.uname}</td>
+                <td onclick="selectEdit({$vo.id},'role_id','{url a='update'}',this,'role');">{$role_name[$vo.role_id]}</td>
+                <td onclick="editNow({$vo.id},'description','{url a='update'}',this);">{$vo.description}</td>
+                <td align="center"><include file="Common_status.html" /></td>
+                <td align="center" class="action"><a max="true" target="dialog" href="{url a='auth' user_id='$vo.id'}" title="用户授权"><img src="./images/auth.gif" alt="授权" width="16" height="16" /></a><include file="Common_action.html" /></td>
+            </tr>
+           </foreach>
+        </tbody>
+    </table>
+    </form>
+    <div class="panelBar">
+        <include file="Common_action2.html" />
+        <div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="5" currentPage="{$page.currentPage}"></div>
+        <div class="pages" style="float:right;">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+            {:myselect('20:20,30:30,50:50,100:100,200:200',$page.numPerPage)}
+            </select>
+            <span>条，共{$page.totalCount}条</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="pageContent">
+    <form method="post" action="{url a='addGame'}" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this);">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="right">导入文件：</td>
+              <td><input type="file" name="file" size="28" class="required" /></td>
+              <input type="hidden" name="event_id" value="{$id}" />
+            </tr>            
+          </table>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

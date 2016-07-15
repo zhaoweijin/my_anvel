@@ -1,0 +1,5 @@
+<if condition='$vo.status==1'>
+<a target="ajaxTodo" href="{url a='status' id='$vo.id' status='0'}"><img src="/resource/images/status_1.gif" width="14" height="14" alt="启用" /></a>
+<else />
+<a target="ajaxTodo" href="{url a='status' id='$vo.id' status='1'}"><img src="/resource/images/status_0.gif" width="14" height="14" alt="锁定" /></a>
+</if>

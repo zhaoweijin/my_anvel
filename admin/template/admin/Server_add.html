@@ -1,0 +1,64 @@
+<div class="pageContent">
+    <form method="post" action="{url a='step1'}" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td width="102" align="right">联运商：</td>
+              <td><select name="agent_id">
+             <foreach name="$agent">
+              <option value="{$key}">{$val}</option>
+             </foreach>
+             </select></td>
+            </tr>
+            <tr>
+              <td align="right">所属游戏：</td>
+              <td><select name="game_id">
+             <foreach name="$game">
+              <option value="{$key}">{$val}</option>
+             </foreach>
+             </select></td>
+            </tr>
+            <tr>
+              <td align="right">服务器区号：</td>
+              <td><input type="text" name="server_num" /></td>
+            </tr>
+            <tr>
+              <td align="right">服务器名称：</td>
+              <td><input type="text" name="server_name" /></td>
+            </tr>
+            <tr>
+              <td align="right">开服日期时间：</td>
+              <td><input type="text" name="open_time" value="{~date('Y-m-d H:i')}" size="20" class="date" dateFmt="yyyy-MM-dd HH:mm" readonly="true" /><a class="inputDateButton" href="javascript:;">选择日期</a><font style="color:#FF0000;font-weight:bold;"> 年-月-日 时:分</font></td>
+            </tr>
+            <tr>
+              <td align="right">开服确认：</td>
+              <td>
+              <select class="combox" name="open_state" onchange="check_open_state(this)">
+                 {:myselect('否:0,是:1,合:2,撤:3,关:4')}
+              </select></td>
+            </tr>
+            <tr id="{$id_pre}_tr_close_time" style="display:none;">
+              <td align="right">关服日期时间：</td>
+              <td><input type="text" name="close_time" value="{~date('Y-m-d H:i')}" size="20" class="date" dateFmt="yyyy-MM-dd HH:mm" readonly="true" /><a class="inputDateButton" href="javascript:;">选择日期</a><font style="color:#FF0000;font-weight:bold;"> 年-月-日 时:分</font></td>
+            </tr>
+            <tr id="{$id_pre}_tr_server_merge" style="display:none;">
+              <td align="right">合服区号：</td>
+              <td><input type="text" name="server_merge" size="30" /><font style="color:#FF0000;">以英文逗号分隔</font></td>
+            </tr>
+          </table>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+function check_open_state(obj){
+     $(obj).val() == 4 ? $('#{$id_pre}_tr_close_time').show() : $('#{$id_pre}_tr_close_time').hide();
+     $(obj).val() == 2 ? $('#{$id_pre}_tr_server_merge').show() : $('#{$id_pre}_tr_server_merge').hide();
+}
+</script>

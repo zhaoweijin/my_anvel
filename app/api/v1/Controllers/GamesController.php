@@ -41,11 +41,11 @@ class GamesController extends Controller
      * @return mixed
      */
     public function showHotGames(Request $request){
-        echo(checkData($request->get('act')));exit;
-        $num = (int)$request->get('num', 5);
+        $num = (int)$request->get('num', 10);
+        $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
-        $val = DB::select("SELECT title,icon,get_num,tao_num,start_date,end_date FROM events where hot=1 ORDER BY created_at limit ?,?",[$offset,$num]);
-        return response()->json(['data' => $val]);
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events where hot=1 ORDER BY created_at limit ?,?",[$offset,$num]);
+        return response()->json(['result' => $val]);
     }
 
     /**
@@ -54,12 +54,12 @@ class GamesController extends Controller
      */
     public function showNewGames(Request $request){
 
-        $num = (int)$request->get('num', 5);
+        $num = (int)$request->get('num', 10);
         $offset = (int)$request->get('offset', 0);
 
 
-        $val = DB::select("SELECT title,icon,get_num,tao_num,start_date,end_date FROM events ORDER BY created_at limit ?,?",[$offset,$num]);
-        return response()->json(['data' => $val]);
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events ORDER BY created_at limit ?,?",[$offset,$num]);
+        return response()->json(['result' => $val]);
     }
 
     /**
@@ -163,5 +163,18 @@ class GamesController extends Controller
             $back['errMsg']  = '已领取～';
             jsonBack($back);
         }
+    }
+
+    /*
+     * get game
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
+    public function showGames($request,$event_id)
+    {
+        $event_id      =  (int)$event_id;
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events where event_id=? limit 1",[$event_id]);
+        return response()->json(['result' => $val]);
     }
 }

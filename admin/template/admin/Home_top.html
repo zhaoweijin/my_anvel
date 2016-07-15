@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>框架顶部</title>
+<link rel="stylesheet" href="./css/frame.css" type="text/css" />
+<script type="text/javascript">
+function toggleMenu(){
+    var obj = parent.document.getElementById('bodyFrame');
+    if(obj.cols=='200,*'){
+        obj.cols='0,*';
+    }else{
+        obj.cols='200,*';
+    }
+}
+</script>
+</head>
+
+<body>
+<div id="header">
+  <div class="logo"></div>
+  <div class="toggleMenu"><a href="javascript:void(0);" onclick="toggleMenu();">收起/展开菜单</a></div>
+  <div class="welcome"><B>{$session.uname}</B> [ <a href="{url m='AdminUser' a='changePwd'}" target="main">修改密码</a> ]，欢迎登录！</div>
+  <div class="menu"><a href="yunwei.html" target="main">运维手册</a></div>
+  <div class="btn"><a title="退出" target="_top" href="{url m='User' a='logout'}"><img src="./images/out.gif" alt="退出" /></a></div>
+</div>
+</body>
+</html>

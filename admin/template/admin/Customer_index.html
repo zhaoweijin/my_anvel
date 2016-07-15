@@ -1,0 +1,86 @@
+<?php
+$dialog_max = 'false';
+$dialog_width = '600';
+$dialog_height = '440';
+?>
+
+<form id="pagerForm" method="post" action="{url do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>客户姓名：</td>
+                <td>
+                   <input type="text" name="search_where[true_name][like]" size="16" value="{$search_where.true_name.like}" />
+                </td>
+                <td align="right">客户分组：</td>
+                <td>
+                    <select class="combox" name="search_where[group_id][eq]">
+                     <option value="">请选择</option>
+                     {:myselect($group,$search_where.group_id.eq)}
+                    </select>
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a rel='{__MODULE_NAME__}_add' class="add" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加客户" href="{url a='add'}" target="dialog"><span>添加</span></a></li>
+            <li><a title="确认删除？删除后无法恢复！！" target="selectedTodo" rel="id[]" href="{url a='delete'}" class="delete"><span>删除</span></a></li>
+            <li><a rel='{__MODULE_NAME__}_edit' class="edit" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加客户" href="<?php echo U(array('a'=>'edit','id'=>'{id}'));?>" target="dialog" warn="请选择一条记录"><span>编辑</span></a></li>
+        </ul>
+    </div>
+    <form action="" method="post" id="{$id_pre}_form_list">
+    <table class="table" width="100%" layoutH="112">
+        <thead>
+            <tr>
+                <th width="40"><input type="checkbox" group="id[]" class="checkboxCtrl" /></th>
+                <th width="68">ID</th>
+                <th width="88">客户姓名</th>
+                <th width="88">手机号码</th>
+                <th width="88">QQ号码</th>
+                <th width="168">邮箱地址</th>
+                <th>备 注</th>
+                <th width="80">状 态</th>
+                <th width="80">操 作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name='$list' id='vo'>
+            <tr target="id" rel="{$vo.id}">
+                <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" /></td>
+                <td align="center">{$vo.id}</td>
+                <td onclick="editNow({$vo.id},'true_name','{url a='update'}',this);">{$vo.true_name}</td>
+                <td onclick="editNow({$vo.id},'mobile','{url a='update'}',this);">{$vo.mobile}</td>
+                <td onclick="editNow({$vo.id},'qq','{url a='update'}',this);">{$vo.qq}</td>
+                <td onclick="editNow({$vo.id},'email','{url a='update'}',this);">{$vo.email}</td>
+                <td onclick="editNow({$vo.id},'remark','{url a='update'}',this);">{$vo.remark}</td>
+                <td align="center"><include file="Common_status.html" /></td>
+                <td align="center" class="action"><include file="Common_action.html" /></td>
+            </tr>
+           </foreach>
+        </tbody>
+    </table>
+    </form>
+    <div class="panelBar">
+        <include file="Common_action2.html" />
+        <div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="5" currentPage="{$page.currentPage}"></div>
+        <div class="pages" style="float:right;">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+            {:myselect('20:20,30:30,50:50,100:100,200:200',$page.numPerPage)}
+            </select>
+            <span>条，共{$page.totalCount}条</span>
+        </div>
+    </div>
+</div>

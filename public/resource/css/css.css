@@ -1,0 +1,51 @@
+.fl{float:left;}
+.fr{float:right;}
+.cl{clear:both;}
+
+.grid table th div{text-align:center;}
+
+.grid .gridTbody td.multi_line div{white-space:normal;height:auto;}
+
+.grid .gridThead tr.hidden div{height:0;overflow:hidden;}
+.grid .gridThead tr.hidden th{height:0;border-color:#FBFBFB;border-top:none;border-bottom:none;overflow:hidden;}
+
+.myform{width:98%;margin:0 auto 10px auto;border-spacing:1px;_border-collapse:collapse;background:#CDCDCD;}
+.myform tr{background:#FFF;}
+.myform th{border:1px solid #FFF;height:32px;text-align:center;background:#DDD;}
+.myform td{border:1px solid #FFF;padding:2px 10px;height:28px;line-height:28px;background:#FFF;}
+.myform td span.error{position:static;float:left;margin:0 0 0 10px;}
+.myform textarea{width:400px;height:88px;}
+
+.action a{margin:3px;display:inline-block;}
+
+.article{width:98%;margin:12px auto;}
+.article .title h1{line-height:36px;text-align:center;font-size:16px;}
+.article .content{margin:16px auto;}
+.article .content *{line-height:168%;}
+
+.support_status_0{color:red;}
+.support_status_1{color:blue;}
+.support_status_2{color:gray;}
+
+#ajax_tips{background-image:url(../images/info.gif);background-repeat:no-repeat;background-position:5px center;position:fixed;_position:absolute;right:0;top:0;_top:expression(eval(document.documentElement.scrollTop));display:none;line-height:32px;font-size:14px;font-weight:bold;padding:0 10px 0 28px;z-index:100001}
+.ajax_error{border:2px solid #FF0;background-color:#F00;color:#FF0;}
+.ajax_success{border:1px solid #F00;background-color:#FF0;color:#666;}
+
+#server_search td{padding:0 3px;}
+#server_list tr.selected td,#server_list tr.hover td{border-bottom:1px dotted red;}
+#server_list .week{overflow:visible;}
+#server_list .week div{overflow:visible;position:relative;}
+#server_list tr{background:#D7D7D7;}
+#server_list .mylist_title td,.slist_title td{background:#666;color:#FFF;padding: 0 2px;}
+#server_list .ready{background:#93E1A3;}
+#server_list .today,#server_list .today a{color:#00F;}
+#server_list .opened td.ready{background:#3399FF;}
+#server_list .today td.ready{background:#F1B100;}
+
+#server_list .open_state_0{background:#D7D7D7;}
+#server_list .open_state_1{background:#D7D7D7;}
+#server_list .open_state_2 td,#server_list .open_state_2 td.ready{background:#FC6;}
+#server_list .open_state_3 td,#server_list .open_state_3 td.ready{background:#F0F0F0;color:#CCC}
+#server_list .open_state_3 td a{color:#CCC}
+#server_list .open_state_4 td,#server_list .open_state_4 td.ready{background:#F0F0F0;color:#CCC}
+#server_list .open_state_4 td a{color:#CCC}

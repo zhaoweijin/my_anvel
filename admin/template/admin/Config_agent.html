@@ -1,0 +1,45 @@
+<div class="pageHeader">
+<div class="searchBar">
+  <form id="search" method="post" action="{url m='Config' a='agent'}" onsubmit="return navTabSearch(this)">    
+   <table class="searchContent" style="margin:0 auto;">
+        <tr>
+            <td>请先选择游戏及联运商：</td>
+            <td>
+              <select class="combox" name="game_id" onchange="$('#search').submit();">
+                 {:myselect($game_list,$game_id)}
+              </select>
+            </td>
+            <td>
+              <select class="combox" name="agent_id" onchange="$('#search').submit();">
+                 {:myselect($agent_list,$agent_id)}
+              </select>
+         </td>
+        </tr>
+    </table>
+  </form>
+</div>
+</div>
+<div class="pageContent" layoutH="38">
+    <form method="post" action="{url a='agent' do='save'}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+        <div class="pageFormContent nowrap">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td width="98" align="right">配置参数：</td>
+              <td>
+                <textarea name="content" rows="12" style="width:88%;height:220px;">{$config.content}</textarea>
+                </td>
+            </tr>
+            <tr>
+              <td>
+              <input type="hidden" name="game_id" value="{$game_id}" />
+              <input type="hidden" name="agent_id" value="{$agent_id}" />
+              <input type="hidden" name="id" value="{$config.id}" />
+              </td>
+              <td>
+                <div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+    </form>
+</div>

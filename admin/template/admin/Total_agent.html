@@ -1,0 +1,55 @@
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url a='agent' do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>选择游戏：</td>
+                <td>
+                    <select class="combox" name="game_id">
+                    <foreach name="$game">
+                    <option value="{$key}" {if condition="$key==$search.game_id"}selected="selected"{/if}>{$val}</option>
+                    </foreach>
+                    </select>
+                </td>
+                <td align="right">开服时间：</td>
+                <td>
+                    <input type="text" name="open_time_start" size="12" value="{$search.open_time_start}"  class="date" dateFmt="yyyy-MM-dd" /> - <input type="text" name="open_time_end" size="12" value="{$search.open_time_end}" class="date" dateFmt="yyyy-MM-dd" />
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+<table class="table" width="100%" layoutH="84">
+   <thead>
+    <tr>
+      <th rowspan="2" style="padding-top:12px;font-weight:bold;">平台名称</th>
+      <th colspan="6" align="center" style="font-weight:bold;">开服统计</th>
+    </tr>
+    <tr>
+      <th>总开服数（<font color="#FF0000">{~intval($total.all)}</font>）</th>
+      <th>未定服数（<font color="#FF0000">{~intval($total.state_0)}</font>）</th>
+      <th>正常服数（<font color="#FF0000">{~intval($total.state_1)}</font>）</th>
+      <th>合服数（<font color="#FF0000">{~intval($total.state_2)}</font>）</th>
+      <th>撤服数（<font color="#FF0000">{~intval($total.state_3)}</font>）</th>
+      <th>关服数（<font color="#FF0000">{~intval($total.state_4)}</font>）</th>
+    </tr>
+   </thead>
+   <tbody>
+   <foreach name="$list" id="vo">
+    <tr>
+      <td align="center">{$vo.name}</td>
+      <td align="center">{~intval($vo.total)}</td>
+      <td align="center">{~intval($vo.state_0)}</td>
+      <td align="center">{~intval($vo.state_1)}</td>
+      <td align="center">{~intval($vo.state_2)}</td>
+      <td align="center">{~intval($vo.state_3)}</td>
+      <td align="center">{~intval($vo.state_4)}</td>
+    </tr>
+    </foreach>
+   </tbody>
+  </table>
+</div>

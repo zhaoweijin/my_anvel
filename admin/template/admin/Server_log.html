@@ -1,0 +1,16 @@
+<div layoutH="0">
+  <table cellspacing="1" class="myform">
+    <tr class="mylist_title">
+      <th width="200">日期时间 </th>
+      <th width="80">操作人</th>
+      <th>操作内容</th>
+    </tr>
+    <foreach name='$list' id='vo'>
+    <tr {if condition="($key+1)%2==0"}style="background:#ece8e8"{/if}>
+      <td align="center">{~date('Y-m-d H:i:s',$vo.create_time)}</td>
+      <td align="center">{$vo.uname}</td>
+      <td>{$vo.content}</td>
+      </tr>
+    </foreach>
+  </table>
+</div>

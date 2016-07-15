@@ -1,0 +1,36 @@
+<form id="pagerForm" method="post" action="{url a='selectGroup' do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return dwzSearch(this,'dialog');" action="{url a='selectGroup' do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>分组名称：</td>
+                <td>
+                   <input type="text" name="search_where[title][like]" size="16" value="{$search_where.title.like}" />
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+        <div class="pageFormContent nowrap" layoutH="58">
+        <foreach name='$list' id='vo'>
+            <label style="white-space:nowrap;">
+            <input type="checkbox" name="to_group" class="checkbox" value="{'to_group':'{$vo.id}','to_group_title':'{$vo.title}'}" /> {$vo.title}
+            </label>
+        </foreach>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="button"><div class="buttonContent"><button type="button" multLookup="to_group" warn="请选择用户组">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+</div>

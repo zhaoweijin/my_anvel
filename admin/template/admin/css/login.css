@@ -1,0 +1,17 @@
+*{margin:0;padding:0;}
+BODY {BACKGROUND:url(../images/login.jpg) #7bdbdd no-repeat center top;FONT-SIZE: 14px}    
+img{border:0;}
+input{font-size:18px;font-weight:bold;border:none;}
+A {COLOR: #000; TEXT-DECORATION: none}
+A:hover {COLOR: #ff0000; TEXT-DECORATION: underline}
+.container{POSITION:relative; MARGIN:0px auto; WIDTH: 540px; HEIGHT: 500px;}
+.uname{background: url(../images/user.gif) 0 8px no-repeat;height:20px;padding:6px 0 6px 20px;width:195px;position:absolute;top:248px;left:189px;}
+.pwd{background:url(../images/lock.gif) 0 8px no-repeat;width:195px;height:20px;padding:6px 0 6px 20px;position:absolute;top:296px;left:189px;}
+.verify{width:108px;height:20px;padding:6px 0 6px 6px;background:none;position:absolute;top:345px;left:190px;}
+.submit{position:absolute;top:408px;left:258px;outline:0;}
+#verify_img{cursor:pointer;position:absolute;top:350px;left:338px;}
+.copy {POSITION:absolute;TEXT-ALIGN:center;WIDTH:540px;COLOR:#000000;FONT-SIZE:12px;TOP:460px;LEFT:0px;font-family:Arial, Helvetica, sans-serif;}
+.registered {POSITION:absolute;TEXT-ALIGN: right;WIDTH:100px;COLOR:#000000;FONT-SIZE:12px;TOP:430px;LEFT:385px}
+#ajax_tips{background-image:url(../images/info.gif);background-repeat:no-repeat;background-position:5px center;position:fixed;_position:absolute;right:0;top:0;_top:expression(eval(document.documentElement.scrollTop));display:none;line-height:32px;font-size:14px;font-weight:bold;padding:0 10px 0 28px;z-index:100001}
+.ajax_error{border:2px solid #FF0;background-color:#F00;color:#FF0;}
+.ajax_success{border:1px solid #F00;background-color:#FF0;color:#666;}

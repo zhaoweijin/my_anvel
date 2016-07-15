@@ -1,0 +1,155 @@
+<form id="pagerForm" method="post" action="{url do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url do='search'}" method="post">
+      <input type="hidden" name="search" value="1" />
+      <div class="searchBar">
+        <table id="server_search" class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>IP</td>
+                <td><input type="text" name="ct_ip" size="12" value="{$search.ct_ip}" /></td>
+                <td align="right">联运商</td>
+                <td>
+                <select name="agent_id">
+                  <option value="">全部</option>
+                 <foreach name="$agent">
+                  <option value="{$key}" {if condition="$key==$search.agent_id"}selected="selected"{/if}>{$val}</option>
+                 </foreach>
+                 </select>
+                </td>
+                <td>游戏</td>
+                <td>
+                 <select name="game_id">
+                 <foreach name="$game">
+                  <option value="{$key}" {if condition="$key==$search.game_id"}selected="selected"{/if}>{$val}</option>
+                 </foreach>
+                 </select>
+                </td>
+                <td>开服确认</td>
+                <td>
+                 <select class="combox" name="open_state">
+                     {:myselect('全部:,否:0,是:1,合:2,撤:3,关:4',$search.open_state)}
+                 </select>
+                </td>
+                 <td>是否已开服</td>
+                 <td>
+                 <select class="combox" name="open_time">
+                     {:myselect('全部:9,否:0,是:1',$search.open_time)}
+                 </select>
+                 </td>
+                 <td>开服时间</td>
+                 <td>
+                 <input type="text" name="open_time_start" size="10" value="{$search.open_time_start}"  class="date" dateFmt="yyyy-MM-dd" /> - <input type="text" name="open_time_end" size="10" value="{$search.open_time_end}" class="date" dateFmt="yyyy-MM-dd" />
+                 </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div id="server_list" class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a rel='{__MODULE_NAME__}_add' class="add" width="560" height="420" title="添加开服信息" href="{url a='add'}" target="dialog"><span>添加</span></a></li>
+            <li><a title="确认删除？删除后无法恢复！！" target="ajaxTodo" rel="id[]" href="<?php echo U(array('a'=>'delete','id'=>'{id}'));?>" class="delete"><span>删除</span></a></li>
+        </ul>
+        <p style="display:inline-block;float:right;margin-right:20px;">
+        【 <font color=red style="font-size:13px;">{~substr($game[$search.game_id],4)}</font> 】 开服列表 <span style="font-size:12px;font-weight:normal;margin-left:12px;">总数：<font color="#FF0000">{$total_all}</font> ｜ 已开服：<font color="#FF0000">{$total_opened}</font>（含合服：<font color="#FF0000">{$total_merge}</font>） ｜  未开服：<font color="#FF0000">{$total_all-$total_opened}</font></span></p>
+    </div>
+    <?php $colspan = 16;?>
+    <table class="table" width="100%" layoutH="112">
+     <thead>
+        <tr>
+          <th width="52">联运商</th>
+          <th width="23">区号</td>
+          <th width="68">名称</td>
+          <th width="95">开服日期时间</td>
+          <th width="12">开服确认</th>
+          <th width="162">主域名</th>
+          <th width="92">主电信IP</th>
+          <th width="92">主网通IP</th>
+          {if condition="$game_arr[$search.game_id]['show_second']==1"}
+          <?php $colspan = $colspan+3;?>
+          <th>从域名</th>
+          <th>从电信IP</th>
+          <th>从网通IP</th>
+          {/if}
+          <th width="12">服务器状态</th>
+          <th width="12">安装状态</th>
+          <th width="12">活动策划</th>
+          <th width="12">接口状态</th>
+          <th width="12">测试状态</th>
+          <th width="12">清档状态</th>
+          <th width="46">监控参数</th>
+          {if condition="in_array(42,$session['auth']) OR $session['role_id']==1"}
+          <?php $colspan++;?>
+          <th>更新参数</th>
+          {/if}
+          {if condition="array_intersect(array(33,34),$session['auth']) OR $session['role_id']==1"}
+          <?php $colspan++;?>
+          <th width="116">操作链接</th>
+          {/if}
+          <th width="102">操 作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name='$list' id='v'>
+        <tr>
+          <?php for($i=0;$i<$colspan;$i++){ //grid的tbody中出现colspan，会对不齐的，只能暂时这样实现?>
+          <td bgcolor="#F2F2F2" class="week"><?php if($i==0){?>{$v.datetime} （本周开服数：<B>{~count($v._server)}</B>）<?php } ?></td>
+          <?php } ?>
+        </tr>
+        <foreach name="$v._server" id="vo">
+        <tr target="id" rel="{$vo.id}" class="{if condition="(date('y-m-d',$vo.open_time)==date('y-m-d'))"}today{/if} {if condition="$vo.open_time<time()"}opened{/if} open_state_{$vo.open_state}">
+          <td align="center" {if condition="$vo.open_state==1"}class="ready"{/if}>{~substr($agent[$vo.agent_id],4)}</td>
+          <td align="right" {if condition="$vo.open_state==1"}class="ready"{/if}>{$vo.server_num}</td>
+          <td align="center" {if condition="$vo.open_state==1"}class="ready"{/if}>{$vo.server_name}</td>
+          <td align="center" {if condition="$vo.open_state==1"}class="ready"{/if}>{~date('m-d',$vo.open_time)} 周{$week[date('w',$vo.open_time)]} {~date('H:i',$vo.open_time)}</td>
+          <td align="center" {if condition="$vo.open_state==1"}class="ready"{/if}><a title="开服确认" width="560" height="420" target="dialog" rel="server_step1" href="{url a='edit' id='$vo.id'}">{$open_state[$vo.open_state]}</a></td>
+          <td {if condition="$vo.setup_state==1"}class="ready"{/if}><a href="http://www.webkaka.com/Ping.aspx?url={$vo.domain}" target="_blank">{$vo.domain}</a></td>
+          <td {if condition="$vo.setup_state==1"}class="ready"{/if}>{$vo.ct_ip}</td>
+          <td {if condition="$vo.setup_state==1"}class="ready"{/if}>{$vo.cnc_ip}</td>
+          {if condition="$game_arr[$search.game_id]['show_second']==1"}
+          <td {if condition="$vo.setup_state==1"}class="ready"{/if}><a href="http://www.webkaka.com/Ping.aspx?url={$vo.domain_secondary}" target="_blank">{$vo.domain_secondary}</a></td>
+          <td {if condition="$vo.setup_state==1"}class="ready"{/if}>{$vo.ct_ip_secondary}</td>
+          <td {if condition="$vo.setup_state==1"}class="ready"{/if}>{$vo.cnc_ip_secondary}</td>
+          {/if}
+          <td align="center" {if condition="$vo.setup_state==1"}class="ready"{/if}><a title="服务器安装状态" width="600" height="450" target="dialog" rel="server_state" href="{url a='step2' id='$vo.id'}">{$state[$vo.server_state]}</a></td>
+          <td align="center" {if condition="$vo.setup_state==1"}class="ready"{/if}><a title="服务器安装状态" width="600" height="450" target="dialog" rel="server_state" href="{url a='step2' id='$vo.id'}">{$state[$vo.setup_state]}</a></td>
+          <td align="center" {if condition="$vo.activity_state==1"}class="ready"{/if}><a target="ajaxTodo" href="{url a='step3' id='$vo.id'}">{$state[$vo.activity_state]}</a></td>
+          <td align="center" {if condition="$vo.api_state==1"}class="ready"{/if}><a target="ajaxTodo" href="{url a='step4' id='$vo.id'}">{$state[$vo.api_state]}</a></td>
+          <td align="center" {if condition="$vo.test_state==1"}class="ready"{/if}><a target="ajaxTodo" href="{url a='step5' id='$vo.id'}">{$state[$vo.test_state]}</a></td>
+          <td align="center" {if condition="$vo.clear_state==1"}class="ready"{/if}><a target="ajaxTodo" href="{url a='step6' id='$vo.id'}">{$state[$vo.clear_state]}</a></td>
+          <td align="center" {if condition="$vo.clear_state==1"}class="ready"{/if}>{$vo.server_data}</td>
+          {if condition="in_array(42,$session['auth']) OR $session['role_id']==1"}
+          <td {if condition="$vo.clear_state==1"}class="ready"{/if}><a rel="server_config" title="更新参数设置" target="dialog" width="520" height="300" href="{url a='config' id='$vo.id'}"><if condition="$vo.config!=''">{$vo.config}<else />未添加</if></a></td>
+          {/if}
+          {if condition="array_intersect(array(33,34,35,36),$session['auth']) OR $session['role_id']==1"}
+          <td align="center" {if condition="$vo.clear_state==1"}class="ready"{/if}>
+          {if condition="in_array(33,$session['auth']) OR $session['role_id']==1"}{~str_replace(array('{domain}','{ct_ip}'),array($vo.domain,$vo.ct_ip),$game_arr[$search.game_id]['link1'])}{/if}
+          {if condition="in_array(34,$session['auth']) OR $session['role_id']==1"}{~str_replace(array('{domain}','{ct_ip}'),array($vo.domain,$vo.ct_ip),$game_arr[$search.game_id]['link2'])}{/if}
+          {if condition="in_array(35,$session['auth']) OR $session['role_id']==1"}{~str_replace(array('{domain}','{ct_ip}'),array($vo.domain,$vo.ct_ip),$game_arr[$search.game_id]['link3'])}{/if}
+          {if condition="in_array(36,$session['auth']) OR $session['role_id']==1"}{~str_replace(array('{domain}','{ct_ip}'),array($vo.domain,$vo.ct_ip),$game_arr[$search.game_id]['link4'])}{/if}
+          </td>
+          {/if}
+          <td align="center" {if condition="$vo.clear_state==1"}class="ready"{/if}><a width="840" height="560" target="dialog" rel="server_log" href="{url a='log' server_id='$vo.id'}" title="查看日志">日志</a>｜<a width="540" height="320" target="dialog" rel="server_remark" href="{url a='remark' server_id='$vo.id'}" title="查看备注">备注</a>｜<a width="620" height="360" target="dialog" rel="server_rsync" href="{url a='rsync' id='$vo.id'}" title="rsync参数配置">rsync</a></td>
+        </tr>
+          </foreach>
+       </foreach>
+      </tbody>
+    </table>
+    <div class="panelBar">
+        <div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="5" currentPage="{$page.currentPage}"></div>
+        <div class="pages" style="float:right;">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+            {:myselect('20:20,30:30,50:50,100:100,200:200',$page.numPerPage)}
+            </select>
+            <span>条，共{$page.totalCount}条</span>
+        </div>
+    </div>
+</div>

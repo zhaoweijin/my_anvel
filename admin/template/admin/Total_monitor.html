@@ -1,0 +1,54 @@
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url a='monitor' do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>选择游戏：</td>
+                <td>
+                    <select class="combox" name="game_id">
+                    <foreach name="$game">
+                    <option value="{$key}" {if condition="$key==$search.game_id"}selected="selected"{/if}>{$val}</option>
+                    </foreach>
+                    </select>
+                </td>
+                <td align="right">开服时间：</td>
+                <td>
+                    <input type="text" name="open_time_start" size="12" value="{$search.open_time_start}"  class="date" dateFmt="yyyy-MM-dd" /> - <input type="text" name="open_time_end" size="12" value="{$search.open_time_end}" class="date" dateFmt="yyyy-MM-dd" />
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+<div class="pageContent">
+    <table class="table" width="100%" layoutH="86">
+       <thead>
+        <tr class="hidden">
+          <th width="120"></th>
+          <th width="88"></th>
+          <th width="88"></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="middle" style="padding-top:12px;font-weight:bold;">平台名称</th>
+          <th colspan="3" style="font-weight:bold;">开服统计</th>
+         </tr>
+        <tr>
+          <th>监控参数</th>
+          <th>开服数（<font color="#FF0000">{~intval($total)}</font>）</th>
+          <th>具体服数</th>
+        </tr>
+       </thead>
+       <tbody>
+       <foreach name="$list" id="vo">
+        <tr>
+          <td width="120" align="center">{$vo.name}</td>
+          <td width="88" align="center">{$vo.server_data}</td>
+          <td width="88" align="center">{~intval($vo.sum)}</td>
+          <td style="word-break:break-all;" class="multi_line">{~implode('，',$vo.servers)}</td>
+        </tr>
+        </foreach>
+       </tbody>
+    </table>
+</div>

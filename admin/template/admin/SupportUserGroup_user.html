@@ -1,0 +1,65 @@
+<?php
+$dialog_max = 'false';
+$dialog_width = '520';
+$dialog_height = '320';
+?>
+
+<form id="pagerForm" method="post" action="{url a='user' group_id='$_GET.group_id' do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url a='user' group_id='$_GET.group_id' do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>用户名：</td>
+                <td>
+                   <input type="text" name="search_where[uname][like]" size="16" value="{$search_where.uname.like}" />
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a rel='{__MODULE_NAME__}_addUser' class="add" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加组成员" href="{url a='addUser' group_id='$_GET.group_id'}" target="dialog"><span>添加组成员</span></a></li>
+            <li><a title="确认将用户从本组中移除？" target="selectedTodo" rel="id[]" href="{url a='removeUser'}" class="delete"><span>从本组中移除</span></a></li>
+        </ul>
+    </div>
+    <form action="" method="post" id="form_data_list">
+    <table class="table" width="100%" layoutH="112">
+        <thead>
+            <tr>
+                <th width="40"><input type="checkbox" group="id[]" class="checkboxCtrl" /></th>
+                <th>用户名</th>
+                <th width="100">操 作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name='$list' id='vo'>
+            <tr target="id" rel="{$vo.id}">
+                <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" /></td>
+                <td>{$vo.uname}</td>
+                <td align="center" class="action"><a target="ajaxTodo" href="{url a='removeUser' id='$vo.id'}" title="从本组中移除"><img src="./images/delete.gif" alt="移除" width="16" height="16" /></td>
+            </tr>
+           </foreach>
+        </tbody>
+    </table>
+    </form>
+    <div class="panelBar">
+        <div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="5" currentPage="{$page.currentPage}"></div>
+        <div class="pages" style="float:right;">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+            {:myselect('20:20,30:30,50:50,100:100,200:200',$page.numPerPage)}
+            </select>
+            <span>条，共{$page.totalCount}条</span>
+        </div>
+    </div>
+</div>

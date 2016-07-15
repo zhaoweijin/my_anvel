@@ -1,0 +1,45 @@
+<div class="pageContent">
+    <form method="post" action="{url a='update'}" class="pageForm required-validate" onsubmit="return save_ueditor(this);">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td width="68" align="right">所属游戏：</td>
+              <td>
+                 <select class="combox" name="game_id">
+                     {:myselect($game,$vo.game_id)}
+                 </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">标 题：</td>
+              <td><input type="text" name="title" size="68" value="{$vo.title}" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">内 容：</td>
+              <td>
+                <script type="text/plain" id="{$ueditor_id}" name="content" style="width:99%;" class="ueditor">{$vo.content}</script>
+                <script type="text/javascript">
+                    var {$ueditor_id} = new baidu.editor.ui.Editor();
+                    {$ueditor_id}.render('{$ueditor_id}');
+                </script> 
+              </td>
+            </tr>
+            <tr>
+              <td align="right">发布时间：</td>
+              <td><input type="text" name="create_time" size="20" value="{~date('Y-m-d H:i:s',$vo.create_time)}" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" /><a class="inputDateButton" href="javascript:;">选择日期</a></td>
+            </tr>
+            <tr>
+              <td align="right">排 序：</td>
+              <td><input type="text" name="orderid" size="6" value="{$vo.orderid}" /> * 数值越大越靠前</td>
+            </tr>
+          </table>
+          <input type="hidden" name="id" value="{$vo.id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

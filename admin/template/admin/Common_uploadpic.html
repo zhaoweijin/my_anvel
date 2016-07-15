@@ -1,0 +1,70 @@
+<script type="text/javascript" src="/resource/js/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="/resource/js/swfupload/handlers.js"></script>
+<script type="text/javascript">
+//获取cookie
+function getCookie(name) {
+    var val = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+    if (val != null) return unescape(val[2]);
+    return null
+}
+var phpsessid=getCookie('PHPSESSID');
+if(!swfupload_url){
+    var swfupload_url='{url m="Upload" a="uploadpic"}';
+}
+if(!swfupload_limit){
+    var swfupload_limit='1';
+}
+</script>
+
+<script type="text/javascript">
+      var swfu;
+      window.onload = function () {
+          swfu = new SWFUpload({
+              // Backend Settings
+              upload_url: swfupload_url,
+              post_params: {"PHPSESSID":phpsessid,ajax:1},
+
+              // File Upload Settings
+              file_size_limit : "3 MB",
+              file_types : "*.jpg;*.jpeg;*.png;*.bmp;*.gif",
+              file_types_description : "JPG Images",
+              file_upload_limit : "0",
+              file_queue_limit:swfupload_limit,
+
+              // Event Handler Settings - these functions as defined in Handlers.js
+              file_queue_error_handler : fileQueueError,
+              file_dialog_complete_handler : fileDialogComplete,
+              upload_progress_handler : uploadProgress,
+              upload_error_handler : uploadError,
+              upload_success_handler : uploadSuccess,
+              upload_complete_handler : uploadComplete,
+
+              // Button Settings
+              button_image_url : "/resource/js/swfupload/btn.png",
+              button_placeholder_id : "spanButtonPlaceholder",
+              button_width: 180,
+              button_height: 18,
+              button_text : '<span class="button">选择图片进行上传<span class="buttonSmall">(最大2MB)</span></span>',
+              button_text_style : '.button {font-size: 12pt;} .buttonSmall {font-size: 11pt; }',
+              button_text_top_padding: 0,
+              button_text_left_padding: 18,
+              button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+              button_cursor: SWFUpload.CURSOR.HAND,
+
+              // Flash Settings
+              flash_url : "/resource/js/swfupload/swfupload.swf",
+
+              custom_settings : {
+                  upload_target : "divFileProgressContainer"
+              }
+
+              // Debug Settings
+             // debug: true
+          });
+      };
+</script>
+
+<div style="float:left;padding:2px;">
+    <span id="spanButtonPlaceholder"></span>
+</div>
+<span id="divFileProgressContainer" style="font-weight:bold;color:#F00;float:left;line-height:22px;"></span>

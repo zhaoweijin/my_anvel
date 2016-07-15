@@ -1,0 +1,16 @@
+<div class="accordion" fillSpace="sidebar">
+    <foreach name="$menu" id="parent" key="key">
+    <div class="accordionHeader">
+        <h2><span>Folder</span>{$parent.menu_name}</h2>
+    </div>
+    <div class="accordionContent">
+        <notempty name="$parent._child">
+        <ul class="tree treeFolder">
+            <foreach name='$parent._child' id='child' key="k">
+            <li><a href="{$child.menu_url}" target="navTab" rel="page{$key}_{$k}">{$child.menu_name}</a></li>
+            </foreach>
+        </ul>
+        </notempty>
+    </div>
+    </foreach>
+</div>

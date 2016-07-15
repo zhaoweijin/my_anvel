@@ -1,0 +1,30 @@
+<div class="pageContent">
+    <form method="post" action="{url a='insert'}" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="right" width="68">分组名称：</td>
+              <td><input type="text" name="title" size="28" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">排 序：</td>
+              <td><input type="text" name="orderid" size="6" /></td>
+            </tr>
+            <tr>
+              <td align="right">状 态：</td>
+              <td>
+                <select class="combox" name="status">
+                 {:myselect('启用:1,锁定:0')}
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

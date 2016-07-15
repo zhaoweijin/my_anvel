@@ -1,8 +1,15 @@
 <?php
 
+
+
 $api = app('Dingo\Api\Routing\Router');
 
-
+$app->get('admin', function () {
+    require __DIR__.'/../../admin/admin.php';
+});
+$app->post('admin', function () {
+    require __DIR__.'/../../admin/admin.php';
+});
 
 
 $api->version('v1', ['middleware' => 'cors'], function ($api) {
@@ -28,6 +35,10 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
     $api->get('games/new/',[
         'as'=>'showNewGames',
         'uses'=>'App\Api\v1\Controllers\GamesController@showNewGames'
+    ]);
+    $api->get('game/{id}/',[
+        'as'=>'showGames',
+        'uses'=>'App\Api\v1\Controllers\GamesController@showGames'
     ]);
     $api->get('games/auth_passport/',[
         'as'=>'authPassport',

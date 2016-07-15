@@ -1,0 +1,13 @@
+{literal}
+<script type="text/javascript" src="./FCKeditor/fckeditor.js"></script>
+<script type="text/javascript">
+function myeditor(id,width,height,toolbar){
+var oFCKeditor = new FCKeditor(id,width,height);
+oFCKeditor.BasePath = "./FCKeditor/" ;
+oFCKeditor.ToolbarSet = toolbar; 
+oFCKeditor.ReplaceTextarea();
+}
+function resetEditor(id){var oEditor = FCKeditorAPI.GetInstance(id);oEditor.SetData('');}
+function saveEditor(id){var oEditor = FCKeditorAPI.GetInstance(id);document.getElementById(id).value = oEditor.GetXHTML(true);}
+</script>
+{/literal}

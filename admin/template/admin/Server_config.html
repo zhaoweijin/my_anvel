@@ -1,0 +1,20 @@
+<div class="pageContent">
+    <form method="post" action="{url a='config'}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="center">
+                <textarea name="config" cols="56" rows="5">{$vo.config}</textarea>
+              </td>
+            </tr>
+          </table>
+          <input type="hidden" name="id" value="{$vo.id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,116 @@
+<div class="pageContent">
+    <form method="post" action="{url a='insert'}" class="pageForm required-validate" onsubmit="return save_ueditor(this);">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="right">礼包标题：</td>
+              <td><input type="text" name="title" size="28" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">游戏库游戏ID(获取游戏信息)：</td>
+              <td><input id="{$id_pre}_game_id" type="text" name="game_id" size="28" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">游戏名：</td>
+              <td><input id="{$id_pre}_game" type="text" name="game" size="28" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">ICON：</td>
+              <td><input id="{$id_pre}_icon" type="text" name="icon" size="28" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">专区地址：</td>
+              <td><input id="{$id_pre}_zone_url" type="text" name="zone_url" size="28" class="required" /></td>
+            </tr>            
+            <tr>
+              <td align="right">礼包简介：</td>
+              <td>
+                <script type="text/plain" id="{$ueditor_id}" name="description" style="width:99%;" class="ueditor"></script>
+                <script type="text/javascript">
+                    var {$ueditor_id} = new baidu.editor.ui.Editor();
+                    {$ueditor_id}.render('{$ueditor_id}');
+                </script>
+              </td>
+            </tr>           
+            <tr>
+              <td align="right">礼包展示：</td>
+              <td>
+                <select class="combox" name="status">
+                 {:myselect('启用:1,锁定:0')}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">类 型：</td>
+              <td>
+                <select class="combox" name="type">
+                 {:myselect('微信:1,wap:0')}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">推荐位：</td>
+              <td>
+                <select class="combox" name="position">
+                 {:myselect('首页:1,空:0')}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">热 门：</td>
+              <td>
+                <select class="combox" name="hot">
+                 {:myselect('启用:1,锁定:0')}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">淘 号：</td>
+              <td>
+                <select class="combox" name="is_tao">
+                 {:myselect('启用:1,关闭:0')}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">礼包开始时间：</td>
+              <td><input type="text" name="start_date" size="20" value="{~date('Y-m-d H:i:s')}" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" /><a class="inputDateButton" href="javascript:;">选择日期</a></td>
+            </tr>
+            <tr>
+              <td align="right">礼包结束时间：</td>
+              <td><input type="text" name="end_date" size="20" value="{~date('Y-m-d H:i:s')}" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" /><a class="inputDateButton" href="javascript:;">选择日期</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        $("#{$id_pre}_game_id").blur(function(){
+            var num = $(this).val(),
+                    url = "admin.php?m=Gift&a=getGameData";
+            url += "&num="+num;
+            $.ajax({ url: url, dataType: "json",  success: function(data){
+                
+                if(data.data==-1){
+                    alert('请输入游戏id');
+                }else if(data.data.result.length>0){
+                    var game = data.data.result[0].game_name,
+                            icon = data.data.result[0].game_icon,
+                            zone_url = data.data.result[0].game_zone;
+                    $('#{$id_pre}_game').val(game);
+                    $('#{$id_pre}_icon').val(icon);
+                    $('#{$id_pre}_zone_url').val(zone_url);
+                }else{
+                    alert('数据库没有该游戏');
+                }
+            }});
+        });
+    });
+</script>

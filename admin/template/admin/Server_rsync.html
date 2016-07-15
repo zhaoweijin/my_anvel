@@ -1,0 +1,28 @@
+<div class="pageContent">
+    <form method="post" action="{url a='rsync' id='$vo.id'}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="center">SSH：</td>
+              <td><select name="ssh">
+                 {:myselect('False:0,True:1',$vo.ssh)}
+              </select></td>
+            </tr>
+            <tr>
+              <td align="center">rsync：</td>
+              <td align="left">
+                <textarea name="rsync" cols="56" rows="5">{$vo.rsync}</textarea>
+                <div style="clear:both;"><font style="font-size:14px;color:red;"><B>填写格式：</B>端口;路径;用户名;密码（英文逗号分隔）</font></div>
+              </td>
+            </tr>
+          </table>
+          <input type="hidden" name="id" value="{$vo.id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

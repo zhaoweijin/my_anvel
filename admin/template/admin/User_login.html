@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{__APP_TITLE__}</title>
+<link rel="stylesheet" href="/resource/css/login.css" type="text/css" />
+<script type="text/javascript" src="/resource/js/jquery.js"></script>
+<script type="text/javascript" src="/resource/js/jquery.form.js"></script>
+<script type="text/javascript" src="/resource/js/ajaxsubmit.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <form class="ajax_form" method="post" action="{url m='User' a='check'}">
+    <input name="uname" type="text" class="uname" />
+    <input name="pwd" type="password" class="pwd" />
+    <input name="verify_code" type="text" class="verify" />
+    <img src="{url m='User' a='verify'}" width="48" height="24" onclick="this.src='{url m='User' a='verify'}&'+Math.random()" id="verify_img" />
+    <input type="image" src="/resource/images/login2.jpg" class="submit" />
+  </form>
+    <div class="copy">Copyright &copy; 2012 <a href="http://www.weedong.com" target="_blank">广州维动网络科技有限公司</a></div>
+</div>
+</body>
+</html>

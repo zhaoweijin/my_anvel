@@ -1,0 +1,103 @@
+<?php
+$dialog_max = 'false';
+$dialog_width = '640';
+$dialog_height = '420';
+?>
+
+<form id="pagerForm" method="post" action="{url do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="{url do='search'}" method="post">
+      <div class="searchBar">
+        <table class="searchContent" style="margin:0 auto;">
+            <tr>
+                <td>联运平台名称：</td>
+                <td>
+                   <input type="text" name="search_where[title][like]" size="16" value="{$search_where.title.like}" />
+                </td>
+                <td align="right">状态：</td>
+                <td>
+                    <select class="combox" name="search_where[status][eq]">
+                     {:myselect('请选择,启用:1,锁定:0',$search_where.status.eq)}
+                    </select>
+                </td>
+                <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+            </tr>
+        </table>
+      </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a rel='{__MODULE_NAME__}_add' class="add" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加权限" href="{url a='add'}" target="dialog"><span>添加</span></a></li>
+            <li><a title="确认删除？删除后无法恢复！！" target="selectedTodo" rel="id[]" href="{url a='delete'}" class="delete"><span>删除</span></a></li>
+            <li><a rel='{__MODULE_NAME__}_edit' class="edit" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="编辑权限" href="<?php echo U(array('a'=>'edit','id'=>'{id}'));?>" target="dialog" warn="请选择一条记录"><span>编辑</span></a></li>
+        </ul>
+    </div>
+    <form action="" method="post" id="{$id_pre}_form_list">
+      <table class="table" width="100%" layoutH="112">
+        <thead>
+        <tr>
+          <th width="40"><input type="checkbox" group="id[]" class="checkboxCtrl" /></th>
+          <th width="138">权限名称</th>
+          <th>所属模块</th>
+          <th>所属操作</th>
+          <th width="108">菜单名称</th>
+          <th>菜单地址</th>
+          <th width="40">排序</th>
+          <th width="42">状 态</th>
+          <th width="68">操 作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name='$list' id='vo'>
+        <tr style="background:#DDD;" target="id" rel="{$vo.id}">
+          <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" class="checkbox" /></td>
+          <td dataType="required" style="font-weight:bold;color:#333;" onclick="editNow({$vo.id},'title','{url a='update'}',this);">{$vo.title}</td>
+          <td onclick="editNow({$vo.id},'auth_module','{url a='update'}',this);">{$vo.auth_module}</td>
+          <td onclick="editNow({$vo.id},'auth_action','{url a='update'}',this);">{$vo.auth_action}</td>
+          <td onclick="editNow({$vo.id},'menu_name','{url a='update'}',this);">{$vo.menu_name}</td>
+          <td onclick="editNow({$vo.id},'menu_url','{url a='update'}',this);">{$vo.menu_url}</td>
+          <td onclick="editNow({$vo.id},'orderid','{url a='update'}',this);">{$vo.orderid}</td>
+          <td align="center"><include file="Common_status.html" /></td>
+          <td align="center" class="action"><include file="Common_action.html" /></td>
+        </tr>
+        <foreach name='$vo._child' id='vo'>
+        <tr target="id" rel="{$vo.id}">
+          <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" class="checkbox" /></td>
+          <td dataType="required" style="font-weight:bold;padding-left:12px;color:#333;" onclick="editNow({$vo.id},'title','{url a='update'}',this);">{$vo.title}</td>
+          <td onclick="editNow({$vo.id},'auth_module','{url a='update'}',this);">{$vo.auth_module}</td>
+          <td onclick="editNow({$vo.id},'auth_action','{url a='update'}',this);">{$vo.auth_action}</td>
+          <td onclick="editNow({$vo.id},'menu_name','{url a='update'}',this);">{$vo.menu_name}</td>
+          <td onclick="editNow({$vo.id},'menu_url','{url a='update'}',this);">{$vo.menu_url}</td>
+          <td onclick="editNow({$vo.id},'orderid','{url a='update'}',this);">{$vo.orderid}</td>
+          <td align="center"><include file="Common_status.html" /></td>
+          <td align="center" class="action"><include file="Common_action.html" /></td>
+        </tr>
+        <foreach name='$vo._child' id='vo'>
+        <tr target="id" rel="{$vo.id}">
+          <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" class="checkbox" /></td>
+          <td style="padding-left:24px;" onclick="editNow({$vo.id},'title','{url a='update'}',this);">{$vo.title}</td>
+          <td onclick="editNow({$vo.id},'auth_module','{url a='update'}',this);">{$vo.auth_module}</td>
+          <td onclick="editNow({$vo.id},'auth_action','{url a='update'}',this);">{$vo.auth_action}</td>
+          <td onclick="editNow({$vo.id},'menu_name','{url a='update'}',this);">{$vo.menu_name}</td>
+          <td onclick="editNow({$vo.id},'menu_url','{url a='update'}',this);">{$vo.menu_url}</td>
+          <td onclick="editNow({$vo.id},'orderid','{url a='update'}',this);">{$vo.orderid}</td>
+          <td align="center"><include file="Common_status.html" /></td>
+          <td align="center" class="action"><include file="Common_action.html" /></td>
+        </tr>
+        </foreach>
+        </foreach>
+        </foreach>
+        </tbody>
+      </table>
+    </form>
+    <div class="panelBar">
+        <include file="Common_action2.html" />
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="pageContent">
+  <form method="post" action="{url a='export'}" onsubmit="return navTabSearch(this)">
+  <div class="pageFormContent nowrap" layoutH="22">
+      <table cellspacing="1" class="myform">
+        <tr>
+          <td align="right" style="font-size:15px;height:96px;">规则说明：</td>
+          <td style="font-size:15px;">91wan:1-9,11,20-25 表示导出91wan的1-9服以及11服以及20-25服。每条规则一行。<br />date:2012-07-21
+    表示导出开服时间为2012-07-21的全部服。<br /><strong>导出时如果有<font color=red>红色</font>错误警告，强烈建议修正后再导出，当然你也可以不修正。</strong></td>
+        </tr>
+        <tr>
+          <td align="right">选择游戏：</td>
+          <td><select name="game_id">
+         <foreach name="$game">
+          <option value="{$key}" {if condition="$key==$game_id"}selected="selected"{/if}>{$val}</option>
+         </foreach>
+         </select></td>
+        </tr>
+        <tr>
+          <td align="right">请输入规则：</td>
+          <td><label>
+            <textarea name="command" cols="68" rows="8">{~trim($_POST['command'])}</textarea>
+          </label></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></td>
+        </tr>
+        <if condition="$msg">
+        <tr>
+          <td colspan="2" style="color:#F00;font-weight:bold;">
+          <h2 style="font-size:16px;">错误警告</h2>
+          <foreach name="$msg">
+          [{~intval($key+1)}] ： {$val} <br />
+          </foreach>
+          </td>
+          </tr>
+         </if>
+        <if condition="is_array($links)">
+        <tr>
+          <td colspan="2" style="font-weight:bold;">
+          <h2 style="font-size:16px;">导出文件</h2>
+          <foreach name="$links" id="v">
+          {$v.txt}：<a href="{$v.link}" target="_blank">{$v.link}</a>
+          <br />
+          </foreach>
+          </td>
+          </tr>
+         </if>
+      </table>
+  </div>
+  </form>
+</div>

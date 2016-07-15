@@ -1,0 +1,63 @@
+<div class="pageContent">
+    <form method="post" action="{url a='update'}" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="58">
+            <table cellspacing="1" class="myform">
+                <tr>
+                  <td width="102" align="right">游戏名称：</td>
+                  <td><input type="text" name="title" size="48" value="{$vo.title}" class="required" /></td>
+                </tr>
+                <tr>
+                  <td align="right">描 述：</td>
+                  <td>
+                    <textarea name="description" cols="60" rows="3">{$vo.description}</textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">运维组操作链接：</td>
+                  <td><textarea name="link1" cols="60" rows="3">{$vo.link1}</textarea><font color="#FF0000">  {domain}代替主域名</font></td>
+                </tr>
+                <tr>
+                  <td align="right">运营组操作链接：</td>
+                  <td><textarea name="link2" cols="60" rows="3">{$vo.link2}</textarea><font color="#FF0000">  {domain}代替主域名</font></td>
+                </tr>
+                <tr>
+                  <td align="right">策划组操作链接：</td>
+                  <td><textarea name="link3" cols="60" rows="3">{$vo.link3}</textarea><font color="#FF0000"> {domain}代替主域名</font></td>
+                </tr>
+                <tr>
+                  <td align="right">测试组操作链接：</td>
+                  <td><textarea name="link4" cols="60" rows="3">{$vo.link4}</textarea><font color="#FF0000">  {domain}代替主域名</font></td>
+                </tr>
+                <tr>
+                  <td align="right">rsync参数：</td>
+                  <td><input type="text" name="rsync" size="48" value="{$vo.rsync}" /><font style="font-size:14px;color:red;"><B>填写格式：</B>端口;路径;用户名;密码（英文逗号分隔）</font></td>
+                </tr>
+                <tr>
+                  <td align="right">从域名显示：</td>
+                  <td><select class="combox" class="combox" name="show_second">
+                     {:myselect('否:0,是:1',$vo.show_second)}
+                    </select></td>
+                </tr>
+                <tr>
+                  <td align="right">排 序：</td>
+                  <td><input type="text" name="orderid" size="6" value="{$vo.orderid}" /></td>
+                </tr>
+                <tr>
+                  <td align="right">状 态：</td>
+                  <td>
+                    <select class="combox" name="status">
+                     {:myselect('启用:1,锁定:0',$vo.status)}
+                    </select>
+                  </td>
+                </tr>
+            </table>
+            <input type="hidden" name="id" value="{$vo.id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

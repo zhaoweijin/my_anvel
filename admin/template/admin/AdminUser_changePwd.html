@@ -1,0 +1,26 @@
+<div class="pageContent">
+    <form method="post" action="{url a='changePwd'}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="right">原密码：</td>
+              <td><input type="password" name="old_pwd" size="25" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">密 码：</td>
+              <td><input type="password" name="pwd" size="25" class="required" /></td>
+            </tr>
+            <tr>
+              <td align="right">确认密码：</td>
+              <td><input type="password" name="confirm_pwd" size="25" class="required" /></td>
+            </tr>
+          </table>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

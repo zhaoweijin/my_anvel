@@ -1,0 +1,38 @@
+<?php
+$dialog_max = 'false';
+$dialog_width = '660';
+$dialog_height = '520';
+?>
+
+<form id="pagerForm" method="post" action="{url do='search'}">
+      <input type="hidden" name="pageNum" value="{$page.currentPage}" />
+      <input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+</form>
+<div class="pageContent">
+    
+    <form action="" method="post" id="{$id_pre}_form_list">
+    <table class="table" width="100%" layoutH="112">
+        <thead>
+            <tr>
+                <th width="40"><input type="checkbox" group="id[]" class="checkboxCtrl" /></th>
+                <th width="68">ID</th>
+                <th width="150">礼包卡号</th>
+                <th width="100">领取人</th>
+                <th width="80">添加时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name='$list' id='vo'>
+            <tr target="id" rel="{$vo.id}">
+                <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" /></td>
+                <td align="center">{$vo.id}</td>
+                <td dataType="required">{$vo.card}</td>
+                <td dataType="required">{$vo.visitor}</td>
+                <td dataType="required">{$vo.created_at}</td>             
+            </tr>
+           </foreach>
+        </tbody>
+    </table>
+    </form>
+
+</div>

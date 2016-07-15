@@ -1,0 +1,53 @@
+<div class="pageContent">
+    <form method="post" action="{url a='config'}" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="right">主域名：</td>
+              <td><input name="domain" type="text" value="{$vo.domain}" size="60" /></td>
+            </tr>
+            <tr>
+              <td align="right">主电信IP：</td>
+              <td><input name="ct_ip" type="text" value="{$vo.ct_ip}" size="60" /></td>
+            </tr>
+            <tr>
+              <td align="right">主网通IP：</td>
+              <td><input name="cnc_ip" type="text" value="{$vo.cnc_ip}" size="60" /></td>
+            </tr>
+            <tr>
+              <td align="right">从域名：</td>
+              <td><input name="domain_secondary" type="text" value="{$vo.domain_secondary}" size="60" /></td>
+            </tr>
+            <tr>
+              <td align="right">从电信IP：</td>
+              <td><input name="ct_ip_secondary" type="text" value="{$vo.ct_ip_secondary}" size="60" /></td>
+            </tr>
+            <tr>
+              <td align="right">从网通IP：</td>
+              <td><input name="cnc_ip_secondary" type="text" value="{$vo.cnc_ip_secondary}" size="60" /></td>
+            </tr>
+            <tr>
+              <td align="right">服务器状态：</td>
+              <td>
+              <select class="combox" name="server_state">
+                 {:myselect('否:0,是:1',$vo.server_state)}
+              </select></td>
+            </tr>
+            <tr>
+              <td align="right">安装状态：</td>
+              <td>
+              <select class="combox" name="setup_state">
+                 {:myselect('否:0,是:1',$vo.setup_state)}
+              </select></td>
+            </tr>
+          </table>
+          <input type="hidden" name="id" value="{$vo.id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

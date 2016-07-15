@@ -1,0 +1,17 @@
+<div style="float:left;">
+    <table>
+        <tr>
+            <td width="33" align="right"><img src="/resource/images/arrow.gif" height="18" alt="请选择" /></td>
+            <td><a href="javascript:allSelect()"> 全选</a> | <a href="javascript:InverSelect()">反选</a> | <a href="javascript:allUnSelect()">全不选</a></td>
+            <td align="right"> | 对选中项进行 </td>
+            <td>
+                <select class="combox" name="select" onchange="selectSubmit(this,'{$id_pre}_form_list')">
+                    <option selected="selected" value="">请选择</option>
+                    <option title="确认删除？删除后无法恢复！！" value="{url a='delete'}">删除</option>
+                    <option value="{url a='status' status='1'}">启用</option>
+                    <option value="{url a='status' status='0'}">锁定</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>

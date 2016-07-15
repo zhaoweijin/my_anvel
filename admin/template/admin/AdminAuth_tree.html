@@ -1,0 +1,26 @@
+<div class="pageContent">
+    <div class="pageFormContent" layoutH="58">
+        <ul class="tree treeFolder">
+            <li><a onclick="bringBack({pid:'0',parentName:'根目录'})" href="javascript:">根目录</a>
+            </li>
+            <foreach name="$list" id="vo">
+            <?php if($vo['id']==(int)$_GET['id']) continue;//上级不能是它本身及其孩子?>
+            <li><a onclick="$.bringBack({pid:'{$vo.id}',parentName:'{$vo.text}'})" href="javascript:">{$vo.text}</a>
+                <notempty name="$vo._child">
+                <ul>
+                    <foreach name="$vo._child" id="child">
+                    <?php if($child['id']==(int)$_GET['id']) continue;//上级不能是它本身及其孩子?>
+                    <li><a href="javascript:" onclick="$.bringBack({pid:'{$child.id}',parentName:'{$child.text}'})">{$child.text}</a></li>
+                    </foreach>
+                </ul>
+                </notempty>
+            </li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li><div class="button"><div class="buttonContent"><button class="close" type="button">关闭</button></div></div></li>
+        </ul>
+    </div>
+</div>

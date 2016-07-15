@@ -1,0 +1,87 @@
+<div class="pageContent" layoutH="0">
+<div class="pageFormContent nowrap">
+<if condition="$send==false">
+    <form method="post" action="{url a='sendMsg'}" onsubmit="return navTabSearch(this)">
+    <table cellspacing="1" class="myform">
+    <tr>
+      <td width="78" align="right">选择分组：</td>
+      <td>
+          <select class="combox" name="group_id">
+             <option value="">全部分组</option>
+             {:myselect($group)}
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">短信内容：</td>
+      <td>
+      <textarea name="content" cols="68" rows="8"></textarea>
+      <div class="cl"><font color="#FF0000"><b>注意：</b>短信内容不能太长，否则发送不成功！</font></div>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+      <div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div>
+      <font color="#FF0000" style="line-height:24px;"><b>{$msg}</b></font>
+      </td>
+    </tr>
+    </table>
+    </form>
+<else>
+    <input type="hidden" id="group_id" value="{$group_id}" />
+    <input type="hidden" id="content" value="{$content}" />
+    <div id="btn"></div>
+    <div id="tips"></div>
+    <script type="text/javascript">
+    var tt;
+    var total={$total};
+    var start=0;
+    function send(){
+        tt=setTimeout(function(){
+            $.ajax({
+                url: "{url a='proccessMsg'}",
+                type: "post",
+                data:{'start':start,'group_id':$('#group_id').val(),'content':$('#content').val()},
+                dataType: "html",
+                timeout: 20000,
+                global:false,//不触发全局 AJAX 事件,关闭loading
+                beforeSend: function(){
+                },
+                error: function(){
+                    $('#tips').prepend('<div><font color=red>服务端错误！发送被停止！</font></div>');
+                    $('#btn').html('<input type="button" value="继续发送" onclick="send();" />');
+                },
+                success: function(response){
+                    start++;
+                    $('#tips').prepend('<div>'+start+'：'+response+'</div>');
+                    if(start<total){
+                        $('#btn').html('<input type="button" value="停止发送" onclick="stop_send();" />');
+                        send();
+                    }else{
+                        $('#tips').prepend('<div><font color=red>恭喜！全部发送完毕！</font></div>');
+                        $('#btn').html('');
+                    }
+                }
+            })
+            },
+            300
+        );
+    }
+    $(document).ready(function(){
+        if(total>0){
+            $('<div><font color=blue>总共有<b>'+total+'</b>个发送对象，请耐心等待！发送进行中请不要关闭本页面！</font></div>').insertBefore('#tips');
+            send();
+        }else{
+            $('#tips').prepend('<div><font color=red>发送对象为空！</font></div>');
+        }
+    });
+    function stop_send(){
+        clearTimeout(tt);
+        $('#tips').prepend('<div><font color=red>请求停止发送！</font></div>');
+        $('#btn').html('<input type="button" value="继续发送" onclick="send();" />');
+    }
+    </script>
+</if>
+</div>
+</div>

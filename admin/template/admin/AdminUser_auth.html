@@ -1,0 +1,45 @@
+<div class="pageContent">
+    <form method="post" action="{url a='auth' user_id='$_GET.user_id'}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <foreach name='$auth_list' id='vo'>
+            <tr>
+              <td style="background:#DDD;"><h3 style="display:inline;margin:0 12px;font-size:14px;">{$vo.title}</h3><a href="javascript:allSelect('auth_id\\[\\]','#auth_{$vo.id}')"> 全选</a> | <a href="javascript:InverSelect('auth_id\\[\\]','#auth_{$vo.id}')">反选</a> | <a href="javascript:allUnSelect('auth_id\\[\\]','#auth_{$vo.id}')">全不选</a></td>
+            </tr>
+            <tr>
+              <td id='auth_{$vo.id}'>
+              <foreach name='$vo._child' id='vo'>
+                  <h3 style="clear:both;line-height:26px;">{$vo.title}</h3>
+                <foreach name='$vo._child' id='child'>
+                    <label style="white-space:nowrap;">
+                    <input type="checkbox" name="auth_id[]" class="checkbox" value="{$child.id}" {if condition="in_array($child.id,$user_auth)"}checked="checked"{/if} /> {$child.title}
+                    </label>
+                </foreach>
+                <div class="divider"></div>
+              </foreach>
+              </td>
+            </tr>
+            </foreach>
+            <tr>
+              <td bgcolor="#FFFFCC"><h3 style="display:inline;margin:0 12px;">游戏授权</h3><a href="javascript:allSelect('game_id\\[\\]')"> 全选</a> | <a href="javascript:InverSelect('game_id\\[\\]')">反选</a> | <a href="javascript:allUnSelect('game_id\\[\\]')">全不选</a></td>
+            </tr>
+            <tr>
+              <td>
+              <foreach name='$game_list' id='vo'>
+                <label style="white-space:nowrap;">
+                <input type="checkbox" name="game_id[]" class="checkbox" value="{$vo.id}" {if condition="in_array($vo.id,$user_game)"}checked="checked"{/if} /> {$vo.title}
+                </label>
+              </foreach>
+              </td>
+            </tr>
+          </table>
+          <input type="hidden" name="update" value="1" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

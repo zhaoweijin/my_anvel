@@ -1,0 +1,83 @@
+<div class="pageContent">
+        <div class="pageFormContent nowrap" layoutH="22">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td style="background:#DDD;"><h3>问题历史</h3></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="margin:20px auto;">
+                <foreach name="$history" id="history">
+                <div style="margin-top:18px;"><span><B>操作人：</B>{$history.uname} </span> <span style="margin:0 20px;"><B>时间：</B>{~date('Y-m-d H:i:s',$history.create_time)}</span></div>
+                <div class="divider"></div>
+                <div>{$history.content}</div>
+                </foreach>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="background:#DDD;"><h3>处理问题</h3></td>
+            </tr>
+            <tr>
+              <td>
+
+                <form action="{url a='__ACTION_NAME__' id='$vo.id'}" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+                    <input type="hidden" name="do" value="deal" />
+                    <table cellspacing="1" class="myform" style="margin:20px auto;">
+                        <tr>
+                          <td align="right" width="76">问题状态：</td>
+                          <td>
+                             <select class="combox" name="status">
+                                 {:myselect('未处理:0,已处理:1,已作废:2',$vo.status)}
+                             </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="right">备注说明：</td>
+                          <td><textarea name="content" cols="56" rows="4"></textarea></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></td>
+                        </tr>
+                    </table>
+                </form>
+              
+              </td>
+            </tr>
+            <tr>
+              <td style="background:#DDD;"><h3>转交问题</h3></td>
+            </tr>
+            <tr>
+              <td>
+
+                <form action="{url a='__ACTION_NAME__' id='$vo.id'}" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+                    <input type="hidden" name="do" value="deliver" />
+                    <table cellspacing="1" class="myform" style="margin:20px auto;">
+                        <tr>
+                          <td align="right" width="76">用户：</td>
+                          <td>
+                            <input id="to_name" name="to_name" type="text" readonly="readonly" size="48" />
+                            <a width="560" height="320" class="btnLook" href="{url a='selectUser'}" lookupGroup="">选择用户</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="right">用户组：</td>
+                          <td>
+                            <input name="to_group" type="hidden" />
+                            <input name="to_group_title" type="text" readonly="readonly" size="48" />
+                            <a width="560" height="320" class="btnLook" href="{url a='selectGroup'}" lookupGroup="">选择用户组</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></td>
+                        </tr>
+                    </table>
+                </form>
+              
+              </td>
+            </tr>
+          </table>
+         </div>
+</div>

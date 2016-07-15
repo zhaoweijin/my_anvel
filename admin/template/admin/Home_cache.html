@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div class="pageContent">
+    <form method="post" action="{url a='cache'}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+        <div class="pageFormContent nowrap" layoutH="97">
+            <table cellspacing="1" class="myform">
+              <tr>
+                <td width="20%"><input type="checkbox"  name="cache[0]" class="checkbox fl" checked="checked" /><h3 class="fl">数据缓存</h3></td>
+                <td width="80%"><font color="#FF0000">一般情况下，只需要清空数据缓存则可。</font></td>
+              </tr>
+              <tr>
+                <td width="20%"><input type="checkbox" name="cache[1]" class="checkbox fl" /><h3 class="fl">编译缓存</h3></td>
+                <td width="80%">如果你修改了模板文件或者核心函数库、类库等，则需要清空编译缓存</td>
+              </tr>
+              <tr>
+                <td width="20%"><input type="checkbox" name="cache[2]" class="checkbox fl" /><h3 class="fl">数据库结构缓存</h3></td>
+                <td width="80%">如果你修改了数据库表的结构，则需要清空数据库结构缓存</td>
+              </tr>
+              <tr>
+                <td width="20%"><input type="checkbox" name="cache[3]" class="checkbox fl" /><h3 class="fl">缩略图缓存</h3></td>
+                <td width="80%">缩略图缓存基本上极少需要清空。</td>
+              </tr>
+            </table>
+          <input type="hidden" name="id" value="{$vo.id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

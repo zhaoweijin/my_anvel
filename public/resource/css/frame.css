@@ -1,0 +1,24 @@
+*{margin:0;padding:0;}
+body{background:#EEF2FB;font-size:12px;font-family:Arial, Helvetica, sans-serif}
+img{border:0;}
+li{list-style:none;}
+.fr{float:right;}
+.fl{float:left;}
+.cl{clear:both;}
+/*top*/
+#header{height:64px;overflow:hidden;background:url(../images/header_bg.gif);color:#FFF;position:relative;}
+ #header .toggleMenu{position:absolute;left:400px;top:14px;}
+  #header .toggleMenu a{color:#3F0;font-weight:bold;}
+ #header .logo{width:262px;height:64px;overflow:hidden;background:url(../images/logo.gif);position:absolute;left:0;top:0;}
+ #header .welcome{position:absolute;right:108px;top:14px;}
+  #header .welcome a{color:#F60}
+  #header .welcome a:hover{text-decoration:none;}
+ #header .menu{position:absolute;right:400px;top:14px;}
+  #header .menu a{color:#FF0;font-weight:bold;}
+ #header .btn{position:absolute;right:42px;top:10px;}
+/*left*/
+#menu{width:182px;overflow:hidden;}
+ #menu .first{display:block;height:30px;line-height:30px;background:url(../images/menu_bg.gif);text-align:center;color:#000;text-decoration:none;font-weight:bold;font-size:13px;}
+ #menu .second{display:block;height:26px;line-height:26px;background:url(../images/menu_bg1.gif);padding-left:42px;color:#000;text-decoration:none;}
+ #menu .second:hover{background:url(../images/menu_bg2.gif);}
+ #menu .menu_hide{padding-top:5px;background:url(../images/menu_topline.gif) no-repeat;display:none;}
