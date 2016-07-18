@@ -22,38 +22,33 @@
 
     <div class="package-box">
         <div class="package-box-cont">
-            <img class="ico" src="images_weixin/icon.png" alt="">
+            <img class="ico" id="icon" src="" alt="">
             <div class="text">
-                <h2>萌兵战将端午节媒体独家礼包</h2>
-                <p><span>礼包有效期：</span>2016-08-25</p>
+                <h2 id="title"></h2>
+                <p>礼包有效期：<span id="end_date"></span></p>
             </div>
-            <div class="progress-wrap progress-ring" data-color="#dcdcdc,#9fd04b"></div>
+            <div id="percent" class="progress-wrap progress-ring" data-percent="85" data-color="#dcdcdc,#9fd04b"></div>
         </div>
-        <a href="javascript:void(0);" class="button button__blue j_get_btn">我要领号</a>
+        <a href="javascript:void(0);" event_id="" class="button button__blue j_get_btn">我要领号</a>
     </div>
 
     
     
     <div class="package-cont">
-        <dl>
-            <dt>礼包有效期</dt>
-            <dd>2016.08.18——2016.10.25</dd>
-            <dt>使用平台</dt>
-            <dd>iOS正版、越狱、安卓</dd>
-            <dt>礼包内容</dt>
-            <dd>钻石*50、金币*2W、超级经验药水*5、中型附魔石*2</dd>
-            <dt>兑换方式</dt>
-            <dd>点击头像后，在输入兑换码处兑换礼包</dd>
+        <dl id="content">
+            <!--<dt>礼包有效期</dt>-->
+            <!--<dd>2016.08.18——2016.10.25</dd>-->
+            <!--<dt>使用平台</dt>-->
+            <!--<dd>iOS正版、越狱、安卓</dd>-->
+            <!--<dt>礼包内容</dt>-->
+            <!--<dd>钻石*50、金币*2W、超级经验药水*5、中型附魔石*2</dd>-->
+            <!--<dt>兑换方式</dt>-->
+            <!--<dd>点击头像后，在输入兑换码处兑换礼包</dd>-->
         </dl>
         <div class="button-ground">
-            <a href="" class="button button__red">下载游戏</a>
-            <a href="" class="button button__yel">进入游戏专区</a>
+            <a id="down_url" href="" class="button button__red">下载游戏</a>
+            <a id="zone_url" href="" class="button button__yel">进入游戏专区</a>
         </div>
-       <!-- <p>2016.08.18——2016.10.25</p>
-        <p>iOS正版、越狱、安卓</p>
-        <p>钻石*50、金币*2W、超级经验药水*5、中型附魔石*2</p>
-        <p>点击头像后，在输入兑换码处兑换礼包</p>-->
-
     </div>
 </div>
 
@@ -76,7 +71,7 @@
 <!--礼包码窗口-->
 <div class="win win__code">
     <a href="javascript:void(0);" class="close-btn J_close_btn"></a>
-    <h2><b class="code">1232434ddsdfdfgfd</b></h2>
+    <h2><b id="card" class="code">1232434ddsdfdfgfd</b></h2>
     <p>长按复制</p>
     <p>请在领取后2小时内兑换使用</p>
     <p>否则会进入淘号区被其他玩家领用</p>
@@ -108,12 +103,13 @@
 
 <a href="" class="button__toTop cur">顶部</a>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript" src="js/progress-ring.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript">
     var id = TOOL.getQueryString('id');
-    console.log(id);
+//    console.log(id);
+    TOOL.getEvent(id);
     $(".progress-wrap").loadingRing();
 </script>
 </body>

@@ -4,14 +4,6 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$app->get('admin', function () {
-    require __DIR__.'/../../admin/admin.php';
-});
-$app->post('admin', function () {
-    require __DIR__.'/../../admin/admin.php';
-});
-
-
 $api->version('v1', ['middleware' => 'cors'], function ($api) {
     // All routes in this callback is prefixed by "/api"
     // To change this, go to .env
@@ -28,25 +20,66 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
     //   - DELETE /api/users/{id}
     // $api->resource('users', 'App\Http\Controllers\UsersController');
 
+
+    /*
+     * -------
+     * Index hot list
+     * -------
+     */
     $api->get('games/hot/',[
         'as'=>'showHotGames',
         'uses'=>'App\Api\v1\Controllers\GamesController@showHotGames'
     ]);
+
+
+    /*
+     * -------
+     * Index new list
+     * -------
+     */
     $api->get('games/new/',[
         'as'=>'showNewGames',
         'uses'=>'App\Api\v1\Controllers\GamesController@showNewGames'
     ]);
-    $api->get('game/{id}/',[
-        'as'=>'showGames',
-        'uses'=>'App\Api\v1\Controllers\GamesController@showGames'
-    ]);
+
+    /*
+     * -------
+     * auth passport
+     * -------
+     */
     $api->get('games/auth_passport/',[
         'as'=>'authPassport',
         'uses'=>'App\Api\v1\Controllers\GamesController@authPassport'
     ]);
-    $api->get('{event_id}/event', [
+
+    /*
+     * -------
+     * get event
+     * -------
+     */
+    $api->get('{event_id}/event/', [
+        'as'   => 'getEvent',
+        'uses' => 'App\Api\v1\Controllers\GamesController@getEvent',
+    ]);
+
+    /*
+     * -------
+     * get event data
+     * -------
+     */
+    $api->post('{event_id}/event', [
         'as'   => 'postEvent',
         'uses' => 'App\Api\v1\Controllers\GamesController@postEvent',
+    ]);
+
+    /*
+     * -------
+     * get my package
+     * -------
+     */
+    $api->get('my/package', [
+        'as'   => 'getMyPackage',
+        'uses' => 'App\Api\v1\Controllers\GamesController@getMyPackage',
     ]);
 });
 

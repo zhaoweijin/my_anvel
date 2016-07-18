@@ -7,7 +7,8 @@ use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\DB;
 session_start();
-
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 class GamesController extends Controller
 {
     /**
@@ -45,7 +46,7 @@ class GamesController extends Controller
         $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
         $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events where hot=1 ORDER BY created_at limit ?,?",[$offset,$num]);
-        return response()->json(['result' => $val]);
+        return response()->json(['result' => $val,'status_code'=>1]);
     }
 
     /**
@@ -134,47 +135,78 @@ class GamesController extends Controller
      */
     public function postEvent(Request $request, $event_id){
 
-        $type = $_SESSION['activity_type'];
-        $event_id = (int)$event_id;
+        if(isset($_SESSION['activity_type'])) {
+            $event_id = (int)$event_id;
+            $type = $_SESSION['activity_type'];
+            if (!$type) {
+                $back['errNum'] = -1;
+                $back['errMsg'] = '未登录～';
+                jsonBack($back);
+            }
 
-        if(!$type){
-            $back['errNum']  =  -1;
-            $back['errMsg']  = '未登录～';
-            jsonBack($back);
-        }
+            if ($type == 1) {
+                $visitor = $_SESSION['activity_login_user_id'];
+            } elseif ($type == 2) {
+                $visitor = $_SESSION['activity_open_id']; //weixin
+            }
+            $val = DB::select("SELECT card FROM hoho_tickets where visitor=? and event_id=? limit 1", [$visitor, $event_id]);
 
-        if($type==1){
-            $visitor = $_SESSION['activity_login_user_id'];
-        }elseif($type==2){
-            $visitor = $_SESSION['activity_open_id']; //weixin
-        }
-        $val = DB::select("SELECT card FROM tickets where visitor=? and event_id=? ",[$visitor,$event_id]);
-//        var_dump($val);exit;
-        if(!$val){
-            $val = DB::select("SELECT card FROM tickets where event_id=? and state=0 and is_tao=0 and deleted_at is null ORDER BY id limit 1",[$event_id]);
-            $card = $val[0]->card;
-            echo $card;
-            DB::update("update tickets set visitor=?,state=1,updated_at=? where card = ?", [$visitor,date("Y-m-d h:i:s"),$card]);
-//            $rr = DB::update("update tickets set visitor='$visitor',state=1,updated_at='".date("Y-m-d h:i:s")."' where card = '$card'");
-//            var_dump($rr);exit;
-            return response()->json(['data' => $val]);
+            if (!$val) {
+                $val = DB::select("SELECT card FROM hoho_tickets where event_id=? and state=0 and is_tao=0 and deleted_at is null ORDER BY id limit 1", [$event_id]);
+                if($val){
+                    $card = $val[0]->card;
+                    DB::update("update hoho_tickets set visitor=?,state=1,updated_at=? where card = ?", [$visitor, date("Y-m-d h:i:s"), $card]);
+                    return response()->json(['result' => $val,'status_code'=>1]);
+                }else{
+                    $back['status_code'] = -2;
+                    $back['message'] = '已领取完';
+                    return response()->json(['error' => $back]);
+                }
+            } else {
+                return response()->json(['result' => $val,'status_code'=>2,'message'=>'已领取']);
+            }
         }else{
-            $back['errNum']  =  -1;
-            $back['errMsg']  = '已领取～';
-            jsonBack($back);
+            $back['status_code'] = -1;
+            $back['message'] = '未登陆～';
+            return response()->json(['error' => $back]);
         }
     }
 
     /*
-     * get game
+     * get event
      * @param Request $request
      * @param $event_id
      * @return mixed
      */
-    public function showGames($request,$event_id)
+    public function getEvent(Request $request,$event_id)
     {
         $event_id      =  (int)$event_id;
-        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events where event_id=? limit 1",[$event_id]);
-        return response()->json(['result' => $val]);
+        $val = DB::select("SELECT id,game_id,title,icon,get_num,tao_num,total,description,zone_url,start_date,end_date FROM hoho_events where id=? limit 1",[$event_id]);
+        return response()->json(['result' => $val,'status_code'=>1]);
+    }
+
+    /*
+     * get my package
+     * @param Request $request
+     * @return mixed
+     */
+    public function getMyPackage(Request $request){
+        if(isset($_SESSION['activity_login_user_id'])) {
+
+            $num = (int)$request->get('num', 10);
+            $num = $num<=10?$num:10;
+            $offset = (int)$request->get('offset', 0);
+
+            $visitor = $_SESSION['activity_login_user_id'];
+            $val = DB::select("SELECT a.id,game_id,title,icon,start_date,end_date FROM hoho_events a LEFT JOIN hoho_tickets b ON a.id=b.event_id where b.visitor = ? limit ?,?",[$visitor,$offset,$num]);
+            if($val)
+                return response()->json(['result' => $val,'status_code'=>1]);
+            else
+                return response()->json(['result' => 0,'status_code'=>1]);
+        }else{
+            $back['status_code'] = -1;
+            $back['message'] = '未登陆～';
+            return response()->json(['error' => $back]);
+        }
     }
 }

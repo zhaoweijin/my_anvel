@@ -31,7 +31,7 @@
 		$('.win').fadeOut();
 	}
 
-	function showWinFrame(type){
+	window.showWinFrame = function (type){
 		cretaMask();
 		$(type).show();
 	}
@@ -69,7 +69,8 @@
 	});
 
 	$('.j_get_btn').on('click',function(){
-		showWinFrame('.win__code');
+		TOOL.postEvent($(this).attr('event_id'));
+
 		return false;
 	});
 

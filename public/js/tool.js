@@ -4,7 +4,7 @@
 var TOOL = {
     //passport登录
     site_id:11,
-
+    is_get:0,
     //域名匹配
     domainURI:function(str){
         var durl=/http:\/\/([^\/]+)([\/$])?/i;
@@ -147,7 +147,7 @@ var TOOL = {
             async:false,
             dataType: 'json',
             success: function(data) {
-                if(data){
+                if(data && data.status_code==1){
                     data = data.result;
                     for(var i in data){
                         id = data[i]['id'];
@@ -173,38 +173,31 @@ var TOOL = {
     /**
      * 游戏栏目页 获取搜索数据
      */
-    getGame:function(e) {
+    getEvent:function(event_id) {
         var pre_url = this.domainURI(window.location.href)
-            ,post_url = pre_url + "appgame/index.php?m=api&c=search&a=get_category"
-            ,offset = typeof(arguments[0])=='number'?arguments[0]:0
-            ,str = ''            
-            ,parm = 'device='+gameListDevice+'&inter='+gameListInter+'&order='+gameListOrder+'&offset='+offset;
-
-        //console.log(parm);
-        if(offset-24<0)
-            _offset=0;
-        else
-            _offset=offset-24;
-
+            ,post_url = pre_url + 'api/'+ event_id + "/event";
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: post_url,
-            data:parm,
-            async:true,
+            async:false,
             dataType: 'json',
             success: function(data) {
-                if(data && data.status==1){
-                    host = data.host;
+                if(data && data.status_code==1){
                     data = data.result;
-                    for(i in data){
-                        data[i]['jumpUrl']=data[i]['jumpUrl']?data[i]['jumpUrl']:host+'game/'+data[i]['game_id']+'.html';
-                        url = data[i]['jumpUrl'];
-                        name = data[i]['game_name_cn']?data[i]['game_name_cn']:data[i]['game_name_en'];
-                        str += '<li><a href="'+url+'" title="'+name+'"><span><img src="'+pre_url+data[i]['icon']+'"></span><b>'+name+'</b><p>'+data[i]['types']+'</p></a></li>';
-                    }
 
-                    str += "<div class=\"Pagination\"><a href=\"javascript:;\" onclick=\"TOOL.getGame(0)\" class=\"homePage\">首页</a><a href=\"javascript:;\" onclick=\"TOOL.getGame("+_offset+")\" class=\"PagePrev\">上一页</a><div class=\"pagesnum\"></div><a href=\"javascript:;\" onclick=\"TOOL.getGame("+(offset+24)+")\" class=\"PageNext\">下一页</a>";
-                    $('.iosGameUl').html(str);
+                    var percent = parseInt(data[0]['get_num']/data[0]['total']*100,10),
+                        end_date = data[0]['end_date'].substr(0,10)
+                        down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
+                    $('#title').html(data[0]['title']);
+                    $('#icon').attr('src',data[0]['icon']);
+                    $('#end_date').html(end_date);
+                    $('#percent').attr('data-percent',percent);
+                    $('#down_url').attr('href',down_url);
+                    $('#content').html(data[0]['description']);
+                    $('.j_get_btn').attr('event_id',data[0]['id']);
+                    if(data[0]['zone_url'])
+                        $('#zone_url').attr('href',data[0]['zone_url']);
+
                 }
             },
             error: function() {
@@ -212,6 +205,66 @@ var TOOL = {
                 return false;
             }
         });
+    },
+
+
+
+    /**
+     * 游戏栏目页 获取搜索数据
+     */
+    postEvent:function(event_id) {
+        var pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + 'api/'+ event_id + "/event";
+
+        _that = this;
+
+        if (!this.isSys.mobile) {
+            alert('请用手机浏览器或微信端访问');
+            history.back();
+        }
+
+
+        if(_that.is_get==0) {
+            $.ajax({
+                type: "POST",
+                url: post_url,
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data && typeof(data.result) != "undefined") {
+                        data = data.result;
+                        $('.j_get_btn').on('click', function () {
+                            $('#card').html(data[0]['card']);
+                            showWinFrame('.win__code');
+                            _that.is_get++;
+                            return false;
+                        });
+                    } else if (typeof(data.error) != "undefined") {
+
+                        if(data.error.status_code==-2){
+                            alert('已领取完');
+                            return false;
+                        }
+
+                        if(data.error.status_code==-1){
+                            alert('请先登陆');
+                            history.back();
+                            return false;
+                        }
+
+                        if (this.isSys.weixin) {
+                            showWinFrame('.win__share');
+                        }
+                    }
+                },
+                error: function () {
+                    console.log('网络故障，验证失败！');
+                    return false;
+                }
+            });
+        }else{
+            showWinFrame('.win__code');
+        }
     },
 
     setCookie  : function(cookieName, cookieValue, seconds) {
@@ -232,5 +285,27 @@ var TOOL = {
         }else{
             return null;
         }
-    }
+    },
+
+    /**
+     *系统判断
+     */
+    isSys:function(){
+        var u = navigator.userAgent, app = navigator.appVersion,u_lower=u.toLowerCase();
+        return {         //移动终端浏览器版本信息
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+            mobile: u.indexOf('Mobile')> -1 || u.indexOf('Android')> -1 || u.indexOf('Silk/')> -1 || u.indexOf('Kindle')> -1 || u.indexOf('BlackBerry')> -1 || u.indexOf('Opera Mini')> -1 || u.indexOf('Opera Mobi')> -1, //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            iPod: u.indexOf('iPod') > -1, //是否iPod
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            windowsPhone: !!u.match(/Windows\sPhone.*/),
+            weixin: u_lower.match(/MicroMessenger/i)=="micromessenger"
+        };
+    }()
 }
