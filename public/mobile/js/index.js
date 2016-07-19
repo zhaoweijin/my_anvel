@@ -68,9 +68,14 @@
 	  return false;
 	});
 
-	$('.j_get_btn').on('click',function(){
+	$('#get1').on('click',function(){
 		TOOL.postEvent($(this).attr('event_id'));
 
+		return false;
+	});
+
+	$('#get3').on('click',function(){
+		showWinFrame('.win__code');
 		return false;
 	});
 
@@ -97,19 +102,7 @@
 
 	});
 
-	var _pathname = location.pathname.match(/\w+.html/);
-	var return_url ='http://192.168.200.196:8060/mobile/';
 
-	if(_pathname){
-		return_url ='http://192.168.200.196:8060/mobile/' + _pathname; //跳转地址
-	}
-	var cmd = {
-		return_url     : return_url,                   // 活动地址
-		login_name_tmp :  window.login_name_tmp||'',        // 获取的用户名
-		type           : 'session'
-	}
-	TOOL.chkLoginStatus(cmd);
-	// TOOL.loginOut(cmd);
 	
 
 });

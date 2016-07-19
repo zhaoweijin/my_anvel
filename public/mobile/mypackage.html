@@ -12,47 +12,74 @@
     <meta itemprop="image" content="">
     <title>我的礼包</title>
     <link rel="stylesheet" href="css/index.css?v=1.0.0"/>
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        .scroller {
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            width: 100%;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+        .main{
+            height: 100%;
+        }
+        .cont{
+            box-sizing: border-box;
+            height: 100%;
+            padding: 0 10px 50%;
+        }
+        .wrapper{
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+        .scroller{
+            margin-bottom: 100px;
+        }
+        .list__ul{
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <!--<img src="images_v1/share-img.png" style="position: absolute;left: -9999px;opacity: 0;"/>-->
 <!--<img src="images_weixin/top.png" style="display: block;" alt="">-->
 <div class="main">
     <a href="javascript:history.back();" class="button__back">领取更多礼包</a>
-    <div class="cont">
-         <ul class="list__ul package__ul">
-             <li>
-                 <img class="ico" src="images_weixin/icon.png" alt="">
-                 <div class="text">
-                     <h2>萌兵战将最新礼包</h2>
-                     <p><span>礼包有效期：</span>2016-08-25</p>
-                     <p class="code-text"><span>长按制礼包码复：</span><b class="code-id">232434ddsdfdfgfd</b></p>
-                 </div>
-             </li>
-             <li>
-                 <img class="ico" src="images_weixin/icon.png" alt="">
-                 <div class="text">
-                     <h2>萌兵战将最新礼包</h2>
-                     <p><span>礼包有效期：</span>2016-08-25</p>
-                     <p class="code-text"><span>长按制礼包码复：</span><b class="code-id">232434ddsdfdfgfd</b></p>
-                 </div>
-             </li>
-             <li>
-                 <img class="ico" src="images_weixin/icon.png" alt="">
-                 <div class="text">
-                     <h2>萌兵战将最新礼包</h2>
-                     <p><span>礼包有效期：</span>2016-08-25</p>
-                     <p class="code-text"><span>长按制礼包码复：</span><b class="code-id">232434ddsdfdfgfd</b></p>
-                 </div>
-             </li>
-         </ul>
-         <p class="update-tips">暂无更多礼包了</p>
+    <div id="my_pack" class="cont">
+        <div id="wrapper" class="wrapper">
+            <div class="scroller">
+                 <ul id="ListView" class="list__ul package__ul">
+
+                 </ul>
+                 <p id="uTips" class="update-tips">暂无更多礼包了</p>
+            </div>
+        </div>
     </div>
 
-    <div class="cont no-package">
+    <div id="my_pack2" style="display: none;" class="cont no-package">
         <img src="images_weixin/face-no.png" alt="">
         <p class="tips">您暂时没有礼包噢！快去领取礼包吧！</p>
         <div class="button__md__wrap">
-            <a href="index.html" class="button__md button__md__home">礼包首页</a>
+            <a href="javascript:history.back();" class="button__md button__md__home">礼包首页</a>
         </div>
     </div>
 
@@ -61,6 +88,66 @@
 
 
 <a href="" class="button__toTop cur">顶部</a>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript" src="js/iscroll-probe.js"></script>
+<script type="text/javascript">
+    $(function(){
+        TOOL.getMyPackage(0);
+        var myScroll
+                ,pullStart
+                ,maxH
+                ,_tipH;
+        myScroll = new IScroll('#wrapper', {
+            mouseWheel: true,
+            click: true,
+            probeType:1
+        });
 
+        var page = 0;
+
+        myScroll.on('scrollStart', function () {
+            maxH = this.maxScrollY;
+        });
+
+        myScroll.on('scroll',function(){
+            if(this.y < maxH - _tipH){
+                pullStart = true;
+                $('#uTips').html('松手更新');
+            }else{
+                $('#uTips').html('上拉查看更多礼包');
+                pullStart = false;
+            }
+            return false;
+        });
+
+        myScroll.on('scrollEnd', function () {
+            if (pullStart) {
+                $('#uTips').html('正在更新...');
+                setTimeout(function(){
+                    page += 10;
+                    pullDownAction (page);
+                },1000);
+            }
+        });
+
+        //初始化绑定iScroll控件
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        /**
+         * 下拉刷新 （自定义实现此方法）
+         * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+         */
+        function pullDownAction (page) {
+            TOOL.getMyPackage(page);
+            setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+                myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+                $('#uTips').html('上拉查看更多礼包');
+                pullStart = false;
+                maxH = myScroll.maxScrollY;
+            }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
+
+        }
+    });
+</script>
 </body>
 </html>

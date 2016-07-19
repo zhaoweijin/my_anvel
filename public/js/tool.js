@@ -120,7 +120,7 @@ var TOOL = {
     },
 
     /**
-     * 游戏栏目页 获取搜索数据
+     * 礼包列表
      */
     getGame:function(e,offset) {
         var tag
@@ -131,10 +131,6 @@ var TOOL = {
             ,percent
             ,str=''
             ,pre_url = this.domainURI(window.location.href);
-
-
-
-
         if(e==2)
             tag = $('#ListView2'),post_url = pre_url + "api/games/new/?offset="+offset;
         else
@@ -171,9 +167,10 @@ var TOOL = {
     },
 
     /**
-     * 游戏栏目页 获取搜索数据
+     * 获取礼包数据
      */
     getEvent:function(event_id) {
+
         var pre_url = this.domainURI(window.location.href)
             ,post_url = pre_url + 'api/'+ event_id + "/event";
         $.ajax({
@@ -184,8 +181,7 @@ var TOOL = {
             success: function(data) {
                 if(data && data.status_code==1){
                     data = data.result;
-
-                    var percent = parseInt(data[0]['get_num']/data[0]['total']*100,10),
+                    var percent = data[0]['total']==0?data[0]['total']:parseInt(data[0]['get_num']/data[0]['total']*100,10),
                         end_date = data[0]['end_date'].substr(0,10)
                         down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
                     $('#title').html(data[0]['title']);
@@ -194,9 +190,26 @@ var TOOL = {
                     $('#percent').attr('data-percent',percent);
                     $('#down_url').attr('href',down_url);
                     $('#content').html(data[0]['description']);
-                    $('.j_get_btn').attr('event_id',data[0]['id']);
+                    // $('.j_get_btn').attr('event_id',data[0]['id']);
                     if(data[0]['zone_url'])
                         $('#zone_url').attr('href',data[0]['zone_url']);
+
+
+
+                    if(data[0]['card']){
+                        $('#card').html(data[0]['card']);
+                        $('#get1').hide();
+                        $('#get3').attr('event_id',data[0]['id']).show();
+                    }else if(data[0]['is_tao']==1){
+                        $('#get1').hide();
+                        $('#get2').attr('event_id',data[0]['id']).show();
+                    }else if(new Date(end_date)<new Date()){
+                        $('#get1').hide();
+                        $('#get4').show();
+                    }else{
+                        $('#get1').attr('event_id',data[0]['id']);
+                    }
+
 
                 }
             },
@@ -210,7 +223,7 @@ var TOOL = {
 
 
     /**
-     * 游戏栏目页 获取搜索数据
+     * 获取礼包卡号
      */
     postEvent:function(event_id) {
         var pre_url = this.domainURI(window.location.href)
@@ -233,12 +246,9 @@ var TOOL = {
                 success: function (data) {
                     if (data && typeof(data.result) != "undefined") {
                         data = data.result;
-                        $('.j_get_btn').on('click', function () {
-                            $('#card').html(data[0]['card']);
-                            showWinFrame('.win__code');
-                            _that.is_get++;
-                            return false;
-                        });
+                        $('#card').html(data[0]['card']);
+                        showWinFrame('.win__code');
+                        _that.is_get++;
                     } else if (typeof(data.error) != "undefined") {
 
                         if(data.error.status_code==-2){
@@ -267,6 +277,112 @@ var TOOL = {
         }
     },
 
+    /**
+     * 我的礼包
+     */
+    getMyPackage:function(offset) {
+        var tag
+            ,id
+            ,icon
+            ,title
+            ,end_date
+            ,card
+            ,str=''
+            ,pre_url = this.domainURI(window.location.href)
+            ,tag = $('#ListView')
+            ,post_url = pre_url + "api/my/package?offset="+offset;
+
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            // data:parm,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data || offset>0) {
+                        for (var i in data) {
+                            id = data[i]['id'];
+                            icon = data[i]['icon'];
+                            title = data[i]['title'];
+                            end_date = data[i]['end_date'].substr(0, 10);
+                            card = data[i]['card'];
+
+                            str += '<li><img class="ico" src="' + icon + '" alt=""><div class="text"><h2>' + title + '</h2><p><span>礼包有效期：</span>' + end_date + '</p><p class="code-text"><span>长按制礼包码复：</span><b class="code-id">' + card + '</b></p></div></li>';
+                        }
+                    }else{
+                        $('#my_pack').hide();
+                        $('#my_pack2').show();
+                    }
+
+                    tag.append(str);
+                }else{
+                    alert('请先登陆');
+                    history.back();
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
+    getSearch:function (offset) {
+        var wd = decodeURIComponent(TOOL.getQueryString('wd'))
+            ,tag
+            ,id
+            ,icon
+            ,title
+            ,end_date
+            ,str=''
+            ,mid
+            ,pre_url = this.domainURI(window.location.href)
+            ,tag = $('#ListView')
+            ,post_url = pre_url + "api/search?wd="+wd+"&offset="+offset;
+        $('#search').val(wd);
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            // data:parm,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data || offset>0) {
+                        for (var i in data) {
+                            id = data[i]['id'];
+                            icon = data[i]['icon'];
+                            title = data[i]['title'];
+                            end_date = data[i]['end_date'].substr(0, 10);
+
+                            if(data[i]['is_tao']){
+                                mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-tao">淘号</a>';
+                            }else if(new Date(end_date)<new Date()){
+                                mid = '<a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
+                            }else{
+                                mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-get">领取</a>';
+                            }
+
+                            str += '<li><img class="ico" src="' + icon + '" alt=""><div class="text"><h2>' + title + '</h2><div class="bar"></div><p><span>礼包有效期：</span>' + end_date + '</p></div>'+mid+'</li>';
+                        }
+                    }else{
+                        $('#my_pack').hide();
+                        $('#my_pack2').show();
+                    }
+                   
+                    tag.append(str);
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
     setCookie  : function(cookieName, cookieValue, seconds) {
         var expires = new Date();
         expires.setTime(expires.getTime() + parseInt(seconds)*1000);
@@ -277,14 +393,16 @@ var TOOL = {
         return new Date().getTime();
     },
 
-    getQueryString:function (name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null){
-            return unescape(r[2]);
-        }else{
-            return null;
+    getQueryString:function (str) {
+        var LocString=String(window.document.location.href);
+        var rs = new RegExp("(^|)"+str+"=([^/&]*)(/&|$)","gi").exec(LocString), tmp;
+
+        if(tmp=rs){
+            return tmp[2];
         }
+
+        // parameter cannot be found
+        return "";
     },
 
     /**

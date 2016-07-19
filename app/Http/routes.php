@@ -81,6 +81,16 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
         'as'   => 'getMyPackage',
         'uses' => 'App\Api\v1\Controllers\GamesController@getMyPackage',
     ]);
+
+    /*
+     * -------
+     * search
+     * -------
+     */
+    $api->get('search', [
+        'as'   => 'search',
+        'uses' => 'App\Api\v1\Controllers\GamesController@search',
+    ]);
 });
 
 //$app->get('{slug:.*}', 'AngularController@serve');

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta name="format-detection" content="telephone=no, email=no"/>
     <meta name="renderer" content="webkit">
@@ -16,59 +16,81 @@
 //        document.documentElement.style.fontSize = (win_width / 750 > 1 ? 1 : win_width / 750) * 100 + 'px';
     </script>
     <link rel="stylesheet" href="css/index.css?v=1.0.0"/>
-
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        .scroller {
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            width: 100%;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+        .main{
+            height: 100%;
+        }
+        .cont{
+            box-sizing: border-box;
+            height: 100%;
+            padding: 0 10px 50%;
+        }
+        .wrapper2{
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+            display: block;
+        }
+        .scroller{
+            margin-bottom: 100px;
+        }
+        .list__ul{
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <!--<img src="images_v1/share-img.png" style="position: absolute;left: -9999px;opacity: 0;"/>-->
-<img src="images_weixin/top.png" style="display: block;" alt="">
+<!--<img src="images_weixin/top.png" style="display: block;" alt="">-->
 <div class="main">
     <div class="wap-banner">
         <a href="" class="button__package">我的礼包</a>
         <div class="search-box">
-            <input type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
+            <input id="search" type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
             <button class="submit-btn">搜索</button>
         </div>
     </div>
     <!--有结果-->
-    <div class="cont">
+    <div id="my_pack" class="cont">
          <p class="search-result-tips">找到<b>4</b>款与“<b>萌兵战将</b>”相关的礼包</p>
-         <ul class="list__ul">
-             <li>
-                 <img class="ico" src="images_weixin/icon.png" alt="">
-                 <div class="text">
-                     <h2>萌兵战将最新礼包</h2>
-                     <div class="bar"></div>
-                     <p><span>礼包有效期：</span>2016-08-25</p>
-                 </div>
-                 <a href="" class="button__rotate button__rotate-get">领取</a>
-             </li>
-             <li>
-                 <img class="ico" src="images_weixin/icon.png" alt="">
-                 <div class="text">
-                     <h2>萌兵战将最新礼包</h2>
-                     <div class="bar"></div>
-                     <p><span>礼包有效期：</span>2016-08-25</p>
-                 </div>
-                 <a href="" class="button__rotate button__rotate-tao">淘号</a>
-             </li>
-             <li>
-                 <img class="ico" src="images_weixin/icon.png" alt="">
-                 <div class="text">
-                     <h2>萌兵战将最新礼包</h2>
-                     <div class="bar"><span></span></div>
-                     <p><span>礼包有效期：</span>2016-08-25</p>
-                 </div>
-                 <a href="" class="button__rotate button__rotate-end">结束</a>
-             </li>
-         </ul>
-
+        <div id="wrapper2" class="wrapper2">
+            <div class="scroller">
+                <ul id="ListView" class="list__ul">
+                 </ul>
+            </div>
+        </div>
         <div class="button__md__wrap" style="margin-top: 10px;">
             <a href="" class="button__md button__md__home">礼包首页</a>
         </div>
     </div>
 
     <!--没结果-->
-    <div class="cont no-package">
+    <div id="my_pack2" style="display: none;" class="cont no-package">
         <img src="images_weixin/face-no.png" alt="">
         <p class="tips">暂时没有相关礼包噢！</p>
 
@@ -81,6 +103,70 @@
 
 
 <a href="" class="button__toTop cur">顶部</a>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript" src="js/iscroll-probe.js"></script>
+<script type="text/javascript">
+    $(function(){
+        TOOL.getSearch(0);
+        var myScroll
+                ,pullStart
+                ,maxH
+                ,_tipH;
+        myScroll = new IScroll('#wrapper2', {
+            mouseWheel: true,
+            click: true,
+            probeType:1
+        });
 
+        var page = 0;
+
+        myScroll.on('scrollStart', function () {
+            maxH = this.maxScrollY;
+        });
+
+        myScroll.on('scroll',function(){
+            if(this.y < maxH - _tipH){
+                pullStart = true;
+                $('#uTips').html('松手更新');
+            }else{
+                $('#uTips').html('上拉查看更多礼包');
+                pullStart = false;
+            }
+            return false;
+        });
+
+        myScroll.on('scrollEnd', function () {
+            if (pullStart) {
+                $('#uTips').html('正在更新...');
+                setTimeout(function(){
+                    page += 10;
+                    pullDownAction (page);
+                },1000);
+            }
+        });
+
+        //初始化绑定iScroll控件
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        /**
+         * 下拉刷新 （自定义实现此方法）
+         * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+         */
+        function pullDownAction (page) {
+            TOOL.getSearch(page);
+            setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+                myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+                $('#uTips').html('上拉查看更多礼包');
+                pullStart = false;
+                maxH = myScroll.maxScrollY;
+            }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
+
+        }
+    });
+
+
+//    $('#search').val(decodeURIComponent(TOOL.getQueryString('wd')));
+//    console.log(decodeURIComponent(TOOL.getQueryString('wd')));
+</script>
 </body>
 </html>

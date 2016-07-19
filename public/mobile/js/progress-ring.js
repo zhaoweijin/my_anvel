@@ -4,7 +4,7 @@
         var defaultOpt = {
             trackColor: '#f0f0f0',
             progressColor: '#6ec84e',
-            percent: 75,
+            percent: 0,
             duration: 1500
         }; // 默认选项
         $(this).each(function () {
@@ -21,6 +21,7 @@
                 trackColor = defaultOpt.trackColor;
                 progressColor = defaultOpt.progressColor;
             }
+
             if (!percent)
                 percent = defaultOpt.percent;
             if (!duration)

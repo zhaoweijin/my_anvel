@@ -82,7 +82,6 @@ class GamesController extends Controller
                 $username      =  $request->get('username');
                 $warning     =  $request->get('warning');
 
-
                 $data=array(
                     'avatar'    =>  $avatar,
                     'email'     =>  $email,
@@ -97,6 +96,8 @@ class GamesController extends Controller
                 $sign_g = apiSign($data,env('SITE_SECRET'));  //根据信息生成sign签名
 
                 if($sign != $sign_g){
+                    unset($_SESSION);
+                    session_destroy();   //注销session
                     $back['errNum']  =  -1;
                     $back['errMsg']  = '网络异常～';
                     return response()->json($back);
@@ -181,7 +182,18 @@ class GamesController extends Controller
     public function getEvent(Request $request,$event_id)
     {
         $event_id      =  (int)$event_id;
-        $val = DB::select("SELECT id,game_id,title,icon,get_num,tao_num,total,description,zone_url,start_date,end_date FROM hoho_events where id=? limit 1",[$event_id]);
+        $card = '';
+        if(isset($_SESSION['activity_login_user_id'])) {
+            $visitor = $_SESSION['activity_login_user_id'];
+            $val = DB::select("SELECT card FROM hoho_tickets where event_id=? and visitor=? limit 1",[$event_id,$visitor]);
+            if($val)
+                $card = $val[0]->card;
+        }
+
+
+        $val = DB::select("SELECT id,game_id,title,icon,get_num,tao_num,total,description,zone_url,is_tao,start_date,end_date FROM hoho_events where id=? limit 1",[$event_id]);
+
+        $val[0]->card = $card;
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
@@ -191,6 +203,7 @@ class GamesController extends Controller
      * @return mixed
      */
     public function getMyPackage(Request $request){
+
         if(isset($_SESSION['activity_login_user_id'])) {
 
             $num = (int)$request->get('num', 10);
@@ -198,7 +211,7 @@ class GamesController extends Controller
             $offset = (int)$request->get('offset', 0);
 
             $visitor = $_SESSION['activity_login_user_id'];
-            $val = DB::select("SELECT a.id,game_id,title,icon,start_date,end_date FROM hoho_events a LEFT JOIN hoho_tickets b ON a.id=b.event_id where b.visitor = ? limit ?,?",[$visitor,$offset,$num]);
+            $val = DB::select("SELECT a.id,game_id,title,icon,start_date,end_date,b.card FROM hoho_events a LEFT JOIN hoho_tickets b ON a.id=b.event_id where b.visitor = ? limit ?,?",[$visitor,$offset,$num]);
             if($val)
                 return response()->json(['result' => $val,'status_code'=>1]);
             else
@@ -207,6 +220,27 @@ class GamesController extends Controller
             $back['status_code'] = -1;
             $back['message'] = '未登陆～';
             return response()->json(['error' => $back]);
+        }
+    }
+
+    /*
+     * search
+     * @param Request $request
+     * @return mixed
+     */
+    public function search(Request $request){
+        $num = (int)$request->get('num', 10);
+        $num = $num<=10?$num:10;
+        $offset = (int)$request->get('offset', 0);
+        $wd = checkData($request->get('wd'));
+
+        $wd = '%'.$wd.'%';
+        if($wd){
+            $val = DB::select("SELECT id,game_id,title,icon,is_tao,end_date FROM hoho_events where title like ? limit ?,?",[$wd,$offset,$num]);
+            if($val)
+                return response()->json(['result' => $val,'status_code'=>1]);
+            else
+                return response()->json(['result' => 0,'status_code'=>1]);
         }
     }
 }
