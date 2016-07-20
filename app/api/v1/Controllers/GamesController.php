@@ -128,7 +128,10 @@ class GamesController extends Controller
                 }
                 $_SESSION['activity_login_user_id']     =  $user_id;      //用户id
                 $_SESSION['activity_type']     =  2;      //type 1.passport 2.weixin
-
+                $back['errNum']  = 1;
+                $back['errMsg']  = $token_t;
+                jsonBack($back);
+                break;
             case 'logout':     //注销
 
                 unset($_SESSION);

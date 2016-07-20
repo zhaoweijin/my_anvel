@@ -3,7 +3,7 @@ $_beginTime = microtime(TRUE);
 
 session_start();
 define('APP_NAME','admin');//项目名称
-define('APP_TITLE','维动联运综合后台');
+define('APP_TITLE','礼包中心综合后台');
 define('APP_ROOT',__DIR__.'/../admin/');//项目路径
 define('CACHE_PATH',APP_ROOT.'cache/');//缓存目录
 define('DEBUG_MODE',true);//调试模式，生产环境一定要关闭

@@ -18,7 +18,7 @@ var TOOL = {
     chkLoginStatus : function(cmd) {
         var sso_token = this.getQueryString('sso_token');       //获取sso_token
         this.login_url(cmd);                              //地址拼接
-        this.login_type(cmd, sso_token);                 //登录验证
+        sso_token && this.login_type(cmd, sso_token);                 //登录验证
     },
     // username显示到页面
     login_tmp : function(login_name_tmp) {
@@ -119,20 +119,19 @@ var TOOL = {
         }
     },
 
-    check_weixin : function(open_id) {
-        var chk_token_url = 'http://activity.appgame.com/activity/weixin/rwt_action.php?act=isFocus&openId='+open_id,
+    check_weixin : function(open_id,token) {
+        var chk_token_url = 'http://192.168.200.196:8060/api/games/auth_passport/?act=weixin&open_id=' + open_id + '&token='+token+'&callback=?',
             _this         =  this;
 
-        $.getJSON(chk_token_url + '&callback=?', function(data) {
-            if(data.errNum==1){
-                // 验证并创建session
-                $.getJSON('http://192.168.200.196:8060/api/games/auth_passport/?act=weixin&open_id=' + open_id + '&callback=?', function(data) {
+        // 验证并创建session
+        $.getJSON(chk_token_url, function(data) {
 
-                    if (data.errNum == 1)  cmd.callback ?  cmd.callback(username) : _this.login_tmp(username); // 显示用户名
-
-                });
+            if (data.errNum == 1){
+                $('#regLogTab1').show();
             }
+
         });
+
 
     },
 

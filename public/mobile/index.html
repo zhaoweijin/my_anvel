@@ -63,7 +63,7 @@
 <!--<img src="images_v1/share-img.png" style="position: absolute;left: -9999px;opacity: 0;"/>-->
 <div class="main">
     <div class="wap-banner">
-        <div id="regLogTab0" class="login-box">
+        <div id="regLogTab0" style="display: none;" class="login-box">
             <a href="" class="btn login_url">登 录</a>
             <a href="" class="btn reg_url">注 册</a>
         </div>
@@ -351,13 +351,19 @@
             login_name_tmp :  window.login_name_tmp||'',        // 获取的用户名
             type           : 'session'
         }
-        TOOL.chkLoginStatus(cmd);
-        // TOOL.loginOut(cmd);
 
-        if(TOOL.getQueryString('openId')){
-            $('#regLogTab1').show();
-
+        if(TOOL.isSys.weixin){
+            if(TOOL.getQueryString('openId') && TOOL.getQueryString('token'))
+                TOOL.check_weixin(TOOL.getQueryString('openId'),TOOL.getQueryString('token'));
+            else
+                showWinFrame('.win__share');
+        }else if(TOOL.isSys.mobile){
+            $('#regLogTab0').show();
+            TOOL.chkLoginStatus(cmd);
+        }else{
+            alert('请用手机浏览器或微信打开');
         }
+
 
         $('.submit-btn').click(function () {
             var wd = $('#search').val();
