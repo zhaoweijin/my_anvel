@@ -69,7 +69,7 @@
         </div>
         <a id="regLogTab1" style="display: none;" href="mypackage.html" class="button__package">我的礼包</a>
         <div class="search-box">
-            <input type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
+            <input id="search" type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
             <button class="submit-btn">搜索</button>
         </div>
     </div>
@@ -160,70 +160,12 @@
 
 <script type="text/javascript">
 
-
-
-
-
     /**
      * 初始化iScroll控件
      */
-   /* function loaded() {
-       // pullDownEl = document.getElementById('pullDown');
-        //pullDownOffset = pullDownEl.offsetHeight;
-        pullUpEl = document.getElementById('wrapper');
-        pullUpOffset = pullUpEl.offsetHeight;
-
-        myScroll = new IScroll('wrapper', {
-            scrollbarClass: 'myScrollbar', /!* 重要样式 *!/
-            useTransition: false, /!* 此属性不知用意，本人从true改为false *!/
-            topOffset: pullDownOffset,
-            onRefresh: function () {
-                if (pullDownEl.className.match('loading')) {
-                    pullDownEl.className = '';
-                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
-                } else if (pullUpEl.className.match('loading')) {
-                    pullUpEl.className = '';
-                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
-                }
-            },
-            onScrollMove: function () {
-                if (this.y > 5 && !pullDownEl.className.match('flip')) {
-                    pullDownEl.className = 'flip';
-                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
-                    this.minScrollY = 0;
-                } else if (this.y < 5 && pullDownEl.className.match('flip')) {
-                    pullDownEl.className = '';
-                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
-                    this.minScrollY = -pullDownOffset;
-                } else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-                    pullUpEl.className = 'flip';
-                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
-                    this.maxScrollY = this.maxScrollY;
-                } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
-                    pullUpEl.className = '';
-                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
-                    this.maxScrollY = pullUpOffset;
-                }
-            },
-            onScrollEnd: function () {
-                if (pullDownEl.className.match('flip')) {
-                    pullDownEl.className = 'loading';
-                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
-                    pullDownAction();	// Execute custom function (ajax call?)
-                } else if (pullUpEl.className.match('flip')) {
-                    pullUpEl.className = 'loading';
-                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
-                    pullUpAction();	// Execute custom function (ajax call?)
-                }
-            }
-        });
-
-        setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
-    }*/
-
-
     $(function () {
         TOOL.getGame(1,0);
+        TOOL.getGame(2,0);
         //切换
         $.fn.mstab = function(op){
             var de = {
@@ -264,7 +206,6 @@
             "cont":".switch-cont .wrapper",
             "callback":function(){
                 if(!myScroll2){
-                    console.log('实例化2');
                     List2();
                 }
             }
@@ -283,42 +224,27 @@
 
             TOOL.getGame(1,page);
 
-//            for (i=0; i < 3; i++) {
-//                li = document.createElement('li');
-//                li.innerHTML = '<img class="ico" src="images_weixin/icon.png" alt=""><div class="text"><h2>萌兵战将最新礼包123</h2><div class="bar"><span></span></div><p><span>礼包有效期：</span>2016-08-25</p></div><a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
-//                el.appendChild(li, el.childNodes[0]);
-//            }
-
             setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
                 myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
                 $('#uTips').html('上拉查看更多礼包');
                 pullStart = false;
                 maxH = myScroll.maxScrollY;
-//                console.log('update-this.maxScrollY:',maxH);
-//                render = false;
-//                console.log('refresh-pullStart:',pullStart);
             }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
 
         }
-        function pullDownAction2 () {
+        function pullDownAction2 (page) {
             console.log('pullDownAction-pullStart:',pullStart);
 
             var el, li, i;
             el = document.getElementById('ListView2');
 
-            for (i=0; i < 3; i++) {
-                li = document.createElement('li');
-                li.innerHTML = '<img class="ico" src="images_weixin/icon.png" alt=""><div class="text"><h2>萌兵战将最新礼包345</h2><div class="bar"><span></span></div><p><span>礼包有效期：</span>2016-08-25</p></div><a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
-                el.appendChild(li, el.childNodes[0]);
-            }
+            TOOL.getGame(2,page);
 
             setTimeout(function () {
                 myScroll2.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
                 $('#uTips2').html('上拉查看更多礼包');
                 pullStart = false;
-                maxH = myScroll2.maxScrollY;
-                console.log('update-this.maxScrollY:',maxH);
-                console.log('refresh-pullStart:',pullStart);
+
             }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
 
         }
@@ -326,11 +252,6 @@
             var myScroll,
                 myScroll2,
                 pullStart,
-                pullDownEl,
-                pullDownOffset,
-                pullUpEl,
-                pullUpOffset,
-                generatedCount = 0,
                 maxH,
                 _tipH;
 
@@ -353,7 +274,6 @@
                 if(this.y < maxH - _tipH){
                     pullStart = true;
                     $('#uTips').html('松手更新');
-                    console.log('松手更新');
                 }else{
                     $('#uTips').html('上拉查看更多礼包');
                     pullStart = false;
@@ -379,6 +299,8 @@
                 probeType:1
             });
 
+            var page = 0;
+
             myScroll2.on('scrollStart', function () {
                 maxH = this.maxScrollY;
             });
@@ -387,7 +309,6 @@
                 if(this.y < maxH - _tipH){
                     pullStart = true;
                     $('#uTips2').html('松手更新');
-                    console.log('松手更新');
                 }else{
                     $('#uTips2').html('上拉查看更多礼包');
                     pullStart = false;
@@ -400,7 +321,8 @@
                     console.log('正在更新');
                     $('#uTips2').html('正在更新...');
                     setTimeout(function(){
-                        pullDownAction2 ();
+                        page += 10;
+                        pullDownAction2 (page);
                     },1000);
                 }
             });
@@ -431,6 +353,16 @@
         }
         TOOL.chkLoginStatus(cmd);
         // TOOL.loginOut(cmd);
+
+        if(TOOL.getQueryString('openId')){
+            $('#regLogTab1').show();
+
+        }
+
+        $('.submit-btn').click(function () {
+            var wd = $('#search').val();
+            window.location.href=TOOL.domainURI(window.location.href)+'mobile/search-page.html?wd='+wd;
+        });
 
     });
 

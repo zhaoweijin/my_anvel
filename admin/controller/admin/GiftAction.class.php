@@ -23,7 +23,7 @@ class GiftAction extends AdminAction{
 	}
 
 	public function addGame(){
-		if($_FILES && $_FILES["file"]["type"] == "text/csv"){
+		if($_FILES && ($_FILES["file"]["type"] == "text/csv"||$_FILES["file"]["type"] == "application/vnd.ms-excel")){
 			// $path = $_FILES['file']['tmp_name'];
 
    //          $handle = fopen($path,"r");

@@ -45,7 +45,7 @@ class GamesController extends Controller
         $num = (int)$request->get('num', 10);
         $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
-        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events where hot=1 ORDER BY created_at limit ?,?",[$offset,$num]);
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,is_tao,start_date,end_date FROM hoho_events where hot=1 ORDER BY created_at limit ?,?",[$offset,$num]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
@@ -56,11 +56,10 @@ class GamesController extends Controller
     public function showNewGames(Request $request){
 
         $num = (int)$request->get('num', 10);
+        $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
-
-
-        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,start_date,end_date FROM hoho_events ORDER BY created_at limit ?,?",[$offset,$num]);
-        return response()->json(['result' => $val]);
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,is_tao,start_date,end_date FROM hoho_events ORDER BY start_date desc limit ?,?",[$offset,$num]);
+        return response()->json(['result' => $val,'status_code'=>1]);
     }
 
     /**
@@ -106,6 +105,7 @@ class GamesController extends Controller
                 $_SESSION['activity_login_name']     =  checkData($username);      //用户名
                 $_SESSION['activity_login_user_id']     =  $user_id;      //用户id
                 $_SESSION['activity_type']     =  1;      //type 1.passport 2.weixin
+                $_SESSION['activity_index']     =  'http://'.$_SERVER['HTTP_HOST'].'/mobile/?sso_token='.$sso_token;      //type 1.passport 2.weixin
                 $_SESSION['activity_login_info']     =  $_SERVER['REMOTE_ADDR'].','.$_SERVER["HTTP_USER_AGENT"];   //用户的 IP  浏览器信息
 
                 $back['errNum']  = 1;
@@ -113,6 +113,21 @@ class GamesController extends Controller
 //                return response()->json($back)->setCallback($request->get('callback'));
                 jsonBack($back);
                 break;
+
+            case 'weixin':
+                $user_id      =  checkData($request->get('open_id'));
+                $token      =  $request->get('token');
+                $key = 'renwan19213213221renwan';
+                $token_t = base64_encode(md5($key.$user_id));
+                if($token_t!=$token){
+                    unset($_SESSION);
+                    session_destroy();   //注销session
+                    $back['errNum']  =  -1;
+                    $back['errMsg']  = '网络异常～';
+                    return response()->json($back);
+                }
+                $_SESSION['activity_login_user_id']     =  $user_id;      //用户id
+                $_SESSION['activity_type']     =  2;      //type 1.passport 2.weixin
 
             case 'logout':     //注销
 
@@ -145,11 +160,7 @@ class GamesController extends Controller
                 jsonBack($back);
             }
 
-            if ($type == 1) {
-                $visitor = $_SESSION['activity_login_user_id'];
-            } elseif ($type == 2) {
-                $visitor = $_SESSION['activity_open_id']; //weixin
-            }
+            $visitor = $_SESSION['activity_login_user_id'];
             $val = DB::select("SELECT card FROM hoho_tickets where visitor=? and event_id=? limit 1", [$visitor, $event_id]);
 
             if (!$val) {
@@ -229,6 +240,15 @@ class GamesController extends Controller
      * @return mixed
      */
     public function search(Request $request){
+
+
+        if(isset($_SESSION['activity_index'])) {
+            $url = $_SESSION['activity_index'];
+            $login = 1;
+        }else {
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . '/mobile/';
+            $login = 0;
+        }
         $num = (int)$request->get('num', 10);
         $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
@@ -236,11 +256,11 @@ class GamesController extends Controller
 
         $wd = '%'.$wd.'%';
         if($wd){
-            $val = DB::select("SELECT id,game_id,title,icon,is_tao,end_date FROM hoho_events where title like ? limit ?,?",[$wd,$offset,$num]);
+            $val = DB::select("SELECT id,game_id,title,icon,get_num,total,is_tao,end_date FROM hoho_events where title like ? ORDER BY end_date desc limit ?,? ",[$wd,$offset,$num]);
             if($val)
-                return response()->json(['result' => $val,'status_code'=>1]);
+                return response()->json(['result' => $val,'status_code'=>1,'other'=>array('url'=>$url,'login'=>$login)]);
             else
-                return response()->json(['result' => 0,'status_code'=>1]);
+                return response()->json(['result' => 0,'status_code'=>1,'other'=>array('url'=>$url,'login'=>$login)]);
         }
     }
 }

@@ -48,7 +48,7 @@
         .cont{
             box-sizing: border-box;
             height: 100%;
-            padding: 0 10px 50%;
+            padding: 0 10px 63%;
         }
         .wrapper2{
             position: relative;
@@ -69,15 +69,16 @@
 <!--<img src="images_weixin/top.png" style="display: block;" alt="">-->
 <div class="main">
     <div class="wap-banner">
-        <a href="" class="button__package">我的礼包</a>
+        <a id="regLogTab1" style="display:none;" href="mypackage.html" class="button__package">我的礼包</a>
         <div class="search-box">
             <input id="search" type="text" class="search-text" placeholder="输入游戏名，直接搜索礼包">
             <button class="submit-btn">搜索</button>
         </div>
     </div>
     <!--有结果-->
+
     <div id="my_pack" class="cont">
-         <p class="search-result-tips">找到<b>4</b>款与“<b>萌兵战将</b>”相关的礼包</p>
+         <p class="search-result-tips">找到<b id="num"></b>款与“<b id="title"></b>”相关的礼包</p>
         <div id="wrapper2" class="wrapper2">
             <div class="scroller">
                 <ul id="ListView" class="list__ul">
@@ -85,7 +86,7 @@
             </div>
         </div>
         <div class="button__md__wrap" style="margin-top: 10px;">
-            <a href="" class="button__md button__md__home">礼包首页</a>
+            <a href="javascript:history.back();" class="index_url button__md button__md__home">礼包首页</a>
         </div>
     </div>
 
@@ -95,7 +96,7 @@
         <p class="tips">暂时没有相关礼包噢！</p>
 
         <div class="button__md__wrap">
-            <a href="" class="button__md button__md__home">礼包首页</a>
+            <a href="javascript:history.back();" class="index_url button__md button__md__home">礼包首页</a>
         </div>
     </div>
 
@@ -119,32 +120,32 @@
             probeType:1
         });
 
-        var page = 0;
-
-        myScroll.on('scrollStart', function () {
-            maxH = this.maxScrollY;
-        });
-
-        myScroll.on('scroll',function(){
-            if(this.y < maxH - _tipH){
-                pullStart = true;
-                $('#uTips').html('松手更新');
-            }else{
-                $('#uTips').html('上拉查看更多礼包');
-                pullStart = false;
-            }
-            return false;
-        });
-
-        myScroll.on('scrollEnd', function () {
-            if (pullStart) {
-                $('#uTips').html('正在更新...');
-                setTimeout(function(){
-                    page += 10;
-                    pullDownAction (page);
-                },1000);
-            }
-        });
+//        var page = 0;
+//
+//        myScroll.on('scrollStart', function () {
+//            maxH = this.maxScrollY;
+//        });
+//
+//        myScroll.on('scroll',function(){
+//            if(this.y < maxH - _tipH){
+//                pullStart = true;
+//                $('#uTips').html('松手更新');
+//            }else{
+//                $('#uTips').html('上拉查看更多礼包');
+//                pullStart = false;
+//            }
+//            return false;
+//        });
+//
+//        myScroll.on('scrollEnd', function () {
+//            if (pullStart) {
+//                $('#uTips').html('正在更新...');
+//                setTimeout(function(){
+//                    page += 10;
+//                    pullDownAction (page);
+//                },1000);
+//            }
+//        });
 
         //初始化绑定iScroll控件
         document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
@@ -152,16 +153,21 @@
          * 下拉刷新 （自定义实现此方法）
          * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
          */
-        function pullDownAction (page) {
-            TOOL.getSearch(page);
-            setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-                myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
-                $('#uTips').html('上拉查看更多礼包');
-                pullStart = false;
-                maxH = myScroll.maxScrollY;
-            }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
+//        function pullDownAction (page) {
+//            TOOL.getSearch(page);
+//            setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+//                myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+//                $('#uTips').html('上拉查看更多礼包');
+//                pullStart = false;
+//                maxH = myScroll.maxScrollY;
+//            }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
+//
+//        }
 
-        }
+        $('.submit-btn').click(function () {
+            var wd = $('#search').val();
+            window.location.href=TOOL.domainURI(window.location.href)+'mobile/search-page.html?wd='+wd;
+        });
     });
 
 

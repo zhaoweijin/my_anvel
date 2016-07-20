@@ -119,6 +119,23 @@ var TOOL = {
         }
     },
 
+    check_weixin : function(open_id) {
+        var chk_token_url = 'http://activity.appgame.com/activity/weixin/rwt_action.php?act=isFocus&openId='+open_id,
+            _this         =  this;
+
+        $.getJSON(chk_token_url + '&callback=?', function(data) {
+            if(data.errNum==1){
+                // 验证并创建session
+                $.getJSON('http://192.168.200.196:8060/api/games/auth_passport/?act=weixin&open_id=' + open_id + '&callback=?', function(data) {
+
+                    if (data.errNum == 1)  cmd.callback ?  cmd.callback(username) : _this.login_tmp(username); // 显示用户名
+
+                });
+            }
+        });
+
+    },
+
     /**
      * 礼包列表
      */
@@ -130,6 +147,7 @@ var TOOL = {
             ,end_date
             ,percent
             ,str=''
+            ,mid
             ,pre_url = this.domainURI(window.location.href);
         if(e==2)
             tag = $('#ListView2'),post_url = pre_url + "api/games/new/?offset="+offset;
@@ -153,7 +171,16 @@ var TOOL = {
                         data[i]['total'] = data[i]['total']==0?1000000:data[i]['total'];
                         percent = Math.round(data[i]['get_num']/data[i]['total']*10000)/100.00 +"%";
 
-                        str += '<li><img class="ico" src="'+icon+'" alt=""><div class="text"><h2>'+title+'</h2><div class="bar"><span style="width:'+percent+'"></span></div><p><span>礼包有效期：</span>'+end_date+'</p></div><a href="package-page.html?id='+id+'" class="button__rotate button__blue">领取</a></li>';
+
+                        if(data[i]['is_tao']==1){
+                            mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-tao">淘号</a>';
+                        }else if(new Date(end_date)<new Date()){
+                            mid = '<a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
+                        }else{
+                            mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-get">领取</a>';
+                        }
+
+                        str += '<li><img class="ico" src="'+icon+'" alt=""><div class="text"><h2>'+title+'</h2><div class="bar"><span style="width:'+percent+'"></span></div><p><span>礼包有效期：</span>'+end_date+'</p></div>'+mid+'</li>';
                     }
 
                     tag.append(str);
@@ -257,8 +284,12 @@ var TOOL = {
                         }
 
                         if(data.error.status_code==-1){
-                            alert('请先登陆');
-                            history.back();
+                            if(TOOL.isSys.weixin){
+                                showWinFrame('.win__share');
+                            }else{
+                                alert('请先登陆');
+                                history.back();
+                            }
                             return false;
                         }
 
@@ -338,10 +369,12 @@ var TOOL = {
             ,end_date
             ,str=''
             ,mid
+            ,percent
             ,pre_url = this.domainURI(window.location.href)
             ,tag = $('#ListView')
             ,post_url = pre_url + "api/search?wd="+wd+"&offset="+offset;
         $('#search').val(wd);
+        $('#title').html(wd);
         $.ajax({
             type: "GET",
             url: post_url,
@@ -350,15 +383,20 @@ var TOOL = {
             dataType: 'json',
             success: function(data) {
                 if(data && data.status_code==1){
+                    $('.index_url').attr('href',data.other.url);
+                    data.other.login && $('#regLogTab1').show();
                     data = data.result;
                     if(data || offset>0) {
+                        var num = data.length;
                         for (var i in data) {
                             id = data[i]['id'];
                             icon = data[i]['icon'];
                             title = data[i]['title'];
                             end_date = data[i]['end_date'].substr(0, 10);
+                            data[i]['total'] = data[i]['total']==0?1000000:data[i]['total'];
+                            percent = Math.round(data[i]['get_num']/data[i]['total']*10000)/100.00 +"%";
 
-                            if(data[i]['is_tao']){
+                            if(data[i]['is_tao']==1){
                                 mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-tao">淘号</a>';
                             }else if(new Date(end_date)<new Date()){
                                 mid = '<a href="javascript:void(0);" class="button__rotate button__rotate-end">结束</a>';
@@ -366,13 +404,15 @@ var TOOL = {
                                 mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-get">领取</a>';
                             }
 
-                            str += '<li><img class="ico" src="' + icon + '" alt=""><div class="text"><h2>' + title + '</h2><div class="bar"></div><p><span>礼包有效期：</span>' + end_date + '</p></div>'+mid+'</li>';
+                            str += '<li><img class="ico" src="' + icon + '" alt=""><div class="text"><h2>' + title + '</h2><div class="bar"><span style="width:'+percent+'"></span></div><p><span>礼包有效期：</span>' + end_date + '</p></div>'+mid+'</li>';
                         }
+                        $('#num').html(num);
                     }else{
                         $('#my_pack').hide();
                         $('#my_pack2').show();
                     }
-                   
+
+
                     tag.append(str);
                 }
             },
