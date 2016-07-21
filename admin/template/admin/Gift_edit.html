@@ -8,7 +8,7 @@
             </tr>
             <tr>
               <td align="right">游戏库游戏ID(获取游戏信息)：</td>
-              <td><input id="{$id_pre}_game_id" type="text" name="game_id" size="28" class="required" value="{$vo.game_id}" /></td>
+              <td><input id="{$id_pre}_game_id" type="text" name="game_id" size="28" value="{$vo.game_id}" /></td>
             </tr>
             <tr>
               <td align="right">游戏名：</td>
@@ -20,10 +20,16 @@
             </tr>
             <tr>
               <td align="right">专区地址：</td>
-              <td><input id="{$id_pre}_zone_url" type="text" name="zone_url" size="28" class="required" value="{$vo.zone_url}" /></td>
-            </tr>            
+              <td><input id="{$id_pre}_zone_url" type="text" name="zone_url" size="28" value="{$vo.zone_url}" /></td>
+            </tr>
             <tr>
-              <td align="right">礼包简介：</td>
+              <td align="right">礼包内容：</td>
+              <td>
+                  <textarea name="content" cols="60" rows="5">{$vo.content}</textarea>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">使用说明：</td>
               <td>
                 <script type="text/plain" id="{$ueditor_id}" name="description" style="width:99%;" class="ueditor">{$vo.description}</script>
                 <script type="text/javascript">
@@ -41,11 +47,19 @@
               </td>
             </tr>
             <tr>
-              <td align="right">类 型：</td>
+              <td align="right">发码平台：</td>
               <td>
                 <select class="combox" name="type">
-                 {:myselect('微信:1,wap:0',$vo.type)}
+                 {:myselect('微信:1,wap:2,通用:3',$vo.type)}
                 </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">礼包适用平台：</td>
+              <td>
+                  <select class="combox" name="device">
+                      {:myselect('ios:1,android:2,通用:3',$vo.device)}
+                  </select>
               </td>
             </tr>
             <tr>
@@ -60,7 +74,7 @@
               <td align="right">热 门：</td>
               <td>
                 <select class="combox" name="hot">
-                 {:myselect('启用:1,锁定:0',$vo.hot)}
+                 {:myselect('是:1,否:0',$vo.hot)}
                 </select>
               </td>
             </tr>
@@ -74,11 +88,11 @@
             </tr>
             <tr>
               <td align="right">礼包开始时间：</td>
-              <td><input type="text" name="start_date" size="20" value="{~date('Y-m-d H:i:s')}" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" value="{$vo.start_date}"/><a class="inputDateButton" href="javascript:;">选择日期</a></td>
+              <td><input type="text" name="start_date" size="20"  class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" value="{$vo.start_date}"/><a class="inputDateButton" href="javascript:;">选择日期</a></td>
             </tr>
             <tr>
               <td align="right">礼包结束时间：</td>
-              <td><input type="text" name="end_date" size="20" value="{~date('Y-m-d H:i:s')}" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" value="{$vo.end_date}"/><a class="inputDateButton" href="javascript:;">选择日期</a></td>
+              <td><input type="text" name="end_date" size="20"  class="date" dateFmt="yyyy-MM-dd HH:mm:ss" readonly="true" value="{$vo.end_date}"/><a class="inputDateButton" href="javascript:;">选择日期</a></td>
             </tr>
           </table>
           <input type="hidden" name="id" value="{$vo.id}" />

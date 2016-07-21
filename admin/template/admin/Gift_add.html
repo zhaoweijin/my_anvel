@@ -8,7 +8,7 @@
             </tr>
             <tr>
               <td align="right">游戏库游戏ID(获取游戏信息)：</td>
-              <td><input id="{$id_pre}_game_id" type="text" name="game_id" size="28" class="required" /></td>
+              <td><input id="{$id_pre}_game_id" type="text" name="game_id" size="28" /></td>
             </tr>
             <tr>
               <td align="right">游戏名：</td>
@@ -20,10 +20,16 @@
             </tr>
             <tr>
               <td align="right">专区地址：</td>
-              <td><input id="{$id_pre}_zone_url" type="text" name="zone_url" size="28" class="required" /></td>
-            </tr>            
+              <td><input id="{$id_pre}_zone_url" type="text" name="zone_url" size="28" /></td>
+            </tr>
             <tr>
-              <td align="right">礼包简介：</td>
+              <td align="right">礼包内容：</td>
+              <td>
+                  <textarea name="content" cols="60" rows="5"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">使用说明：</td>
               <td>
                 <script type="text/plain" id="{$ueditor_id}" name="description" style="width:99%;" class="ueditor"></script>
                 <script type="text/javascript">
@@ -41,13 +47,21 @@
               </td>
             </tr>
             <tr>
-              <td align="right">类 型：</td>
+              <td align="right">发码平台：</td>
               <td>
                 <select class="combox" name="type">
-                 {:myselect('微信:1,wap:0')}
+                 {:myselect('微信:1,wap:2,通用:3',3)}
                 </select>
               </td>
             </tr>
+          <tr>
+              <td align="right">礼包适用平台：</td>
+              <td>
+                  <select class="combox" name="device">
+                      {:myselect('ios:1,android:2,通用:3',3)}
+                  </select>
+              </td>
+          </tr>
             <tr>
               <td align="right">推荐位：</td>
               <td>
@@ -60,7 +74,7 @@
               <td align="right">热 门：</td>
               <td>
                 <select class="combox" name="hot">
-                 {:myselect('启用:1,锁定:0')}
+                 {:myselect('是:1,否:0',0)}
                 </select>
               </td>
             </tr>
@@ -68,7 +82,7 @@
               <td align="right">淘 号：</td>
               <td>
                 <select class="combox" name="is_tao">
-                 {:myselect('启用:1,关闭:0')}
+                 {:myselect('启用:1,关闭:0',0)}
                 </select>
               </td>
             </tr>

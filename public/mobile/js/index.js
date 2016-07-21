@@ -70,12 +70,21 @@
 	  return false;
 	});
 
+	//领号
 	$('#get1').on('click',function(){
-		TOOL.postEvent($(this).attr('event_id'));
+		TOOL.postEvent($(this).attr('event_id'),1);
 
 		return false;
 	});
 
+	//淘号
+	$('#get2').on('click',function(){
+		TOOL.postEvent($(this).attr('event_id'),2);
+
+		return false;
+	});
+
+	//已领
 	$('#get3').on('click',function(){
 		showWinFrame('.win__code');
 		return false;

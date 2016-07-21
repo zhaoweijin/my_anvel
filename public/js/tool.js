@@ -88,7 +88,7 @@ var TOOL = {
                         $.each(data, function(key, val) { para += '&' + key + '=' + val; });
 
                         // 验证并创建session
-                        $.getJSON('http://192.168.200.196:8060/api/games/auth_passport/?act=login' + para + '&callback=?', function(data) {
+                        $.getJSON(_this.domainURI(window.location.href)+'api/games/auth_passport/?act=login' + para + '&callback=?', function(data) {
 
                             if (data.errNum == 1)  cmd.callback ?  cmd.callback(username) : _this.login_tmp(username); // 显示用户名
 
@@ -120,12 +120,11 @@ var TOOL = {
     },
 
     check_weixin : function(open_id,token) {
-        var chk_token_url = 'http://192.168.200.196:8060/api/games/auth_passport/?act=weixin&open_id=' + open_id + '&token='+token+'&callback=?',
+        var chk_token_url = this.domainURI(window.location.href)+'api/games/auth_passport/?act=weixin&open_id=' + open_id + '&token='+token+'&callback=?',
             _this         =  this;
 
         // 验证并创建session
         $.getJSON(chk_token_url, function(data) {
-
             if (data.errNum == 1){
                 $('#regLogTab1').show();
             }
@@ -144,6 +143,7 @@ var TOOL = {
             ,icon
             ,title
             ,end_date
+            ,surplus
             ,percent
             ,str=''
             ,mid
@@ -167,8 +167,9 @@ var TOOL = {
                         icon = data[i]['icon'];
                         title = data[i]['title'];
                         end_date = data[i]['end_date'].substr(0,10);
+                        surplus =  parseInt(data[i]['total'])>parseInt(data[i]['get_num'])?parseInt(data[i]['total'])-parseInt(data[i]['get_num']):0;
                         data[i]['total'] = data[i]['total']==0?1000000:data[i]['total'];
-                        percent = Math.round(data[i]['get_num']/data[i]['total']*10000)/100.00 +"%";
+                        percent = parseInt(surplus/data[i]['total']*100,10) +"%";
 
 
                         if(data[i]['is_tao']==1){
@@ -198,6 +199,10 @@ var TOOL = {
     getEvent:function(event_id) {
 
         var pre_url = this.domainURI(window.location.href)
+            ,percent
+            ,surplus
+            ,end_date
+            ,down_url
             ,post_url = pre_url + 'api/'+ event_id + "/event";
         $.ajax({
             type: "GET",
@@ -207,9 +212,11 @@ var TOOL = {
             success: function(data) {
                 if(data && data.status_code==1){
                     data = data.result;
-                    var percent = data[0]['total']==0?data[0]['total']:parseInt(data[0]['get_num']/data[0]['total']*100,10),
-                        end_date = data[0]['end_date'].substr(0,10)
-                        down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
+                    surplus =  parseInt(data[0]['total'])>parseInt(data[0]['get_num'])?parseInt(data[0]['total'])-parseInt(data[0]['get_num']):0;
+                    data[0]['total'] = data[0]['total']==0?1000000:data[0]['total'];
+                    percent = parseInt(surplus/data[0]['total']*100,10),
+                    end_date = data[0]['end_date'].substr(0,10)
+                    down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
                     $('#title').html(data[0]['title']);
                     $('#icon').attr('src',data[0]['icon']);
                     $('#end_date').html(end_date);
@@ -251,9 +258,11 @@ var TOOL = {
     /**
      * 获取礼包卡号
      */
-    postEvent:function(event_id) {
-        var pre_url = this.domainURI(window.location.href)
-            ,post_url = pre_url + 'api/'+ event_id + "/event";
+    postEvent:function(event_id,type) {
+        var pre_url = this.domainURI(window.location.href);
+
+
+        post_url = type==1?pre_url + 'api/'+ event_id + "/event":pre_url + 'api/'+ event_id + "/event/tao";
 
         _that = this;
 
@@ -272,13 +281,18 @@ var TOOL = {
                 success: function (data) {
                     if (data && typeof(data.result) != "undefined") {
                         data = data.result;
-                        $('#card').html(data[0]['card']);
-                        showWinFrame('.win__code');
+                        if(type==1) {
+                            $('#card').html(data[0]['card']);
+                            showWinFrame('.win__code');
+                        }else {
+                            $('#card_tao').html(data['card']);
+                            showWinFrame('.win__tao');
+                        }
                         _that.is_get++;
                     } else if (typeof(data.error) != "undefined") {
 
                         if(data.error.status_code==-2){
-                            alert('已领取完');
+                            alert(data.error.message);
                             return false;
                         }
 
@@ -303,7 +317,8 @@ var TOOL = {
                 }
             });
         }else{
-            showWinFrame('.win__code');
+
+            type==1?showWinFrame('.win__code'):showWinFrame('.win__tao');
         }
     },
 

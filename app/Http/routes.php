@@ -91,6 +91,17 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
         'as'   => 'search',
         'uses' => 'App\Api\v1\Controllers\GamesController@search',
     ]);
+
+    /*
+     * -------
+     * taohao
+     * -------
+     */
+    $api->post('{event_id}/event/tao', [
+        'as'   => 'postTaohaoEvent',
+        'uses' => 'App\Api\v1\Controllers\GamesController@postTaohaoEvent',
+    ]);
+
 });
 
 //$app->get('{slug:.*}', 'AngularController@serve');

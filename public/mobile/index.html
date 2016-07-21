@@ -233,7 +233,6 @@
 
         }
         function pullDownAction2 (page) {
-            console.log('pullDownAction-pullStart:',pullStart);
 
             var el, li, i;
             el = document.getElementById('ListView2');
@@ -266,8 +265,6 @@
 
             myScroll.on('scrollStart', function () {
                 maxH = this.maxScrollY;
-                console.log('this.maxScrollY:',maxH);
-                console.log('scrollStart:',this.y);
             });
 
             myScroll.on('scroll',function(){
@@ -318,7 +315,7 @@
 
             myScroll2.on('scrollEnd', function () {
                 if (pullStart) {
-                    console.log('正在更新');
+
                     $('#uTips2').html('正在更新...');
                     setTimeout(function(){
                         page += 10;
@@ -341,10 +338,10 @@
         });
 
         var _pathname = location.pathname.match(/\w+.html/);
-        var return_url ='http://192.168.200.196:8060/mobile/';
+        var return_url =TOOL.domainURI(window.location.href)+'mobile/';
 
         if(_pathname){
-            return_url ='http://192.168.200.196:8060/mobile/' + _pathname; //跳转地址
+            return_url =TOOL.domainURI(window.location.href)+'mobile/' + _pathname; //跳转地址
         }
         var cmd = {
             return_url     : return_url,                   // 活动地址

@@ -7,8 +7,7 @@ use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\DB;
 session_start();
-ini_set("display_errors", "On");
-error_reporting(E_ALL | E_STRICT);
+
 class GamesController extends Controller
 {
     /**
@@ -156,12 +155,6 @@ class GamesController extends Controller
 
         if(isset($_SESSION['activity_type'])) {
             $event_id = (int)$event_id;
-            $type = $_SESSION['activity_type'];
-            if (!$type) {
-                $back['errNum'] = -1;
-                $back['errMsg'] = '未登录～';
-                jsonBack($back);
-            }
 
             $visitor = $_SESSION['activity_login_user_id'];
             $val = DB::select("SELECT card FROM hoho_tickets where visitor=? and event_id=? limit 1", [$visitor, $event_id]);
@@ -171,6 +164,7 @@ class GamesController extends Controller
                 if($val){
                     $card = $val[0]->card;
                     DB::update("update hoho_tickets set visitor=?,state=1,updated_at=? where card = ?", [$visitor, date("Y-m-d h:i:s"), $card]);
+                    DB::update("update hoho_events set get_num=get_num+1 where id = ?", [$event_id]);
                     return response()->json(['result' => $val,'status_code'=>1]);
                 }else{
                     $back['status_code'] = -2;
@@ -179,6 +173,35 @@ class GamesController extends Controller
                 }
             } else {
                 return response()->json(['result' => $val,'status_code'=>2,'message'=>'已领取']);
+            }
+        }else{
+            $back['status_code'] = -1;
+            $back['message'] = '未登陆～';
+            return response()->json(['error' => $back]);
+        }
+    }
+
+    /**
+     * get event taohao libao
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
+    public function postTaohaoEvent(Request $request, $event_id){
+
+        if(isset($_SESSION['activity_type'])) {
+            $event_id = (int)$event_id;
+
+            $val = DB::select("SELECT card FROM hoho_tickets where event_id=? and visitor!='' limit 100",[(int)$event_id]);
+            DB::update("update hoho_events set tao_num=tao_num+1 where id = ?", [(int)$event_id]);
+
+            if (!$val) {
+                $back['status_code'] = -2;
+                $back['message'] = '该礼包没有淘号码';
+                return response()->json(['error' => $back]);
+            } else {
+                return response()->json(['result' => $val[array_rand($val)],'status_code'=>1]);
             }
         }else{
             $back['status_code'] = -1;
