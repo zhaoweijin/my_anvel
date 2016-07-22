@@ -1,0 +1,74 @@
+<div class="pageContent">
+  <form method="post" action="{url a='export'}" <if condition="!$export">onsubmit="return navTabSearch(this)"</if>>
+  <div class="pageFormContent nowrap" layoutH="22">
+      <table cellspacing="1" class="myform">
+        <tr>
+          <td align="right" style="font-size:15px;height:96px;">规则说明：</td>
+          <td style="font-size:15px;">请填好礼包ID、抽取数量<br />每一行对应一个礼包码<br /><strong><font color=red>注意</font>请谨慎操作,一旦抽取这批礼包码将不用被玩家抽取</strong></td>
+        </tr>
+
+          <tr>
+              <td align="right">礼包ID(获取游戏信息)：</td>
+              <td><input id="{$id_pre}_event_id" type="text" name="event_id" size="28" value="{$event_id}" /></td>
+          </tr>
+          <tr>
+              <td align="right">数量：</td>
+              <td><input type="text" name="num" size="28" value="{$num}" /><input type="hidden" name="export" value="{$export}"/></td>
+          </tr>
+          <tr>
+              <td id="{$id_pre}_event" colspan="2" style="color:#F00;font-weight:bold;">
+                  待定
+              </td>
+          </tr>
+          <if condition="$card">
+          <tr>
+              <td align="right">预览：</td>
+              <td><label>
+                <textarea  cols="68" rows="8"><foreach name="$card">{$val['card'].'&#13;&#10;'}</foreach></textarea>
+              </label></td>
+          </tr>
+          </if>
+        <tr>
+          <td>&nbsp;</td>
+          <td><div class="buttonActive"><div class="buttonContent"><button type="submit"><?php if($export) echo '导出';else echo '提交';?></button></div></div></td>
+        </tr>
+
+        <if condition="$msg">
+        <tr>
+          <td colspan="2" style="color:#F00;font-weight:bold;">
+          <h2 style="font-size:16px;">错误警告</h2>
+          <foreach name="$msg">
+          [{~intval($key+1)}] ： {$val} <br />
+          </foreach>
+          </td>
+          </tr>
+         </if>
+
+      </table>
+  </div>
+  </form>
+</div>
+<script>
+    $(function () {
+        $("#{$id_pre}_event_id").blur(function(){
+            var event_id = $(this).val(),
+                    url = "admin.php?m=Gift&a=getEvent";
+            url += "&event_id="+event_id;
+            $.ajax({ url: url, dataType: "json",  success: function(data){
+
+                if(data.data==-1){
+                    alert('请输入礼包id');
+                }else if(data.data.length>0){
+                    var game = data.data[0].game,
+                            title = data.data[0].title,
+                            get_num = data.data[0].get_num,
+                            total = data.data[0].total;
+                    var str = "游戏:"+game+" 标题:"+title+" 已领取:"+get_num+" 总数:"+total;
+                    $('#{$id_pre}_event').html(str);
+                }else{
+                    alert('数据库没有该礼包');
+                }
+            }});
+        });
+    });
+</script>

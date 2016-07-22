@@ -44,7 +44,12 @@ class GamesController extends Controller
         $num = (int)$request->get('num', 10);
         $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
-        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,is_tao,start_date,end_date FROM hoho_events where hot=1 ORDER BY created_at limit ?,?",[$offset,$num]);
+        $type = (int)$request->get('type', 0);
+        if($type)
+            $where = "hot=1 and (type=$type or type=3)";
+        else
+            $where = "hot=1 and type=3";
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,is_tao,start_date,end_date FROM hoho_events where $where ORDER BY created_at limit ?,?",[$offset,$num]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
@@ -57,7 +62,12 @@ class GamesController extends Controller
         $num = (int)$request->get('num', 10);
         $num = $num<=10?$num:10;
         $offset = (int)$request->get('offset', 0);
-        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,is_tao,start_date,end_date FROM hoho_events ORDER BY start_date desc limit ?,?",[$offset,$num]);
+        $type = (int)$request->get('type', 0);
+        if($type)
+            $where = "type=$type or type=3";
+        else
+            $where = "type=3";
+        $val = DB::select("SELECT id,title,icon,get_num,tao_num,total,is_tao,start_date,end_date FROM hoho_events where $where ORDER BY start_date desc limit ?,?",[$offset,$num]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 

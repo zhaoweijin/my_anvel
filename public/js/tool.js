@@ -153,6 +153,11 @@ var TOOL = {
         else
             tag = $('#ListView'),post_url = pre_url + "api/games/hot/?offset="+offset;
 
+        if(this.isSys.weixin)
+            post_url += post_url+'&type=1';
+        else if(this.isSys.mobile)
+            post_url += post_url+'&type=2';
+
         $.ajax({
             type: "GET",
             url: post_url,
@@ -448,15 +453,22 @@ var TOOL = {
     },
 
     getQueryString:function (str) {
-        var LocString=String(window.document.location.href);
-        var rs = new RegExp("(^|)"+str+"=([^/&]*)(/&|$)","gi").exec(LocString), tmp;
-
-        if(tmp=rs){
-            return tmp[2];
+        // var LocString=String(window.document.location.href);
+        // var rs = new RegExp("(^|)"+str+"=([^/&]*)(/&|$)","gi").exec(LocString), tmp;
+        //
+        // if(tmp=rs){
+        //     return tmp[2];
+        // }
+        //
+        // // parameter cannot be found
+        // return "";
+        var reg = new RegExp("(^|&)" + str + "=([^&]*)(&|$)","i");
+        var result = window.location.search.substr(1).match(reg);
+        if (result!=null) {
+            return result[2];
+        } else {
+            return null;
         }
-
-        // parameter cannot be found
-        return "";
     },
 
     /**

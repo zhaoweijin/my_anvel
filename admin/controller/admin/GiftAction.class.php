@@ -105,5 +105,58 @@ class GiftAction extends AdminAction{
 
         $this->success('删除成功！','refresh');
     }
+
+	public function getEvent(){
+		$event_id = (int)$_GET['event_id'];
+		if(!$event_id) {
+			echo json_encode(array('data' => -1));
+		}else{
+			$where = array('id' => $event_id);
+			$list = $this->db->table('events')->field('title,game,get_num,total')->where($where)->limit(1)->select();
+			echo json_encode(array('data' => $list));
+		}
+	}
+
+    public function export(){
+        if($_POST){
+            $num = (int)$_POST['num'];
+            $event_id = (int)$_POST['event_id'];
+            $where = array(
+                'event_id' => $event_id,
+                'state' => 0
+            );
+            $card = $this->db->table('tickets')->field('card')->where($where)->limit($num)->select();
+            if(!$_POST['export']) {
+                $this->assign('num', $num);
+                $this->assign('card', $card);
+                $this->assign('event_id', $event_id);
+                $this->assign('export', 1);
+                $this->display();
+            }else{
+
+                $str = "";
+
+                foreach ($card as $row){
+                    $card_num = iconv('utf-8','gb2312',$row['card']); //中文转码
+                    $str .= $card_num."\n"; //用引文逗号分开
+                }
+
+                $filename = date('Ymd').'.csv'; //设置文件名
+                $this->export_csv($filename,$str); //导出
+            }
+        }else {
+            $this->display();
+        }
+    }
+
+    protected function export_csv($filename,$data)
+    {
+        header("Content-type:text/csv");
+        header("Content-Disposition:attachment;filename=".$filename);
+        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+        header('Expires:0');
+        header('Pragma:public');
+        echo $data;
+    }
 }//类结束
 ?>

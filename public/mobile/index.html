@@ -350,8 +350,8 @@
         }
 
         if(TOOL.isSys.weixin){
-            if(TOOL.getQueryString('openId') && TOOL.getQueryString('token'))
-                TOOL.check_weixin(TOOL.getQueryString('openId'),TOOL.getQueryString('token'));
+            if(TOOL.getQueryString('open_id') && TOOL.getQueryString('token'))
+                TOOL.check_weixin(TOOL.getQueryString('open_id'),TOOL.getQueryString('token'));
             else
                 showWinFrame('.win__share');
         }else if(TOOL.isSys.mobile){
