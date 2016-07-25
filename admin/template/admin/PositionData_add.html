@@ -1,0 +1,92 @@
+<div class="pageContent">
+    <form method="post" action="{url a='insert'}" class="pageForm required-validate" enctype="multipart/form-data" onsubmit="return iframeCallback(this,navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="58">
+            <if condition="$type==1">
+                  <table cellspacing="1" class="myform">
+                    <tr>
+                      <td align="right">标题：</td>
+                      <td><input id="{$id_pre}_title" type="text" name="title" size="28" class="required" /></td>
+                    </tr>
+                    <tr>
+                      <td align="right">礼包ID(获取礼包信息)：</td>
+                      <td><input id="{$id_pre}_event_id" type="text" name="event_id" size="28" /></td>
+                    </tr>
+                    <tr>
+                      <td align="right">ICON：</td>
+                      <td><input id="{$id_pre}_icon" type="text" name="icon" size="28" class="required" /></td>
+                    </tr>
+                    <tr>
+                      <td align="right">URL：</td>
+                      <td><input id="{$id_pre}_url" type="text" name="url" size="28" class="required" /></td>
+                    </tr>
+                    <tr>
+                      <td align="right">排 序：</td>
+                      <td><input type="text" name="orderid" size="28" class="digits" /></td>
+                    </tr>
+                      <input type="hidden" name="type" value="1" />
+                  </table>
+            <else>
+                <table cellspacing="1" class="myform">
+                    <tr>
+                        <td align="right">标题：</td>
+                        <td><input type="text" name="title" size="28" class="required" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right">缩略图</td>
+                        <td>
+                            <input type="file" name="thumb" size="68" class="required"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">URL：</td>
+                        <td><input type="text" name="url" size="28" class="required" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right">排 序：</td>
+                        <td><input type="text" name="orderid" size="28" class="digits" /></td>
+                    </tr>
+                    <input type="hidden" name="type" value="2" />
+                </table>
+            </if>
+            <input type="hidden" name="position_id" value="{$position_id}" />
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        $("#{$id_pre}_event_id").blur(function(){
+
+            var str = window.location.href;
+            var durl=/http:\/\/([^\/]+)([\/$])?/i;
+            var domain = str.match(durl);
+            if(domain!=null)
+                domain = domain[0];
+
+            var event_id = $(this).val(),
+                    url = "admin.php?m=PositionData&a=getEventData";
+            url += "&event_id="+event_id;
+            $.ajax({ url: url, dataType: "json",  success: function(data){
+
+                if(data.data==-1){
+                    alert('请输入礼包id');
+                }else if(data.data.length>0){
+                    var title = data.data[0].title,
+                            icon = data.data[0].icon,
+                            url = data.data[0].id,
+                            url = domain +'pc/content.html?id='+url;
+                    $('#{$id_pre}_title').val(title);
+                    $('#{$id_pre}_icon').val(icon);
+                    $('#{$id_pre}_url').val(url);
+                }else{
+                    alert('数据库没有该游戏');
+                }
+            }});
+        });
+    });
+</script>

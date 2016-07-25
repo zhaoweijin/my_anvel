@@ -1,0 +1,35 @@
+<div class="pageContent">
+    <form method="post" action="{url a='update'}" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <div class="pageFormContent nowrap" layoutH="58">
+          <table cellspacing="1" class="myform">
+            <tr>
+              <td align="right">推荐位标题：</td>
+              <td><input type="text" name="name" size="28" class="required" value="{$vo.name}" /></td>
+            </tr>
+            <tr>
+              <td align="right">数 量：</td>
+              <td><input type="text" name="maxNum" size="28" class="digits" value="{$vo.maxNum}"/></td>
+            </tr>
+            <tr>
+              <td align="right">类 型：</td>
+              <td>
+                  <select class="combox" name="type">
+                      {:myselect('礼包:1,图文:2',$vo.type)}
+                  </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">排 序：</td>
+              <td><input type="text" name="orderid" size="28" class="digits" value="{$vo.orderid}" /></td>
+            </tr>
+              <input type="hidden" name="id" value="{$vo.id}" />
+          </table>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

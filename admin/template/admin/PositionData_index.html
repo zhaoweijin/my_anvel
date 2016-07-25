@@ -14,9 +14,9 @@ $dialog_height = '520';
       <div class="searchBar">
         <table class="searchContent" style="margin:0 auto;">
             <tr>
-                <td>推荐位名称：</td>
+                <td>推荐数据：</td>
                 <td>
-                   <input type="text" name="search_where[name][like]" size="16" value="{$search_where.name.like}" />
+                   <input type="text" name="search_where[title][like]" size="16" value="{$search_where.title.like}" />
                 </td>
                 <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
             </tr>
@@ -28,9 +28,9 @@ $dialog_height = '520';
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a rel='{__MODULE_NAME__}_add' class="add" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加礼包" href="{url a='add'}" target="dialog"><span>添加</span></a></li>
+            <li><a rel='{__MODULE_NAME__}_add' class="add" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="添加数据" href="{url a='add' type='$type' position_id='$position_id'}" target="dialog"><span>添加</span></a></li>
             <li><a title="确认删除？删除后无法恢复！！" target="selectedTodo" rel="id[]" href="{url a='delete'}" class="delete"><span>删除</span></a></li>
-            <li><a rel='{__MODULE_NAME__}_edit' class="edit" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="编辑礼包" href="<?php echo U(array('a'=>'edit','id'=>'{id}'));?>" target="dialog" warn="请选择一条记录"><span>编辑</span></a></li>
+            <li><a rel='{__MODULE_NAME__}_edit' class="edit" max='{$dialog_max}' width="{$dialog_width}" height="{$dialog_height}" title="编辑数据" href="<?php echo U(array('a'=>'edit','id'=>'{id}','type'=>$type,'position_id'=>$position_id));?>" target="dialog" warn="请选择一条记录"><span>编辑</span></a></li>
         </ul>
     </div>
     <form action="" method="post" id="{$id_pre}_form_list">
@@ -40,7 +40,7 @@ $dialog_height = '520';
                 <th width="40"><input type="checkbox" group="id[]" class="checkboxCtrl" /></th>
                 <th width="68">ID</th>
                 <th width="150">推荐位名称</th>
-                <th width="80">数量</th>
+                <th width="80">标题</th>
                 <th width="80">类型</th>
                 <th width="80">排 序</th>
                 <th width="80">操 作</th>
@@ -51,12 +51,11 @@ $dialog_height = '520';
             <tr target="id" rel="{$vo.id}">
                 <td align="center"><input name="id[]" type="checkbox" value="{$vo.id}" /></td>
                 <td align="center">{$vo.id}</td>
-                <td dataType="required" onclick="editNow({$vo.id},'name','{url a='update'}',this);">{$vo.name}</td>
-                <td dataType="required" onclick="editNow({$vo.id},'maxNum','{url a='update'}',this);">{$vo.maxNum}</td>
+                <td dataType="required">{$ptitle}</td>
+                <td dataType="required" onclick="editNow({$vo.id},'title','{url a='update'}',this);">{$vo.title}</td>
                 <td dataType="required"><?php if($vo.type==1) echo '礼包';else echo '图文';?></td>
                 <td dataType="required" onclick="editNow({$vo.id},'orderid','{url a='update'}',this);">{$vo.orderid}</td>
-                <?php $vo.name = urlencode($vo.name);?>
-                <td align="center" class="action"><a target="navTab" href="{url m='PositionData' position_id='$vo.id' type='$vo.type'}" title="内容修改"><img src="/resource/images/copy.gif" alt="内容修改" width="16" height="16" /></a><include file="Common_action.html" /></td>
+                <td align="center" class="action"><include file="Common_action.html" /></td>
             </tr>
            </foreach>
         </tbody>
