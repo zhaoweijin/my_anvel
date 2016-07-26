@@ -102,6 +102,36 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
         'uses' => 'App\Api\v1\Controllers\GamesController@postTaohaoEvent',
     ]);
 
+    /*
+     * ----------------------------------------------------------------------------------------------------------------
+     * pc
+     * ----------------------------------------------------------------------------------------------------------------
+     */
+
+
+    $api->group(['prefix' => 'pc'], function($api) {
+
+        /*
+         * -------
+         * position
+         * -------
+         */
+        $api->get('{position_id}/pcposition', [
+            'as'   => 'showPosition',
+            'uses' => 'App\Api\v1\Controllers\PcController@showPosition',
+        ]);
+
+        /*
+         * -------
+         * pc index libao
+         * -------
+         */
+        $api->get('pcevents', [
+            'as'   => 'showEvents',
+            'uses' => 'App\Api\v1\Controllers\PcController@showEvents',
+        ]);
+    });
+
 });
 
 //$app->get('{slug:.*}', 'AngularController@serve');

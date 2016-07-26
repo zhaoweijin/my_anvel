@@ -267,7 +267,7 @@ var TOOL = {
         var pre_url = this.domainURI(window.location.href);
 
 
-        post_url = type==1?pre_url + 'api/'+ event_id + "/event":pre_url + 'api/'+ event_id + "/event/tao";
+        post_url = type==1?pre_url + 'api/pc/'+ event_id + "/event":pre_url + 'api/'+ event_id + "/event/tao";
 
         _that = this;
 
@@ -442,6 +442,120 @@ var TOOL = {
         });
     },
 
+    /**
+     * pc获取
+     */
+    pcGetPosition:function (position_id,type,num) {
+        var id
+            ,icon
+            ,thumb
+            ,title
+            ,device
+            ,url
+            ,str=''
+            ,pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + "api/pc/"+position_id+"/pcposition/?type="+type+"&num="+num;
+
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            // data:parm,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+
+                    if(data)
+                        switch (position_id){
+                            case 1:
+                                str = '<ul>';
+                                for (var i in data) {
+                                    id = data[i]['id'];
+                                    thumb = data[i]['thumb'];
+                                    url = data[i]['url'];
+                                    title = data[i]['title'];
+                                    str += '<li><a href="'+url+'" class="global-link"><em style="background-image:url('+thumb+')"><img src="images/b-700-290.png"></em><i>'+title+'</i></a></li>';
+                                }
+                                str += '</ul>';
+                                $('#slide2').html(str);
+                                break;
+                            case 4:
+                                for (var i in data) {
+                                    id = data[i]['id'];
+                                    icon = data[i]['icon'];
+                                    url = data[i]['url'];
+                                    title = data[i]['title'];
+                                    device = data[i]['device'];
+
+                                    if(device==1)
+                                        var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a>';
+                                    else if(device==2)
+                                        var mobile_type = '<a class="down_android" href="'+url+'" target="_blank"></a>';
+                                    else
+                                        var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a>';
+
+                                    str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png"><p>'+mobile_type+'</p></em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                                }
+                                $('.recommended-list').html(str);
+                                break;
+                        }
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
+    /**
+     * pc获取
+     */
+    pcGetEvent:function (device,num,offset) {
+        var id
+            ,icon
+            ,title
+            ,url
+            ,str=''
+            ,hot
+            ,pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + "api/pc/pcevents/?device="+device+"&num="+num+"&offset="+offset;
+
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data)
+                        for (var i in data) {
+                            id = data[i]['id'];
+                            icon = data[i]['icon'];
+                            url = pre_url+'/pc/content.html?id='+id;
+                            title = data[i]['title'];
+                            hot = data[i]['hot'];
+
+                            if(hot==1)
+                                str += '<li class="ios hot">';
+                            else
+                                str += '<li>';
+
+                            str += '<em style="background-image:url('+icon+')"><img src="images/b-82-82.png"></em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                        }
+
+                        $('#all .newest-list').html(str);
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
     setCookie  : function(cookieName, cookieValue, seconds) {
         var expires = new Date();
         expires.setTime(expires.getTime() + parseInt(seconds)*1000);
@@ -470,6 +584,7 @@ var TOOL = {
             return null;
         }
     },
+
 
     /**
      *系统判断

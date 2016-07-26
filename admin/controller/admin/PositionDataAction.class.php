@@ -26,7 +26,7 @@ class PositionDataAction extends AdminAction{
 			echo json_encode(array('data' => -1));
 		}else{
 			$where = array('id' => $event_id);
-			$list = $this->db->table('events')->field('id,title,icon')->where($where)->limit(1)->select();
+			$list = $this->db->table('events')->field('id,title,icon,device')->where($where)->limit(1)->select();
 			echo json_encode(array('data' => $list));
 		}
 	}
@@ -40,6 +40,9 @@ class PositionDataAction extends AdminAction{
 		$data['position_id'] = $_POST['position_id'];
 		$data['title'] = $_POST['title'];
 		$data['url'] = $_POST['url'];
+		$data['type'] = $_POST['type'];
+		$data['icon'] = $_POST['icon'];
+		$data['device'] = $_POST['device'];
 		$data['orderid'] = $_POST['orderid'];
 		$data['event_id'] = $_POST['event_id'];
 		$data['created_at'] = date("Y-m-d h:i:s");
@@ -114,7 +117,7 @@ class PositionDataAction extends AdminAction{
 					if (move_uploaded_file($_FILES["$file"]['tmp_name'], $upload)) {
 						$upload = strrchr($upload, 'upload');
 //						return 'http://' . $_SERVER['SERVER_NAME'] . '/' . $upload;
-						return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $upload;
+						return 'http://' . $_SERVER['HTTP_HOST'] . '/resource/' . $upload;
 					} else {
 						$result['error'] = '上传失败';
 						return $result;

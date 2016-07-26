@@ -16,6 +16,10 @@
                       <td><input id="{$id_pre}_icon" type="text" name="icon" size="28" class="required" /></td>
                     </tr>
                     <tr>
+                      <td align="right">礼包适用平台：</td>
+                      <td id="{$id_pre}_device2"></td>
+                    </tr>
+                    <tr>
                       <td align="right">URL：</td>
                       <td><input id="{$id_pre}_url" type="text" name="url" size="28" class="required" /></td>
                     </tr>
@@ -23,6 +27,7 @@
                       <td align="right">排 序：</td>
                       <td><input type="text" name="orderid" size="28" class="digits" /></td>
                     </tr>
+                      <input id="{$id_pre}_device" type="hidden" name="device" />
                       <input type="hidden" name="type" value="1" />
                   </table>
             <else>
@@ -78,11 +83,23 @@
                 }else if(data.data.length>0){
                     var title = data.data[0].title,
                             icon = data.data[0].icon,
+                            device = data.data[0].device,
+                            show,
                             url = data.data[0].id,
                             url = domain +'pc/content.html?id='+url;
+
+                    if(device==1)
+                        show='ios';
+                    else if(device==2)
+                        show='android';
+                    else
+                        show='通用';
+
                     $('#{$id_pre}_title').val(title);
                     $('#{$id_pre}_icon').val(icon);
                     $('#{$id_pre}_url').val(url);
+                    $('#{$id_pre}_device').val(device);
+                    $('#{$id_pre}_device2').html(show);
                 }else{
                     alert('数据库没有该游戏');
                 }
