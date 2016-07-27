@@ -130,6 +130,36 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
             'as'   => 'showEvents',
             'uses' => 'App\Api\v1\Controllers\PcController@showEvents',
         ]);
+
+        /*
+         * -------
+         * pc random libao
+         * -------
+         */
+        $api->get('pcrevents', [
+            'as'   => 'showRandomEvents',
+            'uses' => 'App\Api\v1\Controllers\PcController@showRandomEvents',
+        ]);
+
+        /*
+         * -------
+         * pc taohao paihang
+         * -------
+         */
+        $api->get('pctaohaos', [
+            'as'   => 'showTaohaos',
+            'uses' => 'App\Api\v1\Controllers\PcController@showTaohaos',
+        ]);
+
+        /*
+         * -------
+         * pc taohao paihang
+         * -------
+         */
+        $api->get('{event_id}/eventinfo', [
+            'as'   => 'showEventinfo',
+            'uses' => 'App\Api\v1\Controllers\PcController@showEventinfo',
+        ]);
     });
 
 });

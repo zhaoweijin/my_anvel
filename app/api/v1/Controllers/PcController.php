@@ -66,10 +66,64 @@ class PcController extends Controller
         $offset = (int)$request->get('offset', 0);
         $device = (int)$request->get('device', 0);
 
-        $where = "device=?";
+        if($device==3)
+            $where = "device=? or 1";
+        else
+            $where = "device=?";
         $val = DB::select("SELECT id,title,icon,hot FROM hoho_events where $where ORDER BY hot DESC,start_date DESC limit ?,?",[$device,$offset,$num]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
+
+    /**
+     * get index event data
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function showRandomEvents(Request $request){
+        $num = (int)$request->get('num', 8);
+        $num = $num<=8?$num:8;
+        $data = date('Y-m-d H:i:s');
+        $val = DB::select("SELECT id,title,icon,game FROM hoho_events where end_date<? OR is_forever = 1 ORDER BY end_date DESC limit 100",[$data]);
+        shuffle($val);
+        $val = array_slice($val,0,$num);
+        return response()->json(['result' => $val,'status_code'=>1]);
+    }
+
+    /**
+     * get index taohao data
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function showTaohaos(Request $request){
+        $data = date('Y-m-d H:i:s');
+        $val = DB::select("SELECT id,title FROM hoho_events where end_date<? OR is_forever = 1 ORDER BY tao_num DESC limit 7",[$data]);
+        return response()->json(['result' => $val,'status_code'=>1]);
+    }
+
+    /**
+     * get event info
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
+    public function showEventinfo(Request $request,$event_id){
+        $val = DB::select("SELECT id,title,icon,game,game_id,get_num,total,device,content,description,zone_url,start_date,end_date,is_tao,is_forever FROM hoho_events where id=? OR is_forever = 1 ORDER BY tao_num DESC limit 1",[$event_id]);
+
+        if($val){
+            $game = $val[0]->game;
+            $game = '%'.$game.'%';
+            $val2 = DB::select("SELECT id,title,icon FROM hoho_events where game LIKE ? ORDER BY tao_num DESC limit 5",[$game]);
+            if($val2)
+                $val[0]->other = $val2;
+        }
+
+        return response()->json(['result' => $val,'status_code'=>1]);
+    }
+
+
 
 
 

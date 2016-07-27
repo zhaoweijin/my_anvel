@@ -445,7 +445,7 @@ var TOOL = {
     /**
      * pc获取
      */
-    pcGetPosition:function (position_id,type,num) {
+    pcGetPosition:function (position_id,type,num,async) {
         var id
             ,icon
             ,thumb
@@ -460,7 +460,7 @@ var TOOL = {
             type: "GET",
             url: post_url,
             // data:parm,
-            async:false,
+            async:async,
             dataType: 'json',
             success: function(data) {
                 if(data && data.status_code==1){
@@ -499,6 +499,14 @@ var TOOL = {
                                 }
                                 $('.recommended-list').html(str);
                                 break;
+                            case 5:
+                                id = data[0]['id'];
+                                thumb = data[0]['thumb'];
+                                url = data[0]['url'];
+                                title = data[0]['title'];
+                                str += '<a href="'+url+'" title="'+title+'"><em style=" background-image:url('+thumb+')"><img src="images/b-280-120.png"></em></a>';
+                                $('.cleck-link').html(str);
+                                break;
                         }
                 }
             },
@@ -519,9 +527,71 @@ var TOOL = {
             ,url
             ,str=''
             ,hot
+            ,_offset = 0
+            ,__offset = 0
             ,pre_url = this.domainURI(window.location.href)
             ,post_url = pre_url + "api/pc/pcevents/?device="+device+"&num="+num+"&offset="+offset;
 
+        if(offset-15<0)
+            _offset=0;
+        else
+            _offset=offset-15;
+
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            async:true,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data) {
+                        str += '<ul class="newest-list clear">';
+                        for (var i in data) {
+                            id = data[i]['id'];
+                            icon = data[i]['icon'];
+                            url = pre_url + '/pc/content.html?id=' + id;
+                            title = data[i]['title'];
+                            hot = data[i]['hot'];
+
+                            if (hot == 1)
+                                str += '<li class="ios hot">';
+                            else
+                                str += '<li>';
+
+                            str += '<em style="background-image:url(' + icon + ')"><img src="images/b-82-82.png"></em><i>' + title + '</i><a class="libao_receive" href="' + url + '" target="_blank">领 取</a></li>';
+                        }
+                        __offset = offset+15;
+                        str += '</ul><div class="page_box_t2"><a class="btn-page prev-page" datapage="" href="javascript:TOOL.pcGetEvent(3,15,'+_offset+');">&lt;</a><a class="cur" href="javascript:TOOL.pcGetEvent(3,15,0);">首页</a><a href="javascript:TOOL.pcGetEvent(3,15,'+_offset+');">上一页</a><a href="javascript:TOOL.pcGetEvent(3,15,'+__offset+');">下一页</a>  <a class="btn-page next-page" datapage="" href="javascript:TOOL.pcGetEvent(3,15,'+__offset+');">&gt;</a></div>';
+
+                        if (device == 1)
+                            $('#ios').html(str);
+                        else if (device == 2)
+                            $('#android').html(str);
+                        else
+                            $('#all').html(str);
+                    }
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
+    /**
+     * pc获取
+     */
+    pcRevents:function (num) {
+        var id
+            ,icon
+            ,title
+            ,url
+            ,str=''
+            ,game
+            ,pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + "api/pc/pcrevents/?num="+num;
         $.ajax({
             type: "GET",
             url: post_url,
@@ -534,19 +604,146 @@ var TOOL = {
                         for (var i in data) {
                             id = data[i]['id'];
                             icon = data[i]['icon'];
-                            url = pre_url+'/pc/content.html?id='+id;
+                            url = pre_url + 'pc/content.html?id=' + id;
                             title = data[i]['title'];
-                            hot = data[i]['hot'];
+                            game = data[i]['game'];
 
-                            if(hot==1)
-                                str += '<li class="ios hot">';
+                            if(i==0)
+                                str += '<li class="cur">';
                             else
                                 str += '<li>';
 
-                            str += '<em style="background-image:url('+icon+')"><img src="images/b-82-82.png"></em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                            str += '<div class="box_a"><span></span><a class="ling" href="'+url+'"></a>'+title+'</div><div class="box_b"><em style="background-image:url('+icon+')"><img src="images/b-72-72.png"></em><a class="ling" href="'+url+'"></a><p class="game_name">'+game+'</p><p class="libao_name">独家礼包</p></div></li>';
                         }
 
-                        $('#all .newest-list').html(str);
+                    $('.grab-list').html(str);
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
+    /**
+     * 淘号排行
+     */
+    pcTaohaos:function (num) {
+        var id
+            ,title
+            ,url
+            ,str=''
+            ,pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + "api/pc/pctaohaos";
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            async:true,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data)
+                        for (var i in data) {
+                            id = data[i]['id'];
+                            url = pre_url + 'pc/content.html?id=' + id;
+                            title = data[i]['title'];
+
+                            str += '<li><a href="'+url+'"><i></i><p>'+title+'</p></a></li>';
+                        }
+
+                    $('.amoy-list').html(str);
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
+    /**
+     * 淘号排行
+     */
+    pcEventInfo:function (event_id) {
+        var id
+            ,title
+            ,zone_url
+            ,down_url
+            ,str=''
+            ,icon
+            ,percent
+            ,end_date
+            ,start_date
+            ,percent_path
+            ,surplus
+            ,device
+            ,pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + "api/pc/"+event_id+"/eventinfo";
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data){
+
+                        id = data[0]['id'];
+                        icon = data[0]['icon'];
+                        zone_url = data[0]['zone_url']?data[0]['zone_url']:'';
+                        title = data[0]['title'];
+                        surplus =  parseInt(data[0]['total'])>parseInt(data[0]['get_num'])?parseInt(data[0]['total'])-parseInt(data[0]['get_num']):0;
+                        data[0]['total'] = data[0]['total']==0?1000000:data[0]['total'];
+                        percent = parseInt(surplus/data[0]['total']*100,10);
+                        end_date = data[0]['end_date'].substr(0,10);
+                        start_date = data[0]['start_date'].substr(0,10);
+                        if(data[0]['device']==1)
+                            device = 'IOS';
+                        else if(data[0]['device']==2)
+                            device = '安卓';
+                        else
+                            device = 'IOS、安卓通用';
+
+                        down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
+
+                        if(data[0]['is_tao']==1)
+                            percent_path = '淘';
+                        else
+                            percent_path = '<i>'+percent+'</i>%';
+
+                        str += '<div class="surplus-percen"><div class="pie_left"><div class="left"></div></div><div class="pie_right"><div class="right"></div></div><div class="mask">'+percent_path+'</div></div><img src="'+icon+'"><h2>'+title+'</h2><p>剩余<i>'+surplus+'份</i></p><span>礼包有效期：<i>'+end_date+'</i></span>';
+
+
+                        $('.gamelibao-item').html(str);
+
+                        /********************************************************************************************/
+
+
+                        str = '<div class="plate-about"><img src="'+icon+'"><h2>'+title+'</h2><p class="game-time">'+end_date+'</p></div><div class="plate-down"><a class="down1" href="'+down_url+'" target="_blank">游戏下载</a><a class="down2" href="'+zone_url+'" target="_blank">游戏专区</a></div>';
+
+                        $('.plate-detail').html(str);
+
+
+
+                        str = '<p><span>· 礼包有效期</span></p><p>'+start_date+'——'+end_date+'</p><p><span>· 使用平台</span></p><p>'+device+'</p><p><span>· 礼包内容</span></p><p>'+data[0]['content']+'</p><p><span>· 兑换方式</span></p><p>'+data[0]['description']+'</p>';
+
+                        $('#content').html(str);
+                        /********************************************************************************************/
+
+                        str = '';
+                        if(typeof(data[0].other) != "undefined"){
+                            for(var i in data[0].other){
+                                var url = pre_url + 'pc/content.html?id=' + data[0].other[i].id;
+                                str += '<li><em style="background-image:url('+data[0].other[i].icon+')"><img src="images/b-82-82.png"></em><i>'+data[0].other[i].title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                            }
+                        }
+
+                        $('.newest-list').html(str);
+
+                    }
                 }
             },
             error: function() {
