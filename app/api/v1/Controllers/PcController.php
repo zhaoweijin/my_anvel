@@ -98,7 +98,7 @@ class PcController extends Controller
      */
     public function showTaohaos(Request $request){
         $data = date('Y-m-d H:i:s');
-        $val = DB::select("SELECT id,title FROM hoho_events where end_date<? OR is_forever = 1 ORDER BY tao_num DESC limit 7",[$data]);
+        $val = DB::select("SELECT id,title FROM hoho_events where is_tao = 1 ORDER BY tao_num DESC limit 7",[$data]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
