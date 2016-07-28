@@ -84,7 +84,7 @@ class PcController extends Controller
         $num = (int)$request->get('num', 8);
         $num = $num<=8?$num:8;
         $data = date('Y-m-d H:i:s');
-        $val = DB::select("SELECT id,title,icon,game FROM hoho_events where end_date<? OR is_forever = 1 ORDER BY end_date DESC limit 100",[$data]);
+        $val = DB::select("SELECT id,title,icon,game FROM hoho_events where end_date>? OR is_forever = 1 ORDER BY end_date DESC limit 100",[$data]);
         shuffle($val);
         $val = array_slice($val,0,$num);
         return response()->json(['result' => $val,'status_code'=>1]);
