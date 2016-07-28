@@ -123,7 +123,23 @@ class PcController extends Controller
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
+    /*
+     * search
+     * @param Request $request
+     * @return mixed
+     */
+    public function pcSearch(Request $request){
+        $wd = checkData($request->get('wd'));
 
+        $wd = '%'.$wd.'%';
+        if($wd){
+            $val = DB::select("SELECT id,title,icon FROM hoho_events where title like ? ORDER BY id desc limit 15 ",[$wd]);
+            if($val)
+                return response()->json(['result' => $val,'status_code'=>1]);
+            else
+                return response()->json(['result' => 0,'status_code'=>1]);
+        }
+    }
 
 
 

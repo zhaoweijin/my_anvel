@@ -23,19 +23,19 @@ var generalNavOpt = {
 </script>
 <script src="http://img01.static.appgame.com/libs/jsCommon/nav/generalNav/generalNav.min.js"></script>
 <div class="top-nav">
-     <div class="top-nav-main">
-          <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img class="logo "src="images/logo.png"></a>
-          <ul class="top-right-nav">
-              <li><a href="" class="home">首页</a></li>
-          </ul>
-    <div class="nav-search">
-      <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-      <input id="q" type="text" name="s" value="" hidden="true" style="display:none;">
-      <input type="text" placeholder="请输入搜索关键词" id="search_input_frame">
-      <input type="submit" value="" onclick='document.getElementById("q").value = document.getElementById("search_input_frame").value'>
-      </form>
-    </div>            
-     </div>
+    <div class="top-nav-main">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img class="logo "src="images/logo.png"></a>
+        <ul class="top-right-nav">
+            <li><a href="" class="home">首页</a></li>
+        </ul>
+        <div class="nav-search">
+            <form id="search" action="search.html" method="get">
+                <input id="q" type="text" name="wd" value="" hidden="true" style="display:none;">
+                <input type="text" placeholder="请输入搜索关键词" id="search_input_frame">
+                <input id="sub" type="submit" value="">
+            </form>
+        </div>
+    </div>
 </div>
   
 <div class="main-wrap">
@@ -144,6 +144,15 @@ var generalNavOpt = {
     TOOL.pcGetEvent(2,15,0);
     TOOL.pcRevents(8);
     TOOL.pcTaohaos();
+
+    $('#sub').click(function (e) {
+        e.preventDefault();
+        $('#q').val($('#search_input_frame').val());
+        if(!$.trim($('#q').val()))
+            alert('请输入内容');
+        else
+            $('#search').submit();
+    });
 
 
     $('.grab-list li').hover(function(){

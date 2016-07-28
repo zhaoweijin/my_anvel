@@ -40,22 +40,16 @@
 
 <div class="main-wrap clear">
     <div class="right-wrap">
-        <div class="plate-detail">
-            <!--<div class="plate-about">-->
-                <!--<img src="images/qjnn.png">-->
-                <!--<h2>萌兵战将手游</h2>-->
-                <!--<p class="game-time">2016-06</p>-->
-            <!--</div>-->
-            <!--<div class="plate-down">-->
-                <!--<a class="down1" href="" target="_blank">游戏下载</a>-->
-                <!--<a class="down2" href="" target="_blank">游戏专区</a>-->
-            <!--</div>-->
+        <div class="public-qrcode">
+            <img src="images/public_qrcode.jpg">
+            <img src="images/public_text.jpg">
         </div>
 
         <div class="latest-activity mt10">
             <div class="plate-title plate-title-i5"><strong>最新活动</strong></div>
             <div class="plate-mian">
                 <ul id="activity" class="activity-list">
+
                 </ul>
             </div>
         </div>
@@ -64,6 +58,7 @@
             <div class="plate-title plate-title-i6"><strong>最新资讯</strong></div>
             <div class="plate-mian">
                 <ul id="news" class="activity-list latest-zixun">
+
                 </ul>
             </div>
         </div>
@@ -77,7 +72,6 @@
             <div class="plate-title plate-title-i3"><strong><span>大家</span>都在抢</strong></div>
             <div class="plate-main">
                 <ul class="grab-list clear">
-
 
                 </ul>
             </div>
@@ -99,40 +93,15 @@
 
 
     <div class="left-wrap">
-        <div class="gamelibao-item clear">
-            <!--<div class="surplus-percen">-->
-                <!--<div class="pie_left"><div class="left"></div></div>-->
-                <!--<div class="pie_right"><div class="right"></div></div>-->
-                <!--<div class="mask"><i>90</i>%</div>-->
-            <!--</div>-->
-            <!--<img src="images/qjnn.png">-->
-            <!--<h2>萌兵战将端午节媒体独家礼包</h2>-->
-            <!--<p>剩余<i>200份</i></p>-->
-            <!--<span>礼包有效期：<i>2016.10.25</i></span>-->
+        <div class="search-text">
+        </div>
+        <div class="search-result">
+            <ul class="recommended-list2 search-list clear">
+
+            </ul>
         </div>
 
-        <div class="receiving-method">
-            <img src="images/receiving.jpg">
-        </div>
 
-        <div class="libao-details">
-            <div class="plate-title plate-title-i7"><strong>礼包详情</strong></div>
-            <div class="plate-mian" id="content">
-
-            </div>
-        </div>
-
-        <div class="newest-package">
-            <div class="plate-title plate-title-i8"><strong><span>相关</span>礼包</strong></div>
-            <div class="plate-mian">
-                <ul class="newest-list clear">
-
-
-                </ul>
-
-
-            </div>
-        </div>
 
         <div class="recommended-package">
             <div class="plate-title plate-title-i1"><strong><span>推荐</span>礼包</strong></div>
@@ -162,27 +131,10 @@
 <script src="http://img01.static.appgame.com/libs/jsCommon/touchslide/touchSliding.min.js"></script>
 <script src="http://img01.static.appgame.com/libs/jsCommon/touchslide/touchslidingBase.min.js"></script>
 <script src="http://img01.static.appgame.com/libs/jsCommon/touchslide/touchSlidingBox.min.js"></script>
+
 <script>
-    $(function() {//百分比
-
-        TOOL.pcEventInfo(TOOL.getQueryString('id'));
-        TOOL.pcGetPosition(4,1,15,true);
-        TOOL.pcGetPosition(6,2,1,true);
-        TOOL.pcTaohaos();
-        TOOL.pcRevents(8);
-        TOOL.pcActivitys(2,function () {
-            $('.activity-list li').hover(function(){
-                var index=$(this).index();
-                $(this).addClass('cur').siblings().removeClass('cur');
-            });
-        });
-        TOOL.pcNews(3,function () {
-            $('.activity-list li').hover(function(){
-                var index=$(this).index();
-                $(this).addClass('cur').siblings().removeClass('cur');
-            });
-        });
-
+    $(function () {
+        TOOL.pcSearch();
         $('#sub').click(function (e) {
             e.preventDefault();
             $('#q').val($('#search_input_frame').val());
@@ -191,44 +143,40 @@
             else
                 $('#search').submit();
         });
-
-
-        $('.surplus-percen').each(function(index, el) {
-            var num = $(this).find('i').text() * 3.6;
-            if (num<=180) {
-                $(this).find('.right').css('transform', "rotate(" + num + "deg)");
-            } else {
-                $(this).find('.right').css('transform', "rotate(180deg)");
-                $(this).find('.left').css('transform', "rotate(" + (num - 180) + "deg)");
-            };
-        });
-
-
-
-        $('.grab-list li').hover(function(){
+    });
+    
+    TOOL.pcGetPosition(4,1,10,true);
+    TOOL.pcGetPosition(8,2,1,true);
+    TOOL.pcTaohaos();
+    TOOL.pcRevents(8);
+    TOOL.pcActivitys(2,function () {
+        $('.activity-list li').hover(function(){
             var index=$(this).index();
             $(this).addClass('cur').siblings().removeClass('cur');
         });
-
-        $('.newest-package .tab-hd i').hover(function(){
-            $(this).addClass("cur").siblings(".cur").removeClass("cur");
-            var sid = $(this).attr("sid");
-            if (sid != "all") {
-                $(".newest-list").find("li").hide();
-                $(".newest-list").find("." + sid).show();
-            } else {
-                $(".newest-list").find("li").show();
-            }
-        });
-
     });
-</script>
-<script>
+    TOOL.pcNews(3,function () {
+        $('.activity-list li').hover(function(){
+            var index=$(this).index();
+            $(this).addClass('cur').siblings().removeClass('cur');
+        });
+    });
 
+    $('.grab-list li').hover(function(){
+        var index=$(this).index();
+        $(this).addClass('cur').siblings().removeClass('cur');
+    });
 
-
-
-
+    $('.newest-package .tab-hd i').hover(function(){
+        $(this).addClass("cur").siblings(".cur").removeClass("cur");
+        var sid = $(this).attr("sid");
+        if (sid != "all") {
+            $(".newest-list").find("li").hide();
+            $(".newest-list").find("." + sid).show();
+        } else {
+            $(".newest-list").find("li").show();
+        }
+    });
 
     window.onload=function(){
         touchSlidingBox({

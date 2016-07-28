@@ -499,6 +499,8 @@ var TOOL = {
                                 }
                                 $('.recommended-list').html(str);
                                 break;
+                            case 6:
+                            case 8:
                             case 5:
                                 id = data[0]['id'];
                                 thumb = data[0]['thumb'];
@@ -743,6 +745,126 @@ var TOOL = {
 
                         $('.newest-list').html(str);
 
+                    }
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
+    },
+
+
+    /**
+     * 最新活动
+     */
+    pcActivitys:function (num,callback) {
+        var title
+            ,url
+            ,str=''
+            ,thumbnail
+            ,post_url = "http://hd.appgame.com/?json=1&count="+num;
+
+        $.getJSON(post_url + '&callback=?', function(data) {
+            if(data){
+                data = data.posts;
+                for(var i in data){
+                    title = data[i].title;
+                    thumbnail = data[i].thumbnail;
+                    url = data[i].url;
+
+                    if(i==0)
+                        str += '<li class="cur">';
+                    else
+                        str += '<li>';
+
+                    str += '<a href=""><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
+                }
+                $('#activity').html(str);
+                callback();
+            }
+        });
+    },
+
+    /**
+     * 最新活动
+     */
+    pcNews:function (num,callback) {
+        var title
+            ,url
+            ,str=''
+            ,thumbnail
+            ,post_url = "http://www.appgame.com/archives/category/v5/v5-hot2?json=1&count="+num;
+
+        $.getJSON(post_url + '&callback=?', function(data) {
+            if(data){
+                data = data.posts;
+                for(var i in data){
+                    title = data[i].title;
+                    thumbnail = data[i].thumbnail;
+                    url = data[i].url;
+
+                    if(i==0)
+                        str += '<li class="cur">';
+                    else
+                        str += '<li>';
+
+                    str += '<a href=""><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
+                }
+                $('#news').html(str);
+                callback();
+            }
+        });
+    },
+
+    pcSearch:function () {
+        var wd = decodeURIComponent(TOOL.getQueryString('wd'))
+            ,id
+            ,icon
+            ,title
+            ,device
+            ,str=''
+            ,str2=''
+            ,pre_url = this.domainURI(window.location.href)
+            ,post_url = pre_url + "api/pc/pcsearch?wd="+wd;
+        $.ajax({
+            type: "GET",
+            url: post_url,
+            async:true,
+            dataType: 'json',
+            success: function(data) {
+                if(data && data.status_code==1){
+                    data = data.result;
+                    if(data) {
+                        var num = data.length;
+                        for (var i in data) {
+                            id = data[i]['id'];
+                            icon = data[i]['icon'];
+                            url = data[i]['url'];
+                            title = data[i]['title'];
+                            device = data[i]['device'];
+
+                            if(device==1)
+                                var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a>';
+                            else if(device==2)
+                                var mobile_type = '<a class="down_android" href="'+url+'" target="_blank"></a>';
+                            else
+                                var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a>';
+
+                            str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png"><p>'+mobile_type+'</p></em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                        }
+
+                        str2 = '<p>为您找到<i>'+num+'款</i> 与“<span>'+wd+'</span>”相关的礼包</p>';
+                        $('.search-text').html(str2);
+                        $('.recommended-list2').html(str);
+                    }else{
+                        
+                        if(wd != 'null')
+                            str2 = '<p>没有为您找到与“<span>'+wd+'</span>”相关的礼包</p>';
+                        else
+                            str2 = '<p>请输入关键字为您搜索相关的礼包</p>';
+                        $('.search-text').html(str2);
                     }
                 }
             },

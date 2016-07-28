@@ -160,6 +160,16 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
             'as'   => 'showEventinfo',
             'uses' => 'App\Api\v1\Controllers\PcController@showEventinfo',
         ]);
+
+        /*
+         * -------
+         * pc search
+         * -------
+         */
+        $api->get('pcsearch', [
+            'as'   => 'pcSearch',
+            'uses' => 'App\Api\v1\Controllers\PcController@pcSearch',
+        ]);
     });
 
 });

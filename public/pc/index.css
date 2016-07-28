@@ -94,6 +94,19 @@ body { background-color:#ececec;  }
 .recommended-list li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #f74b74;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#f74b74; font-size:14px; }
 .recommended-list li:hover .libao_receive { background-color:#f74b74; color:#fff; }
 
+.recommended-list2 { margin-left:-20px; padding-top:28px; }
+.recommended-list2 li { width:20%; padding-left:20px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; float:left; overflow:hidden; margin-bottom:25px; }
+.recommended-list2 li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; }
+.recommended-list2 li p { transition:all 0.3s linear; -webkit-transition:all 0.3s linear; position:absolute; left:1px; bottom:-27px; width:80px; height:26px; background-color:rgba(0,0,0,0.6); border-radius:0 0 14px 14px; padding:2px 0 0 16px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  }
+.recommended-list2 li:hover p { bottom:1px; }
+.recommended-list2 li p a { display:block; float:left; background: url(images/down_iphone.png) no-repeat center center; width:20px; height:20px; margin-right:10px; }
+.recommended-list2 li p .down_iphone { background-image:url(images/down_iphone.png); }
+.recommended-list2 li p .down_android { background-image:url(images/down_android.png); }
+.recommended-list2 li i { display:block; height:35px; overflow:hidden; line-height:35px; color:#333; font-size:14px; text-align:center; margin:0 -18px; }
+.recommended-list2 li:hover i { color:#eb3762; }
+.recommended-list2 li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #f74b74;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#f74b74; font-size:14px; }
+.recommended-list2 li:hover .libao_receive { background-color:#f74b74; color:#fff; }
+
 /*最新礼包*/
 .newest-package { margin-top:10px; }
 .newest-list { margin-left:-20px; padding-top:29px; }
