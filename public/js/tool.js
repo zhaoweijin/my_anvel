@@ -779,7 +779,7 @@ var TOOL = {
                     else
                         str += '<li>';
 
-                    str += '<a href=""><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
+                    str += '<a href="'+url+'"><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
                 }
                 $('#activity').html(str);
                 callback();
@@ -810,7 +810,7 @@ var TOOL = {
                     else
                         str += '<li>';
 
-                    str += '<a href=""><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
+                    str += '<a href="'+url+'"><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
                 }
                 $('#news').html(str);
                 callback();
@@ -859,7 +859,7 @@ var TOOL = {
                         $('.search-text').html(str2);
                         $('.recommended-list2').html(str);
                     }else{
-                        
+
                         if(wd != 'null')
                             str2 = '<p>没有为您找到与“<span>'+wd+'</span>”相关的礼包</p>';
                         else
