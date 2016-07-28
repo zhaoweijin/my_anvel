@@ -841,7 +841,7 @@ var TOOL = {
                         for (var i in data) {
                             id = data[i]['id'];
                             icon = data[i]['icon'];
-                            url = data[i]['url'];
+                            url = pre_url + 'pc/content.html?id=' + id;
                             title = data[i]['title'];
                             device = data[i]['device'];
 
