@@ -154,9 +154,9 @@ var TOOL = {
             tag = $('#ListView'),post_url = pre_url + "api/games/hot/?offset="+offset;
 
         if(this.isSys.weixin)
-            post_url += post_url+'&type=1';
+            post_url = post_url+'&type=1';
         else if(this.isSys.mobile)
-            post_url += post_url+'&type=2';
+            post_url = post_url+'&type=2';
 
         $.ajax({
             type: "GET",
