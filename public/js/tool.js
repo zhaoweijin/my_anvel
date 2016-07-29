@@ -697,7 +697,7 @@ var TOOL = {
             ,percent_path
             ,surplus
             ,device
-            ,zone_str
+            ,zone_str =''
             ,pre_url = this.domainURI(window.location.href)
             ,post_url = pre_url + "api/pc/"+event_id+"/eventinfo";
         $.ajax({
