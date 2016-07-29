@@ -697,6 +697,7 @@ var TOOL = {
             ,percent_path
             ,surplus
             ,device
+            ,zone_str
             ,pre_url = this.domainURI(window.location.href)
             ,post_url = pre_url + "api/pc/"+event_id+"/eventinfo";
         $.ajax({
@@ -739,8 +740,11 @@ var TOOL = {
 
                         /********************************************************************************************/
 
+                        if(zone_url)
+                            zone_str = '<a class="down2" href="'+zone_url+'" target="_blank">游戏专区</a>';
 
-                        str = '<div class="plate-about"><img src="'+icon+'"><h2>'+title+'</h2><p class="game-time">'+end_date+'</p></div><div class="plate-down"><a class="down1" href="'+down_url+'" target="_blank">游戏下载</a><a class="down2" href="'+zone_url+'" target="_blank">游戏专区</a></div>';
+
+                        str = '<div class="plate-about"><img src="'+icon+'"><h2>'+data[0]["game"]+'</h2><p class="game-time">'+end_date+'</p></div><div class="plate-down"><a class="down1" href="'+down_url+'" target="_blank">游戏下载</a>'+zone_str+'</div>';
 
                         $('.plate-detail').html(str);
 
