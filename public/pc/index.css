@@ -83,7 +83,7 @@ body { background-color:#ececec;  }
 .recommended-package { margin-top:10px; }
 .recommended-list { margin-left:-20px; padding-top:28px; }
 .recommended-list li { width:20%; padding-left:20px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; float:left; overflow:hidden; margin-bottom:25px; }
-.recommended-list li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; }
+.recommended-list li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; border-radius:21px; }
 .recommended-list li p { transition:all 0.3s linear; -webkit-transition:all 0.3s linear; position:absolute; left:1px; bottom:-27px; width:80px; height:26px; background-color:rgba(0,0,0,0.6); border-radius:0 0 14px 14px; padding:2px 0 0 16px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  }
 .recommended-list li:hover p { bottom:1px; }
 .recommended-list li p a { display:block; float:left; background: url(images/down_iphone.png) no-repeat center center; width:20px; height:20px; margin-right:10px; }
@@ -94,9 +94,12 @@ body { background-color:#ececec;  }
 .recommended-list li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #f74b74;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#f74b74; font-size:14px; }
 .recommended-list li:hover .libao_receive { background-color:#f74b74; color:#fff; }
 
+.recommended-list .one_link,.newest-list .one_link { padding-left:30px; }
+
+
 .recommended-list2 { margin-left:-20px; padding-top:28px; }
 .recommended-list2 li { width:20%; padding-left:20px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; float:left; overflow:hidden; margin-bottom:25px; }
-.recommended-list2 li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; }
+.recommended-list2 li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; border-radius:21px; }
 .recommended-list2 li p { transition:all 0.3s linear; -webkit-transition:all 0.3s linear; position:absolute; left:1px; bottom:-27px; width:80px; height:26px; background-color:rgba(0,0,0,0.6); border-radius:0 0 14px 14px; padding:2px 0 0 16px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  }
 .recommended-list2 li:hover p { bottom:1px; }
 .recommended-list2 li p a { display:block; float:left; background: url(images/down_iphone.png) no-repeat center center; width:20px; height:20px; margin-right:10px; }
@@ -107,11 +110,18 @@ body { background-color:#ececec;  }
 .recommended-list2 li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #f74b74;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#f74b74; font-size:14px; }
 .recommended-list2 li:hover .libao_receive { background-color:#f74b74; color:#fff; }
 
+.recommended-list2 .one_link,.newest-list .one_link { padding-left:30px; }
+
 /*最新礼包*/
 .newest-package { margin-top:10px; }
 .newest-list { margin-left:-20px; padding-top:29px; }
 .newest-list li { width:20%; padding-left:20px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; float:left; overflow:hidden; margin-bottom:30px; }
-.newest-list li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; }
+.newest-list li em { display:block; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:82px; overflow:hidden; margin:0 auto; border-radius:21px; }
+.newest-list li p { transition:all 0.3s linear; -webkit-transition:all 0.3s linear; position:absolute; left:1px; bottom:-27px; width:80px; height:26px; background-color:rgba(0,0,0,0.6); border-radius:0 0 14px 14px; padding:2px 0 0 16px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  }
+.newest-list li:hover p { bottom:1px; }
+.newest-list li p a { display:block; float:left; background: url(images/down_iphone.png) no-repeat center center; width:20px; height:20px; margin-right:10px; }
+.newest-list li p .down_iphone { background-image:url(images/down_iphone.png); }
+.newest-list li p .down_android { background-image:url(images/down_android.png); }
 .newest-list li i { display:block; height:35px; overflow:hidden; line-height:35px; color:#333; font-size:14px; text-align:center; margin:0 -18px; }
 .newest-list li:hover i { color:#6493fa; }
 .newest-list li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #6493fa;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#6493fa; font-size:14px; }
@@ -147,7 +157,7 @@ body { background-color:#ececec;  }
 .grab-list li.no .box_a span { background-image:url(images/box_span_no.png); }
 .box_a a { display:block; float: right; background:url(images/box_i_on.png) no-repeat center center; width:23px; height:50px; margin-right:2px;  }
 .grab-list li.no .box_a a { background-image:url(images/box_i_no.png); }
-.box_b em { display:block; float:left; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:72px; overflow:hidden; margin-right:10px }
+.box_b em { display:block; float:left; position: relative; display: block; background-position: center center; background-repeat: no-repeat; background-size: cover; width:72px; overflow:hidden; margin-right:10px;border-radius:15px; }
 .box_b .game_name { font-size:16px; line-height:28px; }
 .box_b .libao_name { color:#999999; line-height:16px;  }
 .box_b .ling { display:block; float: right; background:url(images/ling.png) no-repeat center center; width:60px; height:60px; margin-left:10px; }
@@ -179,7 +189,7 @@ body { background-color:#ececec;  }
 .amoy-list li:nth-child(7):before { content:'7'; }
 .amoy-list li:nth-child(8):before { content:'8'; }
 .amoy-list li a { display:block; position:relative;  color:#333333; font-size:14px;   }
-.amoy-list li:hover a { color:#f3a433; }
+.amoy-list li:hover a { color:#f3a433; font-weight:bold; }
 .amoy-list li i { display:block; float:right; margin:13px 0 12px 5px; width:23px; height:23px; background: url(images/amoy_i.png) no-repeat center center; transition:all 0.3s linear; -webkit-transition:all 0.3s linear; }
 .amoy-list li:hover i { background-image:url(images/amoy_i_h.png); width:45px; }
 .amoy-list li.no i { background-image:url(images/amoy_i_no.png); }
@@ -203,8 +213,8 @@ body { background-color:#ececec;  }
 
 .plate-detail { border:1px solid #e3e3e3; }
 .plate-about { color: #333; padding: 20px; height:100px; border-bottom:1px solid #e3e3e3; background-color:#fbfbfb; }
-.plate-about img { display: block; float: left; width: 93px; height: auto; vertical-align: middle; margin-right: 13px; }
-.plate-about h2 { font-size: 20px; font-weight: normal; line-height: 1; margin-top:10px; }
+.plate-about img { display: block; float: left; width: 93px; height: auto; vertical-align: middle; margin-right: 13px; border-radius:20px; }
+.plate-about h2 { font-size: 16px; font-weight: normal; line-height: 1; margin-top:5px; }
 .plate-about p { font-size: 14px; color: #676767; line-height: 30px; margin-top: 0; overflow: hidden;  }
 .plate-down { height:135px; padding:13px 19px 0; }
 .plate-down a { display:block; width:240px; height:50px; line-height:50px; text-indent:-9999px; background-position:center center; background-repeat:no-repeat; margin-bottom:14px; }
@@ -214,27 +224,35 @@ body { background-color:#ececec;  }
 /*最新活动*/
 .activity-list { padding-top:5px; }
 .activity-list li { position:relative; border-bottom:1px dashed #cccccc;  transition:all 0.3s linear; -webkit-transition:all 0.3s linear; margin-top:0; height:70px; overflow:hidden; }
-.activity-list li.cur { height:195px; margin-top:15px; }
+.activity-list li.cur { height:185px; margin-top:10px; }
 .activity-list li:nth-last-child(1) { border-bottom:none; }
 .activity-list li em { display:none; position: relative; background-position: center center; background-repeat: no-repeat; background-size: cover; margin-top:10px  }
 .activity-list li.cur em { display:block; margin-top:0; }
-.activity-list li i { display:block; font-size:14px; color:#333333; margin:12px 0 10px; line-height:24px; }
-.activity-list li.cur i { color:#ec4d7e; }
+.activity-list li i { display:block; font-size:14px; color:#333333; margin:7px 0 5px; line-height:24px; }
+.activity-list li.cur i { color:#ec4d7e; font-weight:bold; }
 
 /*gamelibao-item*/
 .gamelibao-item { padding:7px 0 27px; border-bottom:1px dashed #ccc; }
-.gamelibao-item img { display:block; float:left; margin-right:16px; width:120px; height:auto; }
+.gamelibao-item img { display:block; float:left; margin-right:16px; width:120px; height:auto; border-radius:20px; }
 .gamelibao-item h2 { font-size:18px; color:#000000; line-height:26px; display:block; margin-top:20px; }
 .gamelibao-item p { font-size:12px; color:#e74c71; line-height:18px; margin-top:10px; }
 .gamelibao-item span { font-size:12px; color:#aeaeae; line-height:18px; margin-top:10px; display:block; }
 
 .surplus-percen { float:right; margin-right:50px; position:relative; width: 120px; height: 120px; border-radius: 50%; background: #a0d04d;  }
-
 .pie_left, .pie_right { width: 120px; height: 120px; position: absolute; top: 0;left: 0; }
 .left, .right { display: block; width:120px; height:120px; background:#dcdcdc; border-radius: 50%; position: absolute; top: 0; left: 0; transform: rotate(0); -webkit-transform: rotate(0); }
 .pie_right, .right { clip:rect(0,auto,auto,60px); }
 .pie_left, .left { clip:rect(0,60px,auto,0); }
 .mask { width: 90px; height: 90px; border-radius: 50%; left: 15px; top: 15px; background: #FFF; position: absolute; text-align: center; line-height: 90px; font-size: 24px; }
+
+/*淘号剩余礼包显示*/
+/*.amoy-list .surplus-percen { float:right; margin-right:0; margin-top:13px; position:relative; width: 24px; height: 24px; border-radius: 50%; background: #a0d04d;  }
+.amoy-list .pie_left, .amoy-list .pie_right { width: 24px; height: 24px; position: absolute; top: 0;left: 0; }
+.amoy-list .left, .amoy-list .right { display: block; width:24px; height:24px; background:#dcdcdc; border-radius: 50%; position: absolute; top: 0; left: 0; transform: rotate(0); -webkit-transform: rotate(0);  -moz-transform: rotate(0); }
+.amoy-list .pie_right, .amoy-list .right { clip:rect(0,auto,auto,12px); }
+.amoy-list .pie_left, .amoy-list .left { clip:rect(0,12px,auto,0); }
+.amoy-list .mask { width: 20px; height: 20px; border-radius: 50%; left: 2px; top: 2px; background: #FFF; position: absolute; text-align: center; line-height: 20px; font-size: 12px;  }
+.amoy-list .mask i { text-indent:-9999px; display:block; display:none; }*/
 
 .receiving-method { margin:33px 0;}
 .receiving-method img { display:block; width:100%; height:auto; }
@@ -264,9 +282,9 @@ body { background-color:#ececec;  }
 
 
 
- /*
- *底部
- */
+/*
+*底部
+*/
 .plate-footer { margin-top:0; background-color:#323232; }
 .plate-footer .f-logo { margin:0 17px 0 0; display:block; width:152px; float:left; }
 .plate-footer-main { width: 1100px; margin: 0 auto;  padding: 35px 0 34px;  }
