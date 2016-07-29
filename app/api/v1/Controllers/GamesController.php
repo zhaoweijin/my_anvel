@@ -238,7 +238,7 @@ class GamesController extends Controller
         }
 
 
-        $val = DB::select("SELECT id,game_id,title,icon,get_num,tao_num,total,description,zone_url,is_tao,start_date,end_date FROM hoho_events where id=? limit 1",[$event_id]);
+        $val = DB::select("SELECT id,game_id,title,icon,get_num,tao_num,total,content,description,zone_url,is_tao,device,start_date,end_date FROM hoho_events where id=? limit 1",[$event_id]);
 
         $val[0]->card = $card;
         return response()->json(['result' => $val,'status_code'=>1]);

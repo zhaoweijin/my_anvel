@@ -206,8 +206,11 @@ var TOOL = {
         var pre_url = this.domainURI(window.location.href)
             ,percent
             ,surplus
+            ,start_date
             ,end_date
+            ,device
             ,down_url
+            ,str_s
             ,post_url = pre_url + 'api/'+ event_id + "/event";
         $.ajax({
             type: "GET",
@@ -219,15 +222,28 @@ var TOOL = {
                     data = data.result;
                     surplus =  parseInt(data[0]['total'])>parseInt(data[0]['get_num'])?parseInt(data[0]['total'])-parseInt(data[0]['get_num']):0;
                     data[0]['total'] = data[0]['total']==0?1000000:data[0]['total'];
-                    percent = parseInt(surplus/data[0]['total']*100,10),
-                    end_date = data[0]['end_date'].substr(0,10)
+                    percent = parseInt(surplus/data[0]['total']*100,10);
+                    start_date = data[0]['start_date'].substr(0,10);
+                    end_date = data[0]['end_date'].substr(0,10);
+                    device = data[0]['device'];
                     down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
                     $('#title').html(data[0]['title']);
                     $('#icon').attr('src',data[0]['icon']);
                     $('#end_date').html(end_date);
                     $('#percent').attr('data-percent',percent);
                     $('#down_url').attr('href',down_url);
-                    $('#content').html(data[0]['description']);
+
+
+                    if(device==1)
+                        str_s = 'IOS';
+                    else if(device==2)
+                        str_s = '安卓';
+                    else
+                        str_s ='IOS、安卓通用';
+
+                    str='<dt>礼包有效期</dt><dd>'+start_date+'——'+end_date+'</dd><dt>使用平台</dt><dd>'+str_s+'</dd><dt>礼包内容</dt><dd>'+data[0]["content"]+'</dd><dt>兑换方式</dt><dd>'+data[0]["description"]+'</dd>';
+
+                    $('#content').html(str);
                     // $('.j_get_btn').attr('event_id',data[0]['id']);
                     if(data[0]['zone_url'])
                         $('#zone_url').attr('href',data[0]['zone_url']);
