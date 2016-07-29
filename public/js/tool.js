@@ -267,7 +267,7 @@ var TOOL = {
         var pre_url = this.domainURI(window.location.href);
 
 
-        post_url = type==1?pre_url + 'api/pc/'+ event_id + "/event":pre_url + 'api/'+ event_id + "/event/tao";
+        post_url = type==1?pre_url + 'api/'+ event_id + "/event":pre_url + 'api/'+ event_id + "/event/tao";
 
         _that = this;
 

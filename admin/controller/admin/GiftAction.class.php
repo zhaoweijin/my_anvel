@@ -77,7 +77,7 @@ class GiftAction extends AdminAction{
 
 		    $sql = "insert into hoho_tickets (event_id,card,state,user_id,created_at,updated_at) values $data_values";
         	$query = $this->db->query($sql);
-        	$result=$this->db->table('events')->where(array('id' => $event_id))->data(array('get_num'=>$len_result))->update();
+        	$result=$this->db->table('events')->where(array('id' => $event_id))->data(array('total'=>$len_result))->update();
 
 		    // $query = mysql_query("insert into student (name,sex,age) values $data_values");//批量插入数据表中 
 		    if($query){ 

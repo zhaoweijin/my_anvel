@@ -61,7 +61,7 @@ $dialog_height = '520';
                 <td align="center">{$vo.id}</td>
                 <td dataType="required" onclick="editNow({$vo.id},'title','{url a='update'}',this);">{$vo.title}</td>
                 <td dataType="required" onclick="editNow({$vo.id},'game','{url a='update'}',this);">{$vo.game}</td>
-                <td dataType="required">{$vo.get_num}</td>
+                <td dataType="required">{$vo.total}</td>
                 <td onclick="editNow({$vo.id},'description','{url a='update'}',this);"><?php if($vo.type==1) echo '微信'; else echo 'WAP';?></td>
                 <td onclick="editNow({$vo.id},'orderid','{url a='update'}',this);">{$vo.orderid}</td>
                 <td align="center"><include file="Common_status.html" /></td>
