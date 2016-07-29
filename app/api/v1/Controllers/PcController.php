@@ -49,7 +49,7 @@ class PcController extends Controller
         $type = (int)$request->get('type', 0);
 
         $where = "type=? and position_id=?";
-        $val = DB::select("SELECT * FROM hoho_position_data where $where ORDER BY created_at limit ?,?",[$type,$position_id,$offset,$num]);
+        $val = DB::select("SELECT * FROM hoho_position_data where $where ORDER BY orderid DESC limit ?,?",[$type,$position_id,$offset,$num]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
