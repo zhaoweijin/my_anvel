@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel {
         Commands\AngularGenerators\CreatePipeCommand::class,
         Commands\AngularGenerators\CreatePageCommand::class,
         Commands\AngularGenerators\CreateSubPageCommand::class,
+        Commands\GiftGenerators\UpdateTaohaoCommand::class,
         \Mlntn\Console\Commands\Serve::class,
         //
     ];
@@ -30,6 +31,7 @@ class Kernel extends ConsoleKernel {
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        //update taohao data
+        $schedule->command('ng:taohao')->hourly();
     }
 }
