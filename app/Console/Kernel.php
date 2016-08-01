@@ -32,6 +32,6 @@ class Kernel extends ConsoleKernel {
     protected function schedule(Schedule $schedule)
     {
         //update taohao data
-        $schedule->command('ng:taohao')->hourly();
+        $schedule->command('ng:taohao')->everyMinute();
     }
 }
