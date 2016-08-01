@@ -80,9 +80,9 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 /*
 ----没有礼包
 */
-.no-package { padding-top: 140px; padding-bottom: 100px; line-height: 4; }
-.no-package img { display: block; margin: 0 auto; width: 25.6%; }
-.no-package .tips { font-size: 14px; color: #989898; text-align: center; }
+.cont.no-package { padding-top: 140px; padding-bottom: 100px; line-height: 4; }
+.cont.no-package img { display: block; margin: 0 auto; width: 25.6%; }
+.cont.no-package .tips { font-size: 14px; color: #989898; text-align: center; }
 
 /*
 ---搜索结果
