@@ -59,14 +59,14 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .list__ul > li:after { content: ''; display: table; clear: both; }
 .list__ul .button__rotate { float: right; margin-left: -100%; margin-top: 10px; }
 
-.ico { float: left; margin-right: -80px; width: 70px; height: 70px; }
+.ico { float: left; margin-right: -80px; width: 70px; height: 70px; border-radius: 10px; overflow: hidden; }
 
 .text { box-sizing: border-box; float: left; padding-left: 80px; padding-right: 50px; width: 100%; }
 .text h2 { padding-top: 6px; font-size: 16px; color: #000000; font-weight: normal; }
 .text p { font-size: 12px; color: #aeaeae; white-space: nowrap; }
 
 .bar { position: relative; margin-top: 8px; margin-bottom: 8px; margin-right: 27%; height: 8px; border-radius: 4px; background-color: #dcdcdc; }
-.bar span { display: block; border-radius: 4px; height: 8px; width: 0%; background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); background-size: 8px 8px; background-color: #98CA43; overflow: hidden; }
+.bar span { display: block; border-radius: 4px; height: 8px; width: 50%; background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); background-size: 8px 8px; background-color: #98CA43; overflow: hidden; }
 
 /*
 ----我的礼包
@@ -100,9 +100,11 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .package-box-cont .text h2 { margin-bottom: 5px; line-height: 1.2; }
 .package-box-cont .progress-wrap { float: right; position: relative; margin-left: -100%; width: 64px; height: 64px; }
 
-.package-cont dl { font-size: 14px; color: #666666; line-height: 1.6; }
+.package-cont dl, .package-cont p { font-size: 14px; color: #333; line-height: 1.6; word-break: break-all; }
 .package-cont dt { font-weight: 700; }
 .package-cont dd { margin-bottom: 22px; }
+.package-cont p { padding: 11px 0; }
+.package-cont span { font-weight: 700; display: block; }
 
 /*
 ------圆形百分比进度条
@@ -125,7 +127,7 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 /*
 ----登陆窗口
 */
-.win_login:before, .win__code:before ,.win__tao:before{ margin-left: -83px; width: 167px; background-image: url(../images_weixin/face-login.png); }
+.win_login:before, .win__code:before { margin-left: -83px; width: 167px; background-image: url(../images_weixin/face-login.png); }
 
 .win_login .input-cont .input { box-sizing: border-box; display: block; margin-bottom: 10px; width: 100%; height: 39px; line-height: 39px; font-size: 13px; border: none; background-color: #f3f3f3; }
 
@@ -135,14 +137,6 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .win__code h2 { margin-top: 14px; padding: 0 10px; height: 42px; line-height: 2.6; font-size: 17px; color: #8c8c8c; text-align: center; overflow: hidden; background-color: #f3f3f3; }
 .win__code p { font-size: 14px; color: #8c8c8c; text-align: center; line-height: 1.6; white-space: nowrap; }
 .win__code p:nth-of-type(1) { margin-top: 8px; margin-bottom: 20px; text-indent: 20px; color: #ffbe00; background: url(../images_weixin/ico-copy.png) no-repeat 34% 50%; background-size: 16px auto; }
-
-/*
-----淘号
-*/
-.win__tao h2 { margin-top: 14px; padding: 0 10px; height: 42px; line-height: 2.6; font-size: 17px; color: #8c8c8c; text-align: center; overflow: hidden; background-color: #f3f3f3; }
-.win__tao p { font-size: 14px; color: #8c8c8c; text-align: center; line-height: 1.6; white-space: nowrap; }
-.win__tao p:nth-of-type(1) { margin-top: 8px; margin-bottom: 20px; text-indent: 20px; color: #ffbe00; background: url(../images_weixin/ico-copy.png) no-repeat 34% 50%; background-size: 16px auto; }
-
 
 /*
 -----结束
@@ -169,6 +163,7 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .button-ground .button, .button-ground .button__md, .button-ground .button__win { width: 48%; }
 .button-ground .button:first-child, .button-ground .button__md:first-child, .button-ground .button__win:first-child { float: left; }
 .button-ground .button:last-child, .button-ground .button__md:last-child, .button-ground .button__win:last-child { float: right; }
+.button-ground .button:only-child, .button-ground .button__md:only-child, .button-ground .button__win:only-child { float: none; margin: 0 auto; }
 
 /*
 ----矩形按钮
@@ -219,3 +214,5 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .login-box .btn { display: inline-block; padding: 0 15px; height: 28px; line-height: 28px; text-align: center; font-size: 12px; border-radius: 13px; color: #ffffff; background-color: #5BA3C1; }
 
 @media screen and (max-width: 540px) { body { width: 100%; } }
+
+/*# sourceMappingURL=index.css.map */
