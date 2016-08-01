@@ -738,7 +738,7 @@ var TOOL = {
                         down_url = 'http://app.appgame.com/game/'+data[0]['game_id']+'.html';
 
                         if(data[0]['is_tao']==1)
-                            percent_path = '淘';
+                            percent_path = '淘'+'<i style="display: none;">100</i>';
                         else
                             percent_path = '<i>'+percent+'</i>%';
 
