@@ -175,7 +175,8 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
 });
 
 $app->get('/', function(){
-    return 'bad request';
+    header("Location:mobile/");
+    exit();
 });
 
 //$app->get('{slug:.*}', 'AngularController@serve');

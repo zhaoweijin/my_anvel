@@ -404,6 +404,7 @@ var TOOL = {
             ,end_date
             ,str=''
             ,mid
+            ,surplus
             ,percent
             ,pre_url = this.domainURI(window.location.href)
             ,tag = $('#ListView')
@@ -428,8 +429,9 @@ var TOOL = {
                             icon = data[i]['icon'];
                             title = data[i]['title'];
                             end_date = data[i]['end_date'].substr(0, 10);
+                            surplus =  parseInt(data[i]['total'])>parseInt(data[i]['get_num'])?parseInt(data[i]['total'])-parseInt(data[i]['get_num']):0;
                             data[i]['total'] = data[i]['total']==0?1000000:data[i]['total'];
-                            percent = Math.round(data[i]['get_num']/data[i]['total']*10000)/100.00 +"%";
+                            percent = parseInt(surplus/data[i]['total']*100,10) +"%";
 
                             if(data[i]['is_tao']==1){
                                 mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-tao">淘号</a>';
