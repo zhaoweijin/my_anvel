@@ -507,13 +507,13 @@ var TOOL = {
                                     device = data[i]['device'];
 
                                     if(device==1)
-                                        var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a>';
+                                        var mobile_type = '<p class="one_link"><a class="down_iphone" href="'+url+'" target="_blank"></a></p>';
                                     else if(device==2)
-                                        var mobile_type = '<a class="down_android" href="'+url+'" target="_blank"></a>';
+                                        var mobile_type = '<p class="one_link"><a class="down_android" href="'+url+'" target="_blank"></a></p>';
                                     else
-                                        var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a>';
+                                        var mobile_type = '<p><a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a></p>';
 
-                                    str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png"><p>'+mobile_type+'</p></em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                                    str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
                                 }
                                 $('.recommended-list').html(str);
                                 break;
@@ -868,13 +868,13 @@ var TOOL = {
                             device = data[i]['device'];
 
                             if(device==1)
-                                var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a>';
+                                var mobile_type = '<p class="one_link"><a class="down_iphone" href="'+url+'" target="_blank"></a></p>';
                             else if(device==2)
-                                var mobile_type = '<a class="down_android" href="'+url+'" target="_blank"></a>';
+                                var mobile_type = '<p class="one_link"><a class="down_android" href="'+url+'" target="_blank"></a></p>';
                             else
-                                var mobile_type = '<a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a>';
+                                var mobile_type = '<p><a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a></p>';
 
-                            str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png"><p>'+mobile_type+'</p></em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                            str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
                         }
 
                         str2 = '<p>为您找到<i>'+num+'款</i> 与“<span>'+wd+'</span>”相关的礼包</p>';

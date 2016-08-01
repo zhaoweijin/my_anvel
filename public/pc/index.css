@@ -89,7 +89,7 @@ body { background-color:#ececec;  }
 .recommended-list li p a { display:block; float:left; background: url(images/down_iphone.png) no-repeat center center; width:20px; height:20px; margin-right:10px; }
 .recommended-list li p .down_iphone { background-image:url(images/down_iphone.png); }
 .recommended-list li p .down_android { background-image:url(images/down_android.png); }
-.recommended-list li i { display:block; height:35px; overflow:hidden; line-height:35px; color:#333; font-size:14px; text-align:center; margin:0 -18px; }
+.recommended-list li i { display:block; height:35px; overflow:hidden; line-height:35px; color:#333; font-size:12px; text-align:center; margin:0; }
 .recommended-list li:hover i { color:#eb3762; }
 .recommended-list li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #f74b74;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#f74b74; font-size:14px; }
 .recommended-list li:hover .libao_receive { background-color:#f74b74; color:#fff; }
@@ -122,7 +122,7 @@ body { background-color:#ececec;  }
 .newest-list li p a { display:block; float:left; background: url(images/down_iphone.png) no-repeat center center; width:20px; height:20px; margin-right:10px; }
 .newest-list li p .down_iphone { background-image:url(images/down_iphone.png); }
 .newest-list li p .down_android { background-image:url(images/down_android.png); }
-.newest-list li i { display:block; height:35px; overflow:hidden; line-height:35px; color:#333; font-size:14px; text-align:center; margin:0 -18px; }
+.newest-list li i { display:block; height:35px; overflow:hidden; line-height:35px; color:#333; font-size:12px; text-align:center; margin:0; }
 .newest-list li:hover i { color:#6493fa; }
 .newest-list li .libao_receive { display:block; width:70px; height:28px; line-height:26px; text-align:center; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; border:1px solid #6493fa;   transition:all 0.3s linear; -webkit-transition:all 0.3s linear; border-radius:12px; margin:0 auto; color:#6493fa; font-size:14px; }
 .newest-list li:hover .libao_receive { background-color:#6493fa; color:#fff; }
@@ -279,7 +279,7 @@ body { background-color:#ececec;  }
 .search-list { padding-top:52px; }
 
 /*热门礼包 图标*/
-.hot em:after{ content:''; display:block; position:absolute; right:0; top:0; background:url(images/hot_b.png) no-repeat center center; width:26px; height:46px;  }
+.hot em:after{ content:''; display:block; position:absolute; right:0; top:0; background:url(images/hot_b.png) no-repeat center center; width:20px; height:40px; background-size:cover;  }
 
 
 
