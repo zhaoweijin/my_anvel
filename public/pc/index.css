@@ -261,6 +261,8 @@ body { background-color:#ececec;  }
 .libao-details .plate-mian { padding:17px 0; }
 .libao-details p{ font-size:14px; color:#666666; line-height:32px; padding-left:5px; }
 .libao-details p span { font-weight:bold; color:#333333; display:block; }
+.libao-details p a { display:block; table-layout:fixed;word-wrap:break-word;word-break:break-all; color:#666666; }
+.libao-details p a:hover { color:#ec4d7e; }
 
 /*相关礼包*/
 
