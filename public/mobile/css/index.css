@@ -127,7 +127,7 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 /*
 ----登陆窗口
 */
-.win_login:before, .win__code:before { margin-left: -83px; width: 167px; background-image: url(../images_weixin/face-login.png); }
+.win_login:before, .win__code:before, .win__tao:before { margin-left: -83px; width: 167px; background-image: url(../images_weixin/face-login.png); }
 
 .win_login .input-cont .input { box-sizing: border-box; display: block; margin-bottom: 10px; width: 100%; height: 39px; line-height: 39px; font-size: 13px; border: none; background-color: #f3f3f3; }
 
@@ -137,6 +137,16 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .win__code h2 { margin-top: 14px; padding: 0 10px; height: 42px; line-height: 2.6; font-size: 17px; color: #8c8c8c; text-align: center; overflow: hidden; background-color: #f3f3f3; }
 .win__code p { font-size: 14px; color: #8c8c8c; text-align: center; line-height: 1.6; white-space: nowrap; }
 .win__code p:nth-of-type(1) { margin-top: 8px; margin-bottom: 20px; text-indent: 20px; color: #ffbe00; background: url(../images_weixin/ico-copy.png) no-repeat 34% 50%; background-size: 16px auto; }
+
+
+/*
+----礼包码
+*/
+.win__tao h2 { margin-top: 14px; padding: 0 10px; height: 42px; line-height: 2.6; font-size: 17px; color: #8c8c8c; text-align: center; overflow: hidden; background-color: #f3f3f3; }
+.win__tao p { font-size: 14px; color: #8c8c8c; text-align: center; line-height: 1.6; white-space: nowrap; }
+.win__tao p:nth-of-type(1) { margin-top: 8px; margin-bottom: 20px; text-indent: 20px; color: #ffbe00; background: url(../images_weixin/ico-copy.png) no-repeat 34% 50%; background-size: 16px auto; }
+
+
 
 /*
 -----结束

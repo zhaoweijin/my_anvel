@@ -175,7 +175,7 @@ var TOOL = {
                         surplus =  parseInt(data[i]['total'])>parseInt(data[i]['get_num'])?parseInt(data[i]['total'])-parseInt(data[i]['get_num']):0;
                         data[i]['total'] = data[i]['total']==0?1000000:data[i]['total'];
                         percent = parseInt(surplus/data[i]['total']*100,10) +"%";
-
+                        percent = data[i]['is_tao']==1?100+"%":percent;
 
                         if(data[i]['is_tao']==1){
                             mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-tao">淘号</a>';
@@ -223,6 +223,7 @@ var TOOL = {
                     surplus =  parseInt(data[0]['total'])>parseInt(data[0]['get_num'])?parseInt(data[0]['total'])-parseInt(data[0]['get_num']):0;
                     data[0]['total'] = data[0]['total']==0?1000000:data[0]['total'];
                     percent = parseInt(surplus/data[0]['total']*100,10);
+                    percent = data[0]['is_tao']==1?100:percent;
                     start_date = data[0]['start_date'].substr(0,10);
                     end_date = data[0]['end_date'].substr(0,10);
                     device = data[0]['device'];
@@ -245,10 +246,10 @@ var TOOL = {
 
                     $('#content').html(str);
                     // $('.j_get_btn').attr('event_id',data[0]['id']);
-                    if(data[0]['zone_url'])
+                    if(data[0]['zone_url']){
+                        $('#zone_url').show();
                         $('#zone_url').attr('href',data[0]['zone_url']);
-
-
+                    }
 
                     if(data[0]['card']){
                         $('#card').html(data[0]['card']);
