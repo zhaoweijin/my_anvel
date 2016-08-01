@@ -102,6 +102,41 @@
 		$(this).hide();
 	});
 
+
+	var wxData = {
+		appId:'' ,//appid，可不用这项
+		// imgUrl:'http://www.appgame.com/wp-content/uploads/2016/07/zhuxian-zf-tst.jpg', // 缩略图地址
+		link: TOOL.domainURI(window.location.href)+'mobile/',// 链接地址
+		title: '礼包中心_任玩堂',// 标题
+		desc: '礼包中心_任玩堂' // 详细描述
+	}
+	WeixinApi.ready(function (Api) {
+		// 分享的回调
+		var wxCallbacks = {
+			ready : function() {
+			},
+			cancel : function(resp) {
+			},
+			fail : function(resp) {
+			},
+			confirm : function(resp) {
+			},
+			all : function(resp) {
+			}
+		};
+		Api.generalShare(wxData, wxCallbacks);
+		Api.shareToFriend(wxData, wxCallbacks);
+		Api.shareToTimeline(wxData, wxCallbacks);
+		Api.shareToWeibo(wxData, wxCallbacks);
+
+		if(typeof(wx) != "undefined"){
+			wx.hideMenuItems({
+				menuList: ['menuItem:copyUrl','menuItem:openWithQQBrowser','menuItem:openWithSafari']
+			});
+		}
+	});
+
+
 	$(window).scroll(function () {
 		var scrolls = $(this).scrollTop();
 		if (scrolls > 100) {
