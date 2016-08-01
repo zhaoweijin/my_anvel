@@ -216,7 +216,7 @@ body { background-color:#ececec;  }
 .plate-about img { display: block; float: left; width: 93px; height: auto; vertical-align: middle; margin-right: 13px; border-radius:20px; }
 .plate-about h2 { font-size: 16px; font-weight: normal; line-height: 1; margin-top:5px; }
 .plate-about p { font-size: 14px; color: #676767; line-height: 30px; margin-top: 0; overflow: hidden;  }
-.plate-down { height:135px; padding:13px 19px 0; }
+.plate-down { padding:13px 19px 0; }
 .plate-down a { display:block; width:240px; height:50px; line-height:50px; text-indent:-9999px; background-position:center center; background-repeat:no-repeat; margin-bottom:14px; }
 .plate-down .down1 { background-image:url(images/down1.png); }
 .plate-down .down2 { background-image:url(images/down2.png); }

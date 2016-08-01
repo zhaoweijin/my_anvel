@@ -174,6 +174,10 @@ $api->version('v1', ['middleware' => 'cors'], function ($api) {
 
 });
 
+$app->get('/', function(){
+    return 'bad request';
+});
+
 //$app->get('{slug:.*}', 'AngularController@serve');
 
 //$app->get('api', function () {
