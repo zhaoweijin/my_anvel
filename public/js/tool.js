@@ -247,8 +247,7 @@ var TOOL = {
                     $('#content').html(str);
                     // $('.j_get_btn').attr('event_id',data[0]['id']);
                     if(data[0]['zone_url']){
-                        $('#zone_url').show();
-                        $('#zone_url').attr('href',data[0]['zone_url']);
+                        $('#go_other').append('<a id="zone_url" href="'+data[0]['zone_url']+'" class="button button__yel">进入游戏专区</a>');
                     }
 
                     if(data[0]['card']){
@@ -376,7 +375,7 @@ var TOOL = {
                             end_date = data[i]['end_date'].substr(0, 10);
                             card = data[i]['card'];
 
-                            str += '<li><img class="ico" src="' + icon + '" alt=""><div class="text"><h2>' + title + '</h2><p><span>礼包有效期：</span>' + end_date + '</p><p class="code-text"><span>长按制礼包码复：</span><b class="code-id">' + card + '</b></p></div></li>';
+                            str += '<li><a href="package-page.html?id='+id+'" class="ico"><img src="' + icon + '" alt=""/></a><div class="text"><h2>' + title + '</h2><p><span>礼包有效期：</span>' + end_date + '</p><p class="code-text"><span>长按制礼包码复：</span><b class="code-id">' + card + '</b></p></div></li>';
                         }
                     }else{
                         $('#my_pack').hide();

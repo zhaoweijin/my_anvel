@@ -59,7 +59,7 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .list__ul > li:after { content: ''; display: table; clear: both; }
 .list__ul .button__rotate { float: right; margin-left: -100%; margin-top: 10px; }
 
-.ico { float: left; margin-right: -80px; width: 70px; height: 70px; border-radius: 10px; overflow: hidden; }
+.ico { float: left; position: relative; z-index: 1; margin-right: -80px; width: 70px; height: 70px; border-radius: 10px; overflow: hidden; }
 
 .text { box-sizing: border-box; float: left; padding-left: 80px; padding-right: 50px; width: 100%; }
 .text h2 { padding-top: 6px; font-size: 16px; color: #000000; font-weight: normal; }
@@ -138,14 +138,12 @@ body { margin: 0 auto; width: 540px; background-color: #f0f0f0; }
 .win__code p { font-size: 14px; color: #8c8c8c; text-align: center; line-height: 1.6; white-space: nowrap; }
 .win__code p:nth-of-type(1) { margin-top: 8px; margin-bottom: 20px; text-indent: 20px; color: #ffbe00; background: url(../images_weixin/ico-copy.png) no-repeat 34% 50%; background-size: 16px auto; }
 
-
 /*
 ----礼包码
 */
 .win__tao h2 { margin-top: 14px; padding: 0 10px; height: 42px; line-height: 2.6; font-size: 17px; color: #8c8c8c; text-align: center; overflow: hidden; background-color: #f3f3f3; }
 .win__tao p { font-size: 14px; color: #8c8c8c; text-align: center; line-height: 1.6; white-space: nowrap; }
 .win__tao p:nth-of-type(1) { margin-top: 8px; margin-bottom: 20px; text-indent: 20px; color: #ffbe00; background: url(../images_weixin/ico-copy.png) no-repeat 34% 50%; background-size: 16px auto; }
-
 
 
 /*

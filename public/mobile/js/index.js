@@ -48,7 +48,6 @@
 
 	$('#ListView').on('click','.button__rotate',function(){
 		var type = this.className.split(' ')[1];
-		console.log(type);
 		switch (type){
 			case 'button__rotate-tao':
 				// showWinFrame('.win__code');
