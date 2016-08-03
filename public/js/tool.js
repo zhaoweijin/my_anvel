@@ -419,7 +419,7 @@ var TOOL = {
             dataType: 'json',
             success: function(data) {
                 if(data && data.status_code==1){
-                    $('.index_url').attr('href',data.other.url);
+                    // $('.index_url').attr('href',data.other.url);
                     data.other.login && $('#regLogTab1').show();
                     data = data.result;
                     if(data || offset>0) {

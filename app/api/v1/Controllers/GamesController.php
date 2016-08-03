@@ -10,6 +10,7 @@ session_start();
 
 class GamesController extends Controller
 {
+//    protected $redis;//redis类对象
     /**
      * Create a new controller instance.
      *
@@ -17,7 +18,8 @@ class GamesController extends Controller
      */
     public function __construct()
     {
-        //
+//        $this->redis = new \Redis();
+//        $this->redis->connect('localhost', 6379);
     }
 
     /**
