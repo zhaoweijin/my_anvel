@@ -185,7 +185,7 @@ var TOOL = {
                             mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-get">领取</a>';
                         }
 
-                        str += '<li><img class="ico" src="'+icon+'" alt=""><div class="text"><h2>'+title+'</h2><div class="bar"><span style="width:'+percent+'"></span></div><p><span>礼包有效期：</span>'+end_date+'</p></div>'+mid+'</li>';
+                        str += '<li onclick="window.location=\'package-page.html?id='+id+'\';"><img class="ico" src="'+icon+'" alt=""><div class="text"><h2>'+title+'</h2><div class="bar"><span style="width:'+percent+'"></span></div><p><span>礼包有效期：</span>'+end_date+'</p></div>'+mid+'</li>';
                     }
 
                     tag.append(str);
