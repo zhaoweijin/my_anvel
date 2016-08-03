@@ -352,10 +352,9 @@
         }
 
         if(TOOL.isSys.weixin){
-            if(TOOL.getQueryString('open_id') && TOOL.getQueryString('token'))
-                TOOL.check_weixin(TOOL.getQueryString('open_id'),TOOL.getQueryString('token'));
-            else
+            if(!TOOL.getQueryString('open_id') && !TOOL.getQueryString('token'))
                 showWinFrame('.win__share');
+            TOOL.check_weixin(TOOL.getQueryString('open_id'),TOOL.getQueryString('token'));
         }else if(TOOL.isSys.mobile){
             $('#regLogTab0').show();
             TOOL.chkLoginStatus(cmd);
