@@ -136,6 +136,7 @@ class GamesController extends Controller
                 }
                 $_SESSION['activity_login_user_id']     =  $user_id;      //用户id
                 $_SESSION['activity_type']     =  2;      //type 1.passport 2.weixin
+                $_SESSION['activity_index']     =  'http://'.$_SERVER['HTTP_HOST'].'/mobile/?open_id='.$request->get('open_id').'&token='.$token;
                 $back['errNum']  = 1;
                 $back['errMsg']  = $token_t;
                 jsonBack($back);
