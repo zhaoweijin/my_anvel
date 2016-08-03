@@ -289,13 +289,12 @@ class GamesController extends Controller
         $offset = (int)$request->get('offset', 0);
         $wd = checkData($request->get('wd'));
 
-        $wd = '%'.$wd.'%';
         if($wd){
+            $wd = '%'.$wd.'%';
             $val = DB::select("SELECT id,game_id,title,icon,get_num,total,is_tao,end_date FROM hoho_events where title like ? ORDER BY end_date desc limit ?,? ",[$wd,$offset,$num]);
             if($val)
                 return response()->json(['result' => $val,'status_code'=>1,'other'=>array('url'=>$url,'login'=>$login)]);
-            else
-                return response()->json(['result' => 0,'status_code'=>1,'other'=>array('url'=>$url,'login'=>$login)]);
         }
+        return response()->json(['result' => 0,'status_code'=>1,'other'=>array('url'=>$url,'login'=>$login)]);
     }
 }

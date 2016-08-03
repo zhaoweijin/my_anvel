@@ -432,6 +432,7 @@ var TOOL = {
                             surplus =  parseInt(data[i]['total'])>parseInt(data[i]['get_num'])?parseInt(data[i]['total'])-parseInt(data[i]['get_num']):0;
                             data[i]['total'] = data[i]['total']==0?1000000:data[i]['total'];
                             percent = parseInt(surplus/data[i]['total']*100,10) +"%";
+                            percent = data[i]['is_tao']==1?100+"%":percent;
 
                             if(data[i]['is_tao']==1){
                                 mid = '<a href="package-page.html?id='+id+'" class="button__rotate button__rotate-tao">淘号</a>';
