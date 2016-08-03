@@ -52,7 +52,7 @@ class UpdateTaohaoCommand extends Command
 
         if($val){
             foreach ($val as $v){
-                $arr = DB::select("SELECT event_id,count(id) as s FROM hoho_tickets where event_id = ? and visitor!='' and state=1 GROUP BY event_id",[(int)$v->id]);
+                $arr = DB::select("SELECT event_id,count(id) as s FROM hoho_tickets where event_id = ? and state=1 GROUP BY event_id",[(int)$v->id]);
                 if($arr){
                     if($arr[0]->s == $v->total){
                         DB::update("update hoho_events set is_tao=1,get_num=? where id = ?", [(int)$arr[0]->s,(int)$v->id]);

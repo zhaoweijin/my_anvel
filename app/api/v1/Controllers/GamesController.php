@@ -170,7 +170,7 @@ class GamesController extends Controller
             $val = DB::select("SELECT card FROM hoho_tickets where visitor=? and event_id=? limit 1", [$visitor, $event_id]);
 
             if (!$val) {
-                $val = DB::select("SELECT card FROM hoho_tickets where event_id=? and state=0 and is_tao=0 and deleted_at is null ORDER BY id limit 1", [$event_id]);
+                $val = DB::select("SELECT card FROM hoho_tickets where event_id=? and state=0 and deleted_at is null ORDER BY id limit 1", [$event_id]);
                 if($val){
                     $card = $val[0]->card;
                     DB::update("update hoho_tickets set visitor=?,state=1,updated_at=? where card = ?", [$visitor, date("Y-m-d h:i:s"), $card]);
