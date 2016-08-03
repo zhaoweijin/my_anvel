@@ -136,12 +136,13 @@ class GiftAction extends AdminAction{
 
                 $str = "";
 				$data = date('Y-m-d H:i:s');
+                $nums = count($card);
                 foreach ($card as $row){
-					$this->db->table('tickets')->where(array('card' => $row['card']))->data(array('','state'=>1,'deleted_at'=>$data))->update();
+					$this->db->table('tickets')->where(array('card' => $row['card']))->data(array('state'=>1,'deleted_at'=>$data))->update();
                     $card_num = iconv('utf-8','gb2312',$row['card']); //中文转码
                     $str .= $card_num."\n"; //用引文逗号分开
                 }
-
+                $this->db->table('events')->where(array('id' => $event_id))->data('set get_num=get_num+'.$nums)->update();
                 $filename = date('Ymd').'.csv'; //设置文件名
                 $this->export_csv($filename,$str); //导出
             }
