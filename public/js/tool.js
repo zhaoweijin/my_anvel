@@ -375,7 +375,7 @@ var TOOL = {
                             end_date = data[i]['end_date'].substr(0, 10);
                             card = data[i]['card'];
 
-                            str += '<li><a href="package-page.html?id='+id+'" class="ico"><img src="' + icon + '" alt=""/></a><div class="text"><h2>' + title + '</h2><p><span>礼包有效期：</span>' + end_date + '</p><p class="code-text"><span>长按制礼包码复：</span><b class="code-id">' + card + '</b></p></div></li>';
+                            str += '<li><a href="package-page.html?id='+id+'" class="ico"><img src="' + icon + '" alt=""/></a><div class="text"><h2>' + title + '</h2><p><span>礼包有效期：</span>' + end_date + '</p><p class="code-text"><span>长按复制礼包码：</span><b class="code-id">' + card + '</b></p></div></li>';
                         }
                     }else{
                         $('#my_pack').hide();
