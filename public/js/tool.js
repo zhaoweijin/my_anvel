@@ -566,7 +566,7 @@ var TOOL = {
             success: function(data) {
                 if(data && data.status_code==1){
                     data = data.result;
-                    if(data) {
+                    if(data.length>0) {
                         str += '<ul class="newest-list clear">';
                         for (var i in data) {
                             id = data[i]['id'];
