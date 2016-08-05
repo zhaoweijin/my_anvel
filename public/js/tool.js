@@ -580,9 +580,9 @@ var TOOL = {
                             else
                                 str += '<li>';
 
-                            if(device==1)
+                            if(data[i]['device']==1)
                                 var mobile_type = '<p class="one_link"><a class="down_iphone" href="'+url+'" target="_blank"></a></p>';
-                            else if(device==2)
+                            else if(data[i]['device']==2)
                                 var mobile_type = '<p class="one_link"><a class="down_android" href="'+url+'" target="_blank"></a></p>';
                             else
                                 var mobile_type = '<p><a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a></p>';

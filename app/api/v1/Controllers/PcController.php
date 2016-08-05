@@ -71,7 +71,7 @@ class PcController extends Controller
         else
             $where = "device=?";
 //        $val = DB::select("SELECT id,title,icon,hot FROM hoho_events where $where ORDER BY hot DESC,start_date DESC limit ?,?",[$device,$offset,$num]);
-        $val = DB::select("SELECT id,title,icon,hot FROM hoho_events where $where ORDER BY start_date DESC limit ?,?",[$device,$offset,$num]);
+        $val = DB::select("SELECT id,title,icon,hot,device FROM hoho_events where $where ORDER BY start_date DESC limit ?,?",[$device,$offset,$num]);
         return response()->json(['result' => $val,'status_code'=>1]);
     }
 
