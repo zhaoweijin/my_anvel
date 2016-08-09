@@ -587,7 +587,7 @@ var TOOL = {
                             else
                                 var mobile_type = '<p><a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a></p>';
 
-                            str += '<em style="background-image:url(' + icon + ')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>' + title + '</i><a class="libao_receive" href="' + url + '" target="_blank">领 取</a></li>';
+                            str += '<em style="background-image:url(\'' + icon + '\')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>' + title + '</i><a class="libao_receive" href="' + url + '" target="_blank">领 取</a></li>';
                         }
                         __offset = offset+15;
                         str += '</ul><div class="page_box_t2"><a class="btn-page prev-page" datapage="" href="javascript:TOOL.pcGetEvent(3,15,'+_offset+');">&lt;</a><a class="cur" href="javascript:TOOL.pcGetEvent(3,15,0);">首页</a><a href="javascript:TOOL.pcGetEvent(3,15,'+_offset+');">上一页</a><a href="javascript:TOOL.pcGetEvent(3,15,'+__offset+');">下一页</a>  <a class="btn-page next-page" datapage="" href="javascript:TOOL.pcGetEvent(3,15,'+__offset+');">&gt;</a></div>';
