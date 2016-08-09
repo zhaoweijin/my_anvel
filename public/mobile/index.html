@@ -359,7 +359,8 @@
             $('#regLogTab0').show();
             TOOL.chkLoginStatus(cmd);
         }else{
-            alert('请用手机浏览器或微信打开');
+            window.location.href = TOOL.domainURI(window.location.href)+'pc/';
+//            alert('请用手机浏览器或微信打开');
         }
 
 
