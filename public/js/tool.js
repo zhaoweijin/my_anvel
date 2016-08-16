@@ -494,7 +494,7 @@ var TOOL = {
                                     thumb = data[i]['thumb'];
                                     url = data[i]['url'];
                                     title = data[i]['title'];
-                                    str += '<li><a href="'+url+'" class="global-link"><em style="background-image:url('+thumb+')"><img src="images/b-700-290.png"></em><i>'+title+'</i></a></li>';
+                                    str += '<li><a href="'+url+'" class="global-link"><em style="background-image:url(\''+thumb+'\')"><img src="images/b-700-290.png"></em><i>'+title+'</i></a></li>';
                                 }
                                 str += '</ul>';
                                 $('#slide2').html(str);
@@ -514,7 +514,7 @@ var TOOL = {
                                     else
                                         var mobile_type = '<p><a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a></p>';
 
-                                    str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                                    str += '<li><em style="background-image:url(\''+icon+'\')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
                                 }
                                 $('.recommended-list').html(str);
                                 break;
@@ -525,7 +525,7 @@ var TOOL = {
                                 thumb = data[0]['thumb'];
                                 url = data[0]['url'];
                                 title = data[0]['title'];
-                                str += '<a href="'+url+'" title="'+title+'"><em style=" background-image:url('+thumb+')"><img src="images/b-280-120.png"></em></a>';
+                                str += '<a href="'+url+'" title="'+title+'"><em style=" background-image:url(\''+thumb+'\')"><img src="images/b-280-120.png"></em></a>';
                                 $('.cleck-link').html(str);
                                 break;
                         }
@@ -641,7 +641,7 @@ var TOOL = {
                             else
                                 str += '<li>';
 
-                            str += '<div class="box_a"><span></span><a class="ling" href="'+url+'"></a>'+title+'</div><div class="box_b"><em style="background-image:url('+icon+')"><img src="images/b-72-72.png"></em><a class="ling" href="'+url+'"></a><p class="game_name">'+game+'</p><p class="libao_name">独家礼包</p></div></li>';
+                            str += '<div class="box_a"><span></span><a class="ling" href="'+url+'"></a>'+title+'</div><div class="box_b"><em style="background-image:url(\''+icon+'\')"><img src="images/b-72-72.png"></em><a class="ling" href="'+url+'"></a><p class="game_name">'+game+'</p><p class="libao_name">独家礼包</p></div></li>';
                         }
 
                     $('.grab-list').html(str);
@@ -769,7 +769,7 @@ var TOOL = {
                         if(typeof(data[0].other) != "undefined"){
                             for(var i in data[0].other){
                                 var url = pre_url + 'pc/content.html?id=' + data[0].other[i].id;
-                                str += '<li><em style="background-image:url('+data[0].other[i].icon+')"><img src="images/b-82-82.png"></em><i>'+data[0].other[i].title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                                str += '<li><em style="background-image:url(\''+data[0].other[i].icon+'\')"><img src="images/b-82-82.png"></em><i>'+data[0].other[i].title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
                             }
                         }
 
@@ -809,7 +809,7 @@ var TOOL = {
                     else
                         str += '<li>';
 
-                    str += '<a href="'+url+'"><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
+                    str += '<a href="'+url+'"><em style="background-image: url(\''+thumbnail+'\')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
                 }
                 $('#activity').html(str);
                 callback();
@@ -840,7 +840,7 @@ var TOOL = {
                     else
                         str += '<li>';
 
-                    str += '<a href="'+url+'"><em style="background-image: url('+thumbnail+')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
+                    str += '<a href="'+url+'"><em style="background-image: url(\''+thumbnail+'\')"><img src="images/b-280-120.png"></em><i>·'+title+'</i></a></li>';
                 }
                 $('#news').html(str);
                 callback();
@@ -882,7 +882,7 @@ var TOOL = {
                             else
                                 var mobile_type = '<p><a class="down_iphone" href="'+url+'" target="_blank"></a><a class="down_android" href="'+url+'" target="_blank"></a></p>';
 
-                            str += '<li><em style="background-image:url('+icon+')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
+                            str += '<li><em style="background-image:url(\''+icon+'\')"><img src="images/b-82-82.png">'+mobile_type+'</em><i>'+title+'</i><a class="libao_receive" href="'+url+'" target="_blank">领 取</a></li>';
                         }
 
                         str2 = '<p>为您找到<i>'+num+'款</i> 与“<span>'+wd+'</span>”相关的礼包</p>';
