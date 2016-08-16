@@ -130,6 +130,30 @@ var TOOL = {
             }
 
         });
+    },
+
+    check_app : function(access_token) {
+        var chk_token_url = this.domainURI(window.location.href)+'api/games/auth_passport/?act=oauth&access_token='+access_token,
+            _this         =  this;
+
+        // 验证并创建session
+        $.ajax({
+            type: "GET",
+            url: chk_token_url,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                if (data.errNum == -3){
+                    document.location="objc://login";
+                }else{
+                    !!$('#regLogTab1') && $('#regLogTab1').show();
+                }
+            },
+            error: function() {
+                console.log('网络故障，验证失败！');
+                return false;
+            }
+        });
 
 
     },
@@ -953,7 +977,8 @@ var TOOL = {
             iPod: u.indexOf('iPod') > -1, //是否iPod
             webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
             windowsPhone: !!u.match(/Windows\sPhone.*/),
-            weixin: u_lower.match(/MicroMessenger/i)=="micromessenger"
+            weixin: u_lower.match(/MicroMessenger/i)=="micromessenger",
+            gamecommunity: u.indexOf('com.appgame.gamecommunity') > -1
         };
     }()
 }

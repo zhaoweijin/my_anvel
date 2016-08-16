@@ -141,6 +141,31 @@ class GamesController extends Controller
                 $back['errMsg']  = $token_t;
                 jsonBack($back);
                 break;
+            case 'oauth':
+                $access_token = $_GET['access_token'];
+                $apiUrl = 'https://passport.appgame.com/resource/userinfo';
+                $query_string = 'access_token='.$access_token;
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $apiUrl.'?'.$query_string);
+                ob_start();
+                curl_exec($ch);
+                $result = ob_get_contents();
+                ob_end_clean();
+                $de_result = json_decode($result,true);
+                if(!isset($de_result['error']) && $de_result['username']){
+                    $_SESSION['activity_login_name']     =  $de_result['username'];      //用户名
+                    $_SESSION['activity_login_user_id']     =  $de_result['passport_id'];      //用户id
+                    $_SESSION['activity_type']     =  3;      //type 1.passport 2.weixin 3.app
+                    $_SESSION['activity_index']     =  'http://'.$_SERVER['HTTP_HOST'].'/mobile/?access_token='.$access_token;
+                    return response()->json($result);
+                }else{
+                    unset($_SESSION);
+                    session_destroy();   //注销session
+                    $back['errNum']  =  -3;
+                    $back['errMsg']  = '验证错误～';
+                    return response()->json($back);
+                }
+                break;
             case 'logout':     //注销
 
                 unset($_SESSION);

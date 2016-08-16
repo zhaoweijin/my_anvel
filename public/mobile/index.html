@@ -166,31 +166,33 @@
      * 初始化iScroll控件
      */
     $(function () {
-        TOOL.getGame(1,0);
-        TOOL.getGame(2,0);
+        TOOL.getGame(1, 0);
+        TOOL.getGame(2, 0);
         //切换
-        $.fn.mstab = function(op){
+        $.fn.mstab = function (op) {
             var de = {
-                "action_class":"cur",
-                "event":"click mouseenter",
-                "hd":".tab-hd",
-                "cont":".tab-cont .contDate",
-                "callback":null
+                "action_class": "cur",
+                "event": "click mouseenter",
+                "hd": ".tab-hd",
+                "cont": ".tab-cont .contDate",
+                "callback": null
             };
 
             function tab(_this) {
-                var _op = $.extend(de,op);
+                var _op = $.extend(de, op);
                 var contBody = _this.find(_op.cont);
                 var $link_a = _this.find('.more-link');
                 _this.find(_op.hd).on(_op.event, 'a', function () {
                     var $this = $(this),
                             index = $this.index(),
                             _href = $this.attr('data-href');
-                    if(_href){$link_a.attr('href',_href)}
+                    if (_href) {
+                        $link_a.attr('href', _href)
+                    }
                     $this.addClass(_op.action_class).siblings().removeClass(_op.action_class);
                     contBody.hide();
                     contBody.eq(index).show();
-                    if(typeof _op.callback === 'function'){
+                    if (typeof _op.callback === 'function') {
                         _op.callback();
                     }
                 });
@@ -203,28 +205,30 @@
         };
 
         $('.tab-mode').mstab({
-            "event":"click",
-            "hd":".switch-tab",
-            "cont":".switch-cont .wrapper",
-            "callback":function(){
-                if(!myScroll2){
+            "event": "click",
+            "hd": ".switch-tab",
+            "cont": ".switch-cont .wrapper",
+            "callback": function () {
+                if (!myScroll2) {
                     List2();
                 }
             }
         });
 
         //初始化绑定iScroll控件
-        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        document.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+        }, false);
         /**
          * 下拉刷新 （自定义实现此方法）
-         * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+         * myScroll.refresh();        // 数据加载完成后，调用界面更新方法
          */
-        function pullDownAction (page) {
+        function pullDownAction(page) {
 
             var el, li, i;
             el = document.getElementById('ListView');
 
-            TOOL.getGame(1,page);
+            TOOL.getGame(1, page);
 
             setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
                 myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
@@ -234,12 +238,13 @@
             }, 300);	// <-- Simulate network congestion, remove setTimeout from production!
 
         }
-        function pullDownAction2 (page) {
+
+        function pullDownAction2(page) {
 
             var el, li, i;
             el = document.getElementById('ListView2');
 
-            TOOL.getGame(2,page);
+            TOOL.getGame(2, page);
 
             setTimeout(function () {
                 myScroll2.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
@@ -250,17 +255,17 @@
 
         }
 
-            var myScroll,
+        var myScroll,
                 myScroll2,
                 pullStart,
                 maxH,
                 _tipH;
 
-        function List(){
+        function List() {
             myScroll = new IScroll('#wrapper', {
                 mouseWheel: true,
                 click: true,
-                probeType:1
+                probeType: 1
             });
 
             var page = 0;
@@ -269,11 +274,11 @@
                 maxH = this.maxScrollY;
             });
 
-            myScroll.on('scroll',function(){
-                if(this.y < maxH - _tipH){
+            myScroll.on('scroll', function () {
+                if (this.y < maxH - _tipH) {
                     pullStart = true;
                     $('#uTips').html('松手更新');
-                }else{
+                } else {
                     $('#uTips').html('上拉查看更多礼包');
                     pullStart = false;
                 }
@@ -283,19 +288,19 @@
             myScroll.on('scrollEnd', function () {
                 if (pullStart) {
                     $('#uTips').html('正在更新...');
-                    setTimeout(function(){
+                    setTimeout(function () {
                         page += 10;
-                        pullDownAction (page);
-                    },1000);
+                        pullDownAction(page);
+                    }, 1000);
                 }
             });
         }
 
-        function List2(){
+        function List2() {
             myScroll2 = new IScroll('#wrapper2', {
                 mouseWheel: true,
                 click: true,
-                probeType:1
+                probeType: 1
             });
 
             var page = 0;
@@ -304,11 +309,11 @@
                 maxH = this.maxScrollY;
             });
 
-            myScroll2.on('scroll',function(){
-                if(this.y < maxH - _tipH){
+            myScroll2.on('scroll', function () {
+                if (this.y < maxH - _tipH) {
                     pullStart = true;
                     $('#uTips2').html('松手更新');
-                }else{
+                } else {
                     $('#uTips2').html('上拉查看更多礼包');
                     pullStart = false;
                 }
@@ -319,10 +324,10 @@
                 if (pullStart) {
 
                     $('#uTips2').html('正在更新...');
-                    setTimeout(function(){
+                    setTimeout(function () {
                         page += 10;
-                        pullDownAction2 (page);
-                    },1000);
+                        pullDownAction2(page);
+                    }, 1000);
                 }
             });
 
@@ -331,7 +336,7 @@
 
         $(window).load(function () {
 
-            _tipH = parseInt($('.update-tips').height(),10) / 2;
+            _tipH = parseInt($('.update-tips').height(), 10) / 2;
 
             maxH = -1;
 
@@ -340,22 +345,26 @@
         });
 
         var _pathname = location.pathname.match(/\w+.html/);
-        var return_url =TOOL.domainURI(window.location.href)+'mobile/';
+        var return_url = TOOL.domainURI(window.location.href) + 'mobile/';
 
-        if(_pathname){
-            return_url =TOOL.domainURI(window.location.href)+'mobile/' + _pathname; //跳转地址
+        if (_pathname) {
+            return_url = TOOL.domainURI(window.location.href) + 'mobile/' + _pathname; //跳转地址
         }
         var cmd = {
-            return_url     : return_url,                   // 活动地址
-            login_name_tmp :  window.login_name_tmp||'',        // 获取的用户名
-            type           : 'session'
+            return_url: return_url,                   // 活动地址
+            login_name_tmp: window.login_name_tmp || '',        // 获取的用户名
+            type: 'session'
         }
 
-        if(TOOL.isSys.weixin){
-            if(!TOOL.getQueryString('open_id') && !TOOL.getQueryString('token'))
+        if (TOOL.isSys.weixin) {
+            if (!TOOL.getQueryString('open_id') && !TOOL.getQueryString('token'))
                 showWinFrame('.win__share');
-            TOOL.check_weixin(TOOL.getQueryString('open_id'),TOOL.getQueryString('token'));
-        }else if(TOOL.isSys.mobile){
+            TOOL.check_weixin(TOOL.getQueryString('open_id'), TOOL.getQueryString('token'));
+        }else if(TOOL.isSys.gamecommunity){
+            if (!TOOL.getQueryString('access_token'))
+                document.location="objc://login";
+            TOOL.check_app(TOOL.getQueryString('access_token'));
+        }else if(TOOL.isSys.mobile) {
             $('#regLogTab0').show();
             TOOL.chkLoginStatus(cmd);
         }else{
